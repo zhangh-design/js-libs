@@ -28,7 +28,7 @@ import _isArray from 'lodash/isArray'
  * @class
  * @classdesc axios请求实例构建器
  * @desc 构造函数接收3个参数，第一个参数为必填，第二和三可选
- * @see 插件功能详细介绍请查看 https://github.com/zhangh-design/vue-npm/tree/master/api
+ * @see 插件功能详细介绍请查看 https://github.com/zhangh-design/js-libs/tree/master/api-loader
  * @author zhangh
  * @version 1.0.0
  * @param { {} } userApiConfigModuleList={} - api接口配置描述模型
