@@ -1,2 +1,2 @@
-# libs
-自定义插件包 api-loader
+# js-libs
+插件包
