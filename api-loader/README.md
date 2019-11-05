@@ -40,6 +40,9 @@
 1. "webpack": "^4.41.2"
 2. "webpack-cli": "^3.3.9"
 
+**构建命令**
+1. npm run build
+
 **组件**
 1. "lodash": "^4.17.15",
 2. "querystring": "^0.2.0",
