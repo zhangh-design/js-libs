@@ -193,7 +193,7 @@ Loader.allApi([Loader.api['user/get']({params: {token: 'czdg_app'}, data: {name:
 > 构造器 Constructor
 
 ```
-new loaderApiLibrary(userApiConfigModuleList, userApiConfigopt, userAxiosConfigopt)
+new LoaderApiLibrary(userApiConfigModuleList, userApiConfigopt, userAxiosConfigopt)
 ```
 > 构造函数接收3个参数，第一个参数为必填，第二和三可选
 
