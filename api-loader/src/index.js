@@ -36,27 +36,27 @@ import _isArray from 'lodash/isArray'
  * @version 1.0.0
  * @param { {} } userApiConfigModuleList={} - api接口配置描述模型
  * @param { {} } [userApiConfig={}]  - api接口模型配置参数
- * @prop {string} userApiConfig.mockBasePath mock-url请求地址(可以是相对 URL), 应该外部传入
- * @prop {boolean} userApiConfig.mock=false mock全局控制开关
- * @prop {object} userApiConfig.gParams URL全局自定义参数
- * @prop {boolean} userApiConfig.cache=false 缓存控制开关在URL路径后面添加一个时间戳参数 _=1571825001570
- * @prop {string} userApiConfig.seq=/ api接口命名空间分隔符
- * @prop {string} userApiConfig.invalidChar 进行特殊字符过滤的字符 例如：`~!@#$^&*()=|{}\
- * @prop {object} userApiConfig.statusMessage 前端response返回状态码提示短语 例如：400: '错误请求'
- * @prop {boolean} userApiConfig.console_request_enable=false 开启请求参数打印
- * @prop {boolean} userApiConfig.console_response_enable=false 开启响应参数打印
- * @prop {function} userApiConfig.request_error_callback=null 请求错误回调函数
+ * @prop {string} userApiConfig.mockBasePath - mock-url请求地址(可以是相对 URL), 应该外部传入
+ * @prop {boolean} userApiConfig.mock=false - mock全局控制开关
+ * @prop {object} userApiConfig.gParams - URL全局自定义参数
+ * @prop {boolean} userApiConfig.cache=false - 缓存控制开关在URL路径后面添加一个时间戳参数 _=1571825001570
+ * @prop {string} userApiConfig.seq=/ - api接口命名空间分隔符
+ * @prop {string} userApiConfig.invalidChar - 进行特殊字符过滤的字符 例如：`~!@#$^&*()=|{}\
+ * @prop {object} userApiConfig.statusMessage - 前端response返回状态码提示短语 例如：400: '错误请求'
+ * @prop {boolean} userApiConfig.console_request_enable=false - 开启请求参数打印
+ * @prop {boolean} userApiConfig.console_response_enable=false - 开启响应参数打印
+ * @prop {function} userApiConfig.request_error_callback=null - 请求错误回调函数
  * @param { {} } [userAxiosConfig={}] - axios实例配置参数
- * @prop {number} userAxiosConfig.timeout=15000 超时时间（毫秒）
- * @prop {string} userAxiosConfig.baseURL 访问url目录(可以是相对 URL), 应该外部传入
- * @prop {number} userAxiosConfig.maxContentLength=2000 定义允许的响应内容的最大尺寸（字节数）
- * @prop {number} userAxiosConfig.status=200 来自服务器响应的 HTTP 访问处理成功状态码
- * @prop {string} userAxiosConfig.status=OK 来自服务器响应的 HTTP 状态信息短语
- * @prop {array} userAxiosConfig.transformResponse 全局预处理过滤函数
- * @prop {object} userAxiosConfig.headers={'Content-Type': 'application/json;charset=UTF-8'} 请求响应头
- * @prop {object} userAxiosConfig.defaults 配置的默认值
- * @prop {string} userAxiosConfig.responseType='json' 服务器响应的数据类型
- * @prop {object} userAxiosConfig.proxy 定义代理服务器的主机名称和端口
+ * @prop {number} userAxiosConfig.timeout=15000 - 超时时间（毫秒）
+ * @prop {string} userAxiosConfig.baseURL - 访问url目录(可以是相对 URL), 应该外部传入
+ * @prop {number} userAxiosConfig.maxContentLength=2000 - 定义允许的响应内容的最大尺寸（字节数）
+ * @prop {number} userAxiosConfig.status=200 - 来自服务器响应的 HTTP 访问处理成功状态码
+ * @prop {string} userAxiosConfig.status=OK - 来自服务器响应的 HTTP 状态信息短语
+ * @prop {array} userAxiosConfig.transformResponse - 全局预处理过滤函数
+ * @prop {object} userAxiosConfig.headers={'Content-Type': 'application/json;charset=UTF-8'} - 请求响应头
+ * @prop {object} userAxiosConfig.defaults - 配置的默认值
+ * @prop {string} userAxiosConfig.responseType='json' - 服务器响应的数据类型
+ * @prop {object} userAxiosConfig.proxy - 定义代理服务器的主机名称和端口
  * @example
  * userApiConfigModuleList：{'goods': [{'read':{'name':'',desc: ''}, 'get': {}}]}
  * userApiConfig：{'mockBasePath': 'mock/test/goods/read', 'mock': true}
@@ -118,25 +118,25 @@ const Loader = class Api {
   /**
    * @description 构建api实例
    * @access private
-   * @param {string} namespace  api请求模型命名空间名称
-   * @param {Object} args api请求模型参数
-   * @prop {string} args.name api接口名称
-   * @prop {string} [args.method='GET'] 请求类型
-   * @prop {string} [args.desc] 描述
-   * @prop {string} [args.baseURL] 访问url目录(可以是相对 URL)
-   * @prop {string} args.path='root/user/getUserInfo' 请求接口路径
-   * @prop {string} args.mockPath='mock/root/user/getUserInfo' mock请求接口路径
-   * @prop {boolean} [args.mock=false] 是否打开mock操作
-   * @prop {boolean} [args.cache=false] 是否打开cache
-   * @prop {object} [args.restful] restful参数
-   * @prop {object} [args.headers] 请求首部字段参数
-   * @prop {string} [args.removeInvalidChar=true] 是否执行参数特殊字符过滤
-   * @prop {object} [args.params] 待发送 Key/value 参数 GET
-   * @prop {object} [args.data] POST请求，待发送 Key/value 参数
-   * @prop {object} [args.validator] params和data参数验证对象
-   * @prop {object} [args.restfulValidator] restful参数验证对象
-   * @prop {string} [args.responseType='json'] 服务器响应的数据类型
-   * @prop {object} [args.proxy=null] 定义代理服务器的主机名称和端口
+   * @param {string} namespace - api请求模型命名空间名称
+   * @param {Object} args - api请求模型参数
+   * @prop {string} args.name - api接口名称
+   * @prop {string} [args.method='GET'] - 请求类型
+   * @prop {string} [args.desc] - 描述
+   * @prop {string} [args.baseURL] - 访问url目录(可以是相对 URL)
+   * @prop {string} args.path='root/user/getUserInfo' - 请求接口路径
+   * @prop {string} args.mockPath='mock/root/user/getUserInfo' - mock请求接口路径
+   * @prop {boolean} [args.mock=false] - 是否打开mock操作
+   * @prop {boolean} [args.cache=false] - 是否打开cache
+   * @prop {object} [args.restful] - restful参数
+   * @prop {object} [args.headers] - 请求首部字段参数
+   * @prop {string} [args.removeInvalidChar=true] - 是否执行参数特殊字符过滤
+   * @prop {object} [args.params] - 待发送 Key/value 参数 GET
+   * @prop {object} [args.data] - POST请求，待发送 Key/value 参数
+   * @prop {object} [args.validator] - params和data参数验证对象
+   * @prop {object} [args.restfulValidator] - restful参数验证对象
+   * @prop {string} [args.responseType='json'] - 服务器响应的数据类型
+   * @prop {object} [args.proxy=null] - 定义代理服务器的主机名称和端口
    * @example
    * namespace：'goods/fruit'
    * apiConfigModule: {name: 'read', desc: '', method:'GET', path: 'root/user/getUserInfo',mockPath: 'mock/root/user/getUserInfo',mock: false, cache: false, restful: {}, headers: {}, removeInvalidChar: true, params: {}, data: {},validator: {}, restfulValidator: {}, responseType: 'json', proxy: null}
@@ -233,7 +233,7 @@ const Loader = class Api {
 
   /**
    * @desc 处理并发请求
-   * @param { array } apiArray api请求实例数组
+   * @param { array } apiArray - api请求实例数组
    * @access public
    * @returns Promise
    * @example
@@ -307,7 +307,7 @@ const Loader = class Api {
    * @desc 封装外部配置参数
    * @static
    * @access private
-   * @param {{}} outOptions 外部参数
+   * @param {{}} outOptions - 外部参数
    * @returns {{}}
    */
   static encapsulationOutOptions (outOptions = {}) {
