@@ -1,4 +1,7 @@
-import { apiDefaultConfig, axiosDefaultConfig } from './config/index.js'
+import {
+  apiDefaultConfig,
+  axiosDefaultConfig
+} from './config/index.js'
 
 import qs from 'querystring'
 import axios from './axios'
@@ -164,7 +167,17 @@ const Loader = class Api {
     }
     const apiName = `${namespace}${_get(this, 'apiParamsConfig.seq', '/')}${name}`;
     Object.defineProperty(this.api, apiName, {
-      value: (outParams = { params: {}, data: {}, headers: {}, restful: {} }, outOptions = { request_error_callback: null, transformResponse: null, validator: null, restfulValidator: null }) => {
+      value: (outParams = {
+        params: {},
+        data: {},
+        headers: {},
+        restful: {}
+      }, outOptions = {
+        request_error_callback: null,
+        transformResponse: null,
+        validator: null,
+        restfulValidator: null
+      }) => {
         // outParams -> {'restful': {}, 'headers': {}, 'params': {}, 'data': {}}
         _set(headers, 'module-path', `${apiName}`)
         _eq(_has(headers, 'Content-Type'), false) && _set(headers, 'Content-Type', _get(this, 'axiosParamsConfig.headers.Content-Type', 'application/json;charset=UTF-8'));
@@ -197,8 +210,23 @@ const Loader = class Api {
         if (_has(outOptions, 'restfulValidator')) {
           _assign(restfulValidator, _get(outOptions, 'restfulValidator'))
         }
-        const requestOptions = this.encapsulationRequestOptions({ baseURL, proxy, responseType, validator, restfulValidator })
-        return axios({ ...requestOptions, ...pickOptions, method: _toUpper(method), url, headers: pickHeaders, params: pickParams, data: pickData, restful })
+        const requestOptions = this.encapsulationRequestOptions({
+          baseURL,
+          proxy,
+          responseType,
+          validator,
+          restfulValidator
+        })
+        return axios({
+          ...requestOptions,
+          ...pickOptions,
+          method: _toUpper(method),
+          url,
+          headers: pickHeaders,
+          params: pickParams,
+          data: pickData,
+          restful
+        })
       }
     })
   }
@@ -300,7 +328,13 @@ const Loader = class Api {
    * @access private
    * @returns {{}}
    */
-  encapsulationRequestOptions ({ baseURL, proxy, responseType, validator, restfulValidator }) {
+  encapsulationRequestOptions ({
+    baseURL,
+    proxy,
+    responseType,
+    validator,
+    restfulValidator
+  }) {
     const options = _cloneDeep(_get(this, 'axiosParamsConfig'))
     if (_isObject(proxy)) {
       _set(options, 'proxy', proxy)
@@ -320,7 +354,10 @@ const Loader = class Api {
     if (_eq(_isArray(_get(options, 'transformResponse', null)), false) && _isFunction(_get(options, 'transformResponse', null))) {
       _set(options, 'transformResponse', [_get(options, 'transformResponse')])
     }
-    return _assign(options, { validator, restfulValidator })
+    return _assign(options, {
+      validator,
+      restfulValidator
+    })
   }
 }
 export default Loader
