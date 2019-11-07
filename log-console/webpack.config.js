@@ -11,8 +11,8 @@ function resolve (dir) {
 
 module.exports = {
 	entry: {
-		'log-console-api': './src/index.js',
-		'log-console-api.min': './src/index.js'
+		'log-console': './src/index.js',
+		'log-console.min': './src/index.js'
 	},
 	output: {
 		path: path.join(__dirname, 'dist'),
