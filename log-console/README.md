@@ -50,8 +50,8 @@
 **库目录结构**
 
 ```
-未压缩版： log-console-api.js
-压缩版：log-console-api.min.js
+未压缩版： log-console.js
+压缩版：log-console.min.js
 ```
 
 ---
