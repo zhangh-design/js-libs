@@ -7,7 +7,7 @@ import _isEmpty from 'lodash/isEmpty'
  * @class
  * @classdesc 自定义全局变量管理器
  * @desc 构造函数接收1个初始化的全局变量对象
- * @see 插件功能详细介绍请查看
+ * @see 插件功能详细介绍请查看 https://github.com/zhangh-design/js-libs/tree/master/global-var-manager
  * @author zhangh
  * @version 1.0.0
  * @param { {} } [globalVarObject={}] - 用于初始化的全局变量对象
