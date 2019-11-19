@@ -4,7 +4,7 @@ import _isNull from 'lodash/isNull'
 import _isEqual from 'lodash/isEqual'
 import _isEmpty from 'lodash/isEmpty'
 /**
- * @class
+ * @class GlobalVar
  * @classdesc 自定义全局变量管理器
  * @desc 构造函数接收1个初始化的全局变量对象
  * @see 插件功能详细介绍请查看 https://github.com/zhangh-design/js-libs/tree/master/global-var-manager
