@@ -109,21 +109,21 @@ ObserverManagerInstance.addOnce('game/runEvent', runHandler, window, window, 2, 
 setTimeout(() => {
 	console.info('触发事件')
 	// 触发 window 环境下的 game/runEvent 事件
-	ObserverManager.fire('game/runEvent', window, {name: '小明', date: '6-01'})
+	ObserverManagerInstance .fire('game/runEvent', window, {name: '小明', date: '6-01'})
 	console.info('======')
 	// 触发 window 环境下的 game/runEvent 事件，addOnce 注册的事件不在执行因为上一个 fire 已经执行掉了
-	ObserverManager.fire('game/runEvent', window, {name: '小明', date: '6-02'})
+	ObserverManagerInstance .fire('game/runEvent', window, {name: '小明', date: '6-02'})
 }, 500);
 
 setTimeout(() => {
 	console.info('-------------');
 	// 触发 window 环境下的 game/runEvent 事件
-	ObserverManager.fire('game/runEvent', window, {name: '小明', distance: 200})
+	ObserverManagerInstance .fire('game/runEvent', window, {name: '小明', distance: 200})
 	// 注册 child 函数作用域环境下的 game/runEvent 事件，runHandler2 绑定到 window 环境下 （不会触发 window 环境下的 game/runEvent 事件）
-	ObserverManager.add('game/runEvent', runHandler2, childInstance, window, 2, 6)
+	ObserverManagerInstance .add('game/runEvent', runHandler2, childInstance, window, 2, 6)
 	console.info('-------------');
 	// 触发 child 函数作用域环境下的 game/runEvent 事件
-	ObserverManager.fire('game/runEvent', childInstance, {name: '小红'})
+	ObserverManagerInstance .fire('game/runEvent', childInstance, {name: '小红'})
 }, 1500);
 
 setTimeout(() => {
