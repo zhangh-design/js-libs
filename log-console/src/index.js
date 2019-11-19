@@ -1,5 +1,5 @@
 /**
- * @class
+ * @class ConsoleLog
  * @classdesc 自定义日志工具，通过日志level级别来控制项目中日志的输出
  * @desc 构造函数接收1个日志级别参数，用于控制日志的输出
  * @see 插件功能详细介绍请查看
