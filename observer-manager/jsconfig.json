@@ -1,0 +1,14 @@
+{
+	"compilerOptions": {
+        "checkJs": true,
+        "target": "es6"
+    },
+    "include": [
+        "src/**/*"
+    ],
+    "exclude": [
+        "node_modules",
+        "dist",
+        "test"
+    ]
+}
