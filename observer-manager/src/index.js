@@ -8,7 +8,7 @@
  * @version 1.0.0
  * @param {Object} userEventConfigModuleList={} - 事件描述模型对象集合
  * @example
- * const modules = {'game':[{name: 'runEvent', desc: '开启跑步'},{name: 'swimEvent', desc: '开启游泳'}]}
+ * const modules = {'game':[{name: 'runEvent', desc: '开启跑步', fireData: {name: '', address: '', date: ''}},{name: 'swimEvent', desc: '开启游泳'}]}
  * const myEventInstance = new ObserverManager(modules)
  */
 import _isEqual from 'lodash/isEqual'
