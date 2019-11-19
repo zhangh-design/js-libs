@@ -1,9 +1,9 @@
 /**
  * @class ObserverManager
- * @classdesc 自定义事件插件
+ * @classdesc 自定义事件发布-订阅插件
  * @desc 构造函数接收1个事件描述模型对象参数，用于控制事件的注册、触发、注销
  * @see 插件功能详细介绍请查看
- * https://github.com/zhangh-design/js-libs/tree/master/log-console
+ * https://github.com/zhangh-design/js-libs/tree/master/observer-manager
  * @author zhangh
  * @version 1.0.0
  * @param {Object} userEventConfigModuleList={} - 事件描述模型对象集合
@@ -25,6 +25,8 @@ import _forOwn from 'lodash/forOwn'
 import _isEmpty from 'lodash/isEmpty'
 import _forOwnRight from 'lodash/forOwnRight'
 import _isUndefined from 'lodash/isUndefined'
+import _pick from 'lodash/pick'
+import _keys from 'lodash/keys'
 
 const ObserverManager = class Observer {
   constructor (userEventConfigModuleList = {}) {
@@ -94,7 +96,7 @@ const ObserverManager = class Observer {
     })
     if (_isEqual(_isUndefined(firingEvent), false)) {
       // @ts-ignore
-      _bind(handler, handlerScope, ...data)(..._get(firingEvent, 'data', []))
+      _bind(handler, handlerScope, ...data)(_get(firingEvent, 'data', []))
     }
     if (_isEqual(_has(fireScope, 'eventIdentity'), false)) {
       _set(fireScope, 'eventIdentity', `${_now()}-${_random(1, 10000)}`)
@@ -125,7 +127,7 @@ const ObserverManager = class Observer {
     })
     if (_isEqual(_isUndefined(firingEvent), false)) {
       // @ts-ignore
-      _bind(handler, handlerScope, ...data)(..._get(firingEvent, 'data', []))
+      _bind(handler, handlerScope, ...data)(_get(firingEvent, 'data', []))
     }
     if (_isEqual(_has(fireScope, 'eventIdentity'), false)) {
       _set(fireScope, 'eventIdentity', `${_now()}-${_random(1, 10000)}`)
@@ -138,14 +140,12 @@ const ObserverManager = class Observer {
    * @desc 触发事件
    * @param {string} name=`` -event名称（需要和事件模型中的命名空间+名称匹配）
    * @param {*} fireScope=null -事件定义的作用域
-   * @param {...*} [data] - 事件参数<br/>
-   * 触发时传入 handler 函数的参数，可以传入多个参数（位于 add 添加函数传入 data 参数之后），<br/>
-   * data建议不要是一个带有原型对象的数据，而应该是字符类型或单纯的对象
+   * @param {{}} [data] - 事件参数
    * @example
    * 事件模型定义：{'game':[{name: 'runEvent', desc: '跑步', data: {num: 10}}]}
    * fire('game/runEvent', this, 'fire参数1', 'fire参数2')
    */
-  fire (name = '', fireScope = null, ...data) {
+  fire (name = '', fireScope = null, data) {
     if (_isEqual(_trim(name), '') || _isNull(name) || _isEqual(this.eventModules.has(name), false) || _isNull(_get(fireScope, 'eventIdentity', null))) {
       return
     }
@@ -154,6 +154,7 @@ const ObserverManager = class Observer {
         this.fireEvents.splice(index, 1)
       }
     }
+    const fireData = _pick(data, _keys(_get(this.eventModules.get(name), 'fireData', {})))
     const firingEvents = []
     for (const addEvent of this.addEvents.values()) {
       const onceEvent = _find(this.fireEvents, (fireEvent) => {
@@ -162,17 +163,17 @@ const ObserverManager = class Observer {
       if (_isUndefined(onceEvent)) {
         if (_has(addEvent, name) && _isEqual(_get(fireScope, 'eventIdentity', null), _get(addEvent, 'eventIdentity'))) {
           firingEvents.push(_get(addEvent, name))
-          this.fireEvents.push(_set(addEvent, 'data', data))
+          this.fireEvents.push(_set(addEvent, 'data', fireData))
         }
       }
     }
     if (_isEqual(_isEmpty(firingEvents), false)) {
       const order = _get(this.eventModules.get(name), 'order', 'desc')
       if (_isEqual(order, 'asc')) {
-        _forOwn(firingEvents, event => event()(...data))
+        _forOwn(firingEvents, event => event()(fireData))
       }
       if (_isEqual(order, 'desc')) {
-        _forOwnRight(firingEvents, event => event()(...data))
+        _forOwnRight(firingEvents, event => event()(fireData))
       }
     }
   }
