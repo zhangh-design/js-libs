@@ -77,12 +77,12 @@ $ npm install ObserverManagerLibrary --save
 // 导入插件
 import ObserverManager from 'ObserverManagerLibrary'
 
-// 事件模型列表
+// 事件模型列表// 事件模型列表
 const eventModuleConfig = {
-    'game': [
-    	{name: 'runEvent', desc: '触发跑步事件', order: 'asc', fireData: {}},
-    	{name: 'swimEvent', desc: '触发游泳事件', order: 'desc', fireData: {}}
-    ]
+	'game': [
+		{name: 'runEvent', desc: '触发跑步事件', order: 'asc', fireData: {name: '', address: '', date: ''}},
+		{name: 'swimEvent', desc: '触发游泳事件', order: 'desc', fireData: {}}
+	]
 }
 // 初始化事件加载器，传入事件模型
 const ObserverManagerInstance = new ObserverManager(eventModuleConfig)
@@ -92,8 +92,8 @@ var child = class {}
 var childInstance = new child()
 
 // 事件 handler 执行函数
-let runHandler = function(a, b, c){
-	console.info('run', a, b, c);
+let runHandler = function(a, b, {name, date}){
+	console.info('run', a, b, name, date);
 }
 
 // 事件 handler2 执行函数
@@ -109,21 +109,21 @@ ObserverManagerInstance.addOnce('game/runEvent', runHandler, window, window, 2, 
 setTimeout(() => {
 	console.info('触发事件')
 	// 触发 window 环境下的 game/runEvent 事件
-	ObserverManagerInstance.fire('game/runEvent', window, 5)
+	ObserverManager.fire('game/runEvent', window, {name: '小明', date: '6-01'})
 	console.info('======')
 	// 触发 window 环境下的 game/runEvent 事件，addOnce 注册的事件不在执行因为上一个 fire 已经执行掉了
-	ObserverManagerInstance.fire('game/runEvent', window, 15)
+	ObserverManager.fire('game/runEvent', window, {name: '小明', date: '6-02'})
 }, 500);
 
 setTimeout(() => {
 	console.info('-------------');
 	// 触发 window 环境下的 game/runEvent 事件
-	ObserverManagerInstance.fire('game/runEvent', window, 10)
+	ObserverManager.fire('game/runEvent', window, {name: '小明', distance: 200})
 	// 注册 child 函数作用域环境下的 game/runEvent 事件，runHandler2 绑定到 window 环境下 （不会触发 window 环境下的 game/runEvent 事件）
-	ObserverManagerInstance.add('game/runEvent', runHandler2, childInstance, window, 2, 6)
+	ObserverManager.add('game/runEvent', runHandler2, childInstance, window, 2, 6)
 	console.info('-------------');
 	// 触发 child 函数作用域环境下的 game/runEvent 事件
-	ObserverManagerInstance.fire('game/runEvent', childInstance, 11)
+	ObserverManager.fire('game/runEvent', childInstance, {name: '小红'})
 }, 1500);
 
 setTimeout(() => {
@@ -156,7 +156,7 @@ setTimeout(() => {
 name | string | | | 事件名称
 desc | string | | | 事件详细描述
 order | string | 可选 | desc | 事件触发的顺序 可选值有 asc 事件顺序触发、desc 事件倒序触发
-foreData | Object | 可选 | {} | fire触发时传递的参数对象描述
+fireData | Object | 可选 | {} | fire触发时传递的参数对象描述，`如果传递的参数没有在这里定义将不能传递到 handler 执行函数中`
 
 ==注意==：事件定义都应该配置 命名空间对象，如下示例中 命名空间配置 的是 `game`，命名空间可以有多层 参考附录①
 
