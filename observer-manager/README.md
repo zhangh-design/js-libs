@@ -279,8 +279,8 @@ data | {} | <可选> |  | 事件参数，触发时传入 handler 函数的参数
 示例：
 
 ```
-// 触发 window 环境下的 game/runEvent 事件并传入一个参数 10
-ObserverManager.fire('game/runEvent', window, 10)
+// 触发 window 环境下的 game/runEvent 事件并传入一个参数 {name: '小红'}
+ObserverManager.fire('game/runEvent', window, {name: '小红'})
 ```
 > 函数：off (name, fireScope)
 
