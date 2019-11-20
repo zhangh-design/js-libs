@@ -140,7 +140,7 @@ const ObserverManager = class Observer {
    * @desc 触发事件
    * @param {string} name=`` -event名称（需要和事件模型中的命名空间+名称匹配）
    * @param {*} fireScope=null -事件定义的作用域
-   * @param {{}} [data] - 事件参数
+   * @param {{}} [data] - 事件参数，触发时传入 handler 函数的参数必须满足事件模型中的 fireData 参数设置形式
    * @example
    * 事件模型定义：{'game':[{name: 'runEvent', desc: '跑步', data: {num: 10}}]}
    * fire('game/runEvent', this, 'fire参数1', 'fire参数2')
