@@ -119,7 +119,7 @@ setTimeout(() => {
 	console.info('-------------');
 	// 触发 window 环境下的 game/runEvent 事件
 	ObserverManagerInstance .fire('game/runEvent', window, {name: '小明', distance: 200})
-	// 注册 child 函数作用域环境下的 game/runEvent 事件，runHandler2 绑定到 window 环境下 （不会触发 window 环境下的 game/runEvent 事件）
+	// 注册 child 函数作用域环境下的 game/runEvent 事件，runHandler2 绑定到 childInstance环境下 （不会触发 window 环境下的 game/runEvent 事件）
 	ObserverManagerInstance .add('game/runEvent', runHandler2, childInstance, window, 2, 6)
 	console.info('-------------');
 	// 触发 child 函数作用域环境下的 game/runEvent 事件
