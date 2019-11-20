@@ -274,7 +274,7 @@ ObserverManager.addOnce('game/runEvent', runHandler, window, window, 1, 3)
 ---|---|---|---|---
 name | string |  | `` | event名称（需要和事件模型中的命名空间+名称匹配）
 fireScope | Object |  | null | 事件定义的作用域
-data | * | <可变参><可选> |  | 事件参数，触发时传入 handler 函数的参数，可以传入多个参数（位于 add 添加函数传入 data 参数之后），data建议不要是一个带有原型对象的数据，而应该是字符类型或单纯的对象
+data | {} | <可选> |  | 事件参数，触发时传入 handler 函数的参数必须满足事件模型中的 fireData 参数设置形式
 
 示例：
 
