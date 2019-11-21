@@ -235,7 +235,7 @@ const Loader = class Api {
    * @desc 处理并发请求
    * @param { array } apiArray - api请求实例数组
    * @access public
-   * @returns Promise
+   * @returns {Promise}
    * @example
    * Loader.allApi[Loader.api['user/get'](), Loader.api['user/list']()]().then(()=>{}).catch(()=>{})
    */
