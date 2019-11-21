@@ -289,7 +289,7 @@ ObserverManager.fire('game/runEvent', window, {name: '小红'})
 名称 | 类型 | 属性 | 默认值 | 描述
 ---|---|---|---|---
 name | string |  | `` | event名称（需要和事件模型中的命名空间+名称匹配）
-fireScope | null |  |  | 事件定义的作用域
+fireScope | Object |  | null | 事件定义的作用域
 
 示例：
 
@@ -307,6 +307,24 @@ ObserverManager.off('game/runEvent', window)
 ```
 // 销毁所有事件集合
 ObserverManager.clear()
+```
+
+> 函数：getEvents (scope)
+
+> 说明： 获取作用域中的事件列表
+
+名称 | 类型 | 属性 | 默认值 | 描述
+---|---|---|---|---
+scope | Object |  | null | 事件定义的作用域
+
+返回值：
+类型 Array
+
+示例：
+
+```
+// window 作用域下所有事件
+ObserverManager.getEvents(window)
 ```
 
 ---
