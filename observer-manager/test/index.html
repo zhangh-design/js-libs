@@ -56,10 +56,14 @@
 		}, 1500);
 
 		setTimeout(() => {
+			const beforeEvents = ObserverManager.getEvents(window)
+			console.info('销毁前 window 环境中事件列表 ',beforeEvents)
 			// 注销 window 作用域下某个事件
 			ObserverManager.off('game/runEvent', window)
 			// 销毁所有事件集合
 			ObserverManager.clear()
+			const afterEvents = ObserverManager.getEvents(window)
+			console.info('销毁后 window 环境中事件列表 ',afterEvents)
 		}, 3000);
 
 		// 输出结果：
