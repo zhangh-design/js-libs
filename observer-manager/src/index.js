@@ -16,8 +16,6 @@ import _bind from 'lodash/bind'
 import _trim from 'lodash/trim'
 import _set from 'lodash/set'
 import _has from 'lodash/has'
-import _random from 'lodash/random'
-import _now from 'lodash/now'
 import _isNull from 'lodash/isNull'
 import _get from 'lodash/get'
 import _find from 'lodash/find'
@@ -27,6 +25,7 @@ import _forOwnRight from 'lodash/forOwnRight'
 import _isUndefined from 'lodash/isUndefined'
 import _pick from 'lodash/pick'
 import _keys from 'lodash/keys'
+import _filter from 'lodash/filter'
 
 const ObserverManager = class Observer {
   constructor (userEventConfigModuleList = {}) {
@@ -99,10 +98,10 @@ const ObserverManager = class Observer {
       _bind(handler, handlerScope, ...data)(_get(firingEvent, 'data', []))
     }
     if (_isEqual(_has(fireScope, 'eventIdentity'), false)) {
-      _set(fireScope, 'eventIdentity', `${_now()}-${_random(1, 10000)}`)
+      _set(fireScope, 'eventIdentity', ObserverManager.uuid())
     }
     // @ts-ignore
-    this.addEvents.push({ [name]: function () { return _bind(handler, handlerScope, ...data) }, eventIdentity: _get(fireScope, 'eventIdentity'), uuid: _random(2, 100), once: false })
+    this.addEvents.push({ key: name, [name]: function () { return _bind(handler, handlerScope, ...data) }, eventIdentity: _get(fireScope, 'eventIdentity'), once: false })
   }
 
   /**
@@ -130,10 +129,10 @@ const ObserverManager = class Observer {
       _bind(handler, handlerScope, ...data)(_get(firingEvent, 'data', []))
     }
     if (_isEqual(_has(fireScope, 'eventIdentity'), false)) {
-      _set(fireScope, 'eventIdentity', `${_now()}-${_random(1, 10000)}`)
+      _set(fireScope, 'eventIdentity', ObserverManager.uuid())
     }
     // @ts-ignore
-    this.addEvents.push({ [name]: function () { return _bind(handler, handlerScope, ...data) }, 'eventIdentity': _get(fireScope, 'eventIdentity'), uuid: _random(2, 100), once: true })
+    this.addEvents.push({ key: name, [name]: function () { return _bind(handler, handlerScope, ...data) }, 'eventIdentity': _get(fireScope, 'eventIdentity'), once: true })
   }
 
   /**
@@ -209,6 +208,42 @@ const ObserverManager = class Observer {
     this.fireEvents = null
     this.addEvents = null
     this.eventModules.clear()
+  }
+
+  /**
+   * @desc 获取作用域中的事件列表
+   * @param {*} scope -事件定义的作用域
+   * @returns {Array}
+   * @example
+   * getEvents(window)
+   */
+  getEvents (scope = null) {
+    if (_isNull(scope) || _isEqual(_has(scope, 'eventIdentity'), false)) {
+      return
+    }
+    return _filter(this.addEvents, (event) => {
+      return _isEqual(_get(event, 'eventIdentity'), _get(scope, 'eventIdentity', ''))
+    })
+  }
+
+  /**
+   * @desc 生成随机值
+   * @access private
+   * @returns {String}
+   */
+  static uuid () {
+    const s = [];
+    const hexDigits = '0123456789abcdef';
+    for (let i = 0; i < 36; i++) {
+      s[i] = hexDigits.substr(Math.floor(Math.random() * 0x10), 1);
+    }
+    s[14] = '4'; // bits 12-15 of the time_hi_and_version field to 0010
+    // @ts-ignore
+    s[19] = hexDigits.substr((s[19] & 0x3) | 0x8, 1); // bits 6-7 of the clock_seq_hi_and_reserved to 01
+    s[8] = s[13] = s[18] = s[23] = '-';
+
+    const uuid = s.join('');
+    return uuid;
   }
 }
 export default ObserverManager
