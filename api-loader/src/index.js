@@ -165,7 +165,7 @@ const Loader = class Api {
       console.error('error：02')
       return
     }
-    const apiName = `${namespace}${_get(this, 'apiParamsConfig.seq', '/')}${name}`;
+    const apiName = `${namespace}${_get(this, 'apiParamsConfig.seq', '/')}${name}`
     Object.defineProperty(this.api, apiName, {
       value: (outParams = {
         params: {},
@@ -180,7 +180,7 @@ const Loader = class Api {
       }) => {
         // outParams -> {'restful': {}, 'headers': {}, 'params': {}, 'data': {}}
         _set(headers, 'module-path', `${apiName}`)
-        _eq(_has(headers, 'Content-Type'), false) && _set(headers, 'Content-Type', _get(this, 'axiosParamsConfig.headers.Content-Type', 'application/json;charset=UTF-8'));
+        _eq(_has(headers, 'Content-Type'), false) && _set(headers, 'Content-Type', _get(this, 'axiosParamsConfig.headers.Content-Type', 'application/json;charset=UTF-8'))
         _has(outParams, 'headers.Content-Type') && _set(headers, 'Content-Type', _get(outParams, 'headers.Content-Type'))
         let [url, pickParams, pickData, pickHeaders, pickOptions] = [path, {}, {}, {}, {}]
         if ((_get(this, 'apiParamsConfig.mock') && _isNil(mock)) || mock) {
@@ -283,7 +283,7 @@ const Loader = class Api {
         requestData[key] = _replace(value, reg, '')
       }
     }
-    return requestData;
+    return requestData
   }
 
   /**
