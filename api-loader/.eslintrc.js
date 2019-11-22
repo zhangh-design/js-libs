@@ -12,6 +12,7 @@ module.exports = {
 	],
 	// required to lint *.vue files
 	plugins: [],
+	// add your custom rules here
 	rules: {
 		'semi': "off",
 		'no-debugger': "off",
