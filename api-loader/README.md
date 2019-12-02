@@ -309,7 +309,8 @@ apiRequestInterceptErrorHandler | window | 错误描述Error对象 | 监听请�
   }
 ```
 > ③
-http网络请求获取资源时附加在URL后面的额外的query参数，作为浏览器或者服务器未正确配置时的“cache bust”手段很有用，
+
+http网络请求获取资源时附加在URL后面的额外的query参数，作为浏览器或者服务器未正确配置时的“cache bust”手段很有用。
 使用“cache bust”配置的一个示例：
 `javascripts;urlArgs: "bust="+(new date()).getTime()`
 在开发中这很有用，但请记得在部署到生产环境之前移除它。
