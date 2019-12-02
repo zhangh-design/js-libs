@@ -232,7 +232,7 @@ baseURL | string | 可选 |  | 访问url目录(可以是相对 URL)
 path | string | 必填 |  | 请求接口路径 root/user/getUserInfo
 mockPath | string | 必填 |  | mock请求接口路径 mock/root/user/getUserInfo
 mock | boolean | 可选 | false | 是否打开mock操作
-cache | boolean | 可选 | false | 是否打开cache （false URL后有随机字符参数 trur没有）
+cache | boolean | 可选 | false | 是否打开cache （false URL后有随机字符参数 trur没有）附录③
 removeInvalidChar | boolean | 可选 | true | 是否执行参数特殊字符过滤
 restful | object | 可选 |  | restful参数（==如果url类似：/root/user/{id}/get 则此参数需要设置id的值 {id: 2}==）
 headers | object | 可选 |  | 请求首部字段参数
@@ -250,7 +250,7 @@ api接口模型配置参数 userApiConfig
 mockBasePath | string | | mock-url请求地址(可以是相对 URL), 应该外部传入
 mock | boolean | false | mock全局控制开关(如果设置为true所有api的请求URL路径将变成mockBasePath)
 gParams | Object | {} | URL全局自定义参数，每个请求最后都会带上这个不可变的参数(例如：URL?code=app)
-cache | boolean | false | 缓存控制开关在URL路径后面添加一个时间戳参数 _=1571825001570
+cache | boolean | false | 缓存控制开关在URL路径后面添加一个时间戳参数 _=1571825001570 附录③
 seq | string | / | api接口命名空间分隔符 (Loader.api['user/get'])
 invalidChar | string | 附录① | 进行特殊字符过滤的规则
 statusMessage | Object | 附录② | 前端response返回状态码提示短语
@@ -308,3 +308,8 @@ apiRequestInterceptErrorHandler | window | 错误描述Error对象 | 监听请�
     503: '无法获得服务'
   }
 ```
+> ③
+http网络请求获取资源时附加在URL后面的额外的query参数，作为浏览器或者服务器未正确配置时的“cache bust”手段很有用，
+使用“cache bust”配置的一个示例：
+`javascripts;urlArgs: "bust="+(new date()).getTime()`
+在开发中这很有用，但请记得在部署到生产环境之前移除它。
