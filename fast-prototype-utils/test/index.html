@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+</head>
+<body>
+	
+	<script src="../dist/fast-prototype-utils.js"></script>
+	<script>
+		const requires = ['Promise.f_done', 'Promise.f_finally', 'Date.f_formatToDate', 'Date.f_format', 'Date.f_now', 'Number.f_toNumber', 'String.f_getWordCount']
+		// const requires = []
+		const FastPrototypeUtils = new FastPrototypeUtilsLibrary(requires)
+		
+		// 输出所有帮助函数key值的列表
+		console.info(FastPrototypeUtils.getKeys());
+		// 示例测试
+		console.info(Date.prototype.f_now());
+		console.info(Date.prototype.f_formatToDate('2019-12-09 15:58:10'));
+		console.info(Number.prototype.f_toNumber('100') === 100);
+		console.info(String.prototype.f_getWordCount('js获取0-1之间的随机数，获取1-10之间的随机数'));
+		
+		const p = new Promise((resolve, reject) => {
+		  setTimeout(resolve, 1000, 'done');
+		  // setTimeout(reject, 1000, 'done');
+		})
+		p.then(() => {
+		  console.info('success');
+		  return 'OK'
+		}).f_finally((reason) => {
+		  console.info('finally ', reason);
+		})
+		// 输出：
+		/**
+		 * success
+		 * finally  OK
+		 *
+		*/
+
+		// 获取两个数之间的随机整数
+		// 这里没有使用 Math ，因为 Math 不是构造函数而是一个对象
+		FastPrototypeUtils.add(Number, 'f_getRandomNumberByRange', function (start, end) {
+		  return Math.floor(Math.random() * (end - start) + start)
+		})
+		console.info(Number.prototype.f_getRandomNumberByRange(10, 20));
+
+		FastPrototypeUtils.remove(Number, 'f_getRandomNumberByRange');
+		console.info(Reflect.has(Number.prototype, 'f_getRandomNumberByRange'));
+
+		FastPrototypeUtils.cover(Date, 'f_now', function () {
+		  return new Date()
+		})
+		console.info(Date.prototype.f_now());
+		</script>
+</body>
+</html>
