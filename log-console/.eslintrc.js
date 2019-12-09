@@ -13,7 +13,7 @@ module.exports = {
 		'standard'
 	],
 	// required to lint *.vue files
-	plugins: [],
+	plugins: ['html'],
 	// add your custom rules here
 	rules: {
 		'generator-star-spacing': 'off',

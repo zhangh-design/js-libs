@@ -11,7 +11,7 @@ module.exports = {
 		'standard'
 	],
 	// required to lint *.vue files
-	plugins: [],
+	plugins: ['html'],
 	rules: {
 		'semi': "off",
 		'no-debugger': "off",
