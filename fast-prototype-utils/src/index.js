@@ -14,12 +14,10 @@ import configUtils from './config-utils'
 import _set from 'lodash/set'
 import _get from 'lodash/get'
 import _isFunction from 'lodash/isFunction'
-import _isEqual from 'lodash/isEqual'
 import _isEmpty from 'lodash/isEmpty'
-import _isNull from 'lodash/isNull'
-import _has from 'lodash/has'
+import _isEqual from 'lodash/isEqual'
 import _hasIn from 'lodash/hasIn'
-import _forEach from 'lodash/forEach'
+import _forOwn from 'lodash/forOwn'
 import _pick from 'lodash/pick'
 import _keys from 'lodash/keys'
 import _includes from 'lodash/includes'
@@ -38,19 +36,6 @@ const FastPrototypeUtils = class FastPrototypeUtils {
      * @default
      */
     this.prefixStr = 'f_'
-    // 为类添加新的方法
-    if (_isEqual(_isFunction(_get(Function, 'prototype.method', null)), false)) {
-      _set(Function, 'prototype.method', function (name = '', fn = null) {
-        if (_isEmpty(name) || _isNull(fn) || _isEqual(_isFunction(fn), false)) {
-          return this
-        }
-        if (_isEqual(_hasIn(this, 'prototype.name'), false)) {
-          // this指向构造函数本身
-          _set(_get(this, 'prototype'), name, fn)
-        }
-        return this
-      })
-    }
     this.init(requires)
   }
   /**
@@ -61,7 +46,9 @@ const FastPrototypeUtils = class FastPrototypeUtils {
    * init(['Promise.f_done','Promise.f_finally'])
    */
   init (requires = []) {
-    _forEach(_pick(configUtils, requires), value => { value() })
+    _forOwn(_isEmpty(requires) ? configUtils : _pick(configUtils, requires), value => {
+      value()
+    })
   }
 
   /**
@@ -78,6 +65,8 @@ const FastPrototypeUtils = class FastPrototypeUtils {
    * @desc 查看指定原型函数名称是否已经定义在插件配置列表中
    * @param {string} key - 原型帮助函数的key值
    * @returns {boolean}
+   * @example
+   * fastPrototypeUtils.include('Number.f_toNumber')
    */
   include (key = '') {
     return _includes(_keys(configUtils), key)
@@ -100,9 +89,9 @@ const FastPrototypeUtils = class FastPrototypeUtils {
       return
     }
     name = _startsWith(name, this.prefixStr) ? name : `${this.prefixStr}${name}`
-    if (Reflect.isExtensible(constructorFn) && _isEqual(_hasIn(constructorFn.prototype, name), false) && _isEqual(_has(configUtils, `${_get(constructorFn, 'name')}.${name}`), false)) {
-      _get(constructorFn, 'method')(name, handler)
-      _set(configUtils, `${_get(constructorFn, 'name')}.${name}`, function () { handler() })
+    if (Reflect.isExtensible(constructorFn) && _isEqual(_hasIn(constructorFn.prototype, name), false) && _isEqual(Reflect.has(configUtils, `${_get(constructorFn, 'name')}.${name}`), false)) {
+      _set(constructorFn, `prototype.${name}`, handler)
+      configUtils[`${_get(constructorFn, 'name')}.${name}`] = handler
     }
   }
 
@@ -117,8 +106,8 @@ const FastPrototypeUtils = class FastPrototypeUtils {
     if (_isNil(constructorFn) || _isNil(name) || _isEqual(_isFunction(constructorFn), false)) {
       return
     }
-    if (Reflect.isExtensible(constructorFn) && _hasIn(constructorFn.prototype, name) && _has(configUtils, `${_get(constructorFn, 'name')}.${name}`)) {
-      Reflect.deleteProperty(constructorFn, name)
+    if (Reflect.isExtensible(constructorFn) && _hasIn(constructorFn.prototype, name) && Reflect.has(configUtils, `${_get(constructorFn, 'name')}.${name}`)) {
+      Reflect.deleteProperty(constructorFn.prototype, name)
       Reflect.deleteProperty(configUtils, `${_get(constructorFn, 'name')}.${name}`)
     }
   }
@@ -134,11 +123,11 @@ const FastPrototypeUtils = class FastPrototypeUtils {
     if (_isNil(constructorFn) || _isNil(name) || _isEqual(_isFunction(constructorFn), false)) {
       return
     }
-    if (Reflect.isExtensible(constructorFn) && _hasIn(constructorFn.prototype, name) && _has(configUtils, `${_get(constructorFn, 'name')}.${name}`)) {
+    if (Reflect.isExtensible(constructorFn) && _hasIn(constructorFn.prototype, name) && Reflect.has(configUtils, `${_get(constructorFn, 'name')}.${name}`)) {
       Reflect.deleteProperty(constructorFn, name)
       Reflect.deleteProperty(configUtils, `${_get(constructorFn, 'name')}.${name}`)
-      _get(constructorFn, 'method')(name, handler)
-      _set(configUtils, `${_get(constructorFn, 'name')}.${name}`, function () { handler() })
+      _set(constructorFn, `prototype.${name}`, handler)
+      configUtils[`${_get(constructorFn, 'name')}.${name}`] = handler
     }
   }
 }
