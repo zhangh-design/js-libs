@@ -14,3 +14,4 @@ global-var-manager | 全局变量管理器插件
 observer-manager | 自定义事件发布-订阅插件
 common-cache-sdk | 通用前端自定义缓存sdk
 fast-prototype-utils | 前端通用自定义原型处理函数
+timeout-provider | 定时器提供器
