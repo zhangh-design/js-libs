@@ -11,7 +11,7 @@ module.exports = {
 		'standard'
 	],
 	// required to lint *.vue files
-	plugins: ['html'],
+	plugins: ['eslint-plugin-html'],
 	rules: {
 		'semi': "off",
 		'no-debugger': "off",
@@ -21,6 +21,7 @@ module.exports = {
 	"globals": {
 		'alert': true,
 		'values': true,
-		'entries': true
+		'entries': true,
+		'GlobalVarManagerLibrary': true
 	}
 }
