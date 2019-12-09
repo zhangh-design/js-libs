@@ -18,7 +18,7 @@ module.exports = {
 	output: {
 		path: path.join(__dirname, 'dist'),
 		filename: '[name].js',
-		library: 'CommonPrototypeFunctionsLibrary',	//指定库的全局变量
+		library: 'FastPrototypeUtilsLibrary',	//指定库的全局变量
 		libraryExport: 'default',		//默认即使用LoaderApiLibrary为插件的全局变量名
 		libraryTarget: 'umd'			//支持库引入的方式 AMD、CJS、EM module、CDN
 	},
@@ -51,15 +51,6 @@ module.exports = {
 	},
 	plugins: [
 		new CleanWebpackPlugin(),
-		new htmlWebpackExternalsPlugin({
-			externals: [
-				{
-					module: 'axios',
-					entry: 'https://cdn.bootcss.com/axios/0.18.0/axios.min.js',
-					global: 'axios'
-				}
-			]
-		}),
 		new lodashWebpackPlugin()
 	],
 	optimization: {

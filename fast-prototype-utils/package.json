@@ -1,5 +1,5 @@
 {
-  "name": "common-prototype-functions",
+  "name": "fast-prototype-utils",
   "version": "1.0.0",
   "description": "前端通用自定义原型处理函数",
   "main": "index.js",
@@ -34,6 +34,7 @@
   },
   "dependencies": {
     "dateformat-util": "^1.0.5",
-    "lodash": "^4.17.15"
+    "lodash": "^4.17.15",
+    "querystring": "^0.2.0"
   }
 }
