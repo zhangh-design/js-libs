@@ -12,8 +12,8 @@ function resolve (dir) {
 
 module.exports = {
 	entry: {
-		'loader-api': './src/index.js',
-		'loader-api.min': './src/index.js'
+		'fast-prototype-utils': './src/index.js',
+		'fast-prototype-utils.min': './src/index.js'
 	},
 	output: {
 		path: path.join(__dirname, 'dist'),
