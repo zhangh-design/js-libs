@@ -13,7 +13,7 @@ module.exports = {
 		'standard'
 	],
 	// required to lint *.vue files
-	plugins: ['html'],
+	plugins: ['eslint-plugin-html'],
 	// add your custom rules here
 	rules: {
 		'generator-star-spacing': 'off',
@@ -25,6 +25,7 @@ module.exports = {
 	"globals": {
 		'alert': true,
 		'values': true,
-		'entries': true
+		'entries': true,
+		'LogConsoleLibrary': true
 	}
 }
