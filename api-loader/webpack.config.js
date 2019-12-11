@@ -70,6 +70,6 @@ module.exports = {
 			})
 		]
 	},
-	devtool: 'source-map'
+	devtool: 'cheap-source-map'
 }
 
