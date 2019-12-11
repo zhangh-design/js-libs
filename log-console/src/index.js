@@ -67,6 +67,14 @@ const ConsoleLog = class Log {
      * @private
      */
     this.filterTagArray = filterTagArray
+    /**
+     * 定义输出对象
+     */
+    this.log = console.log
+    this.assert = console.assert
+    this.info = console.info
+    this.warn = console.warn
+    this.error = console.error
   }
 
   /**
