@@ -137,7 +137,7 @@ const TimeoutProvider = new TimeoutProvider()
 scope | Object |  | null | 提供给 handler 参数的作用域
 handler | function |  |  | 执行函数
 interval | number |  | 1000 | 时间（毫秒）
-params | * | 可变参 |  | 定时器接收的额外参数
+params | * | 可选、可变参 |  | 定时器接收的额外参数
 
 > 实例：
 
@@ -162,7 +162,7 @@ timeoutProvider.setInterval(new person, doEat, 2000, 'hello', '!')
 scope | Object |  | null | 提供给 handler 参数的作用域
 handler | function |  | null | 执行函数
 wait | number |  | 1000 | 需要延迟的毫秒数
-options | Object |  | { leading: false, trailing: true } | 选项对象
+options | Object | 可选 | { leading: false, trailing: true } | 选项对象
 
 > 实例：
 
@@ -181,7 +181,7 @@ jQuery(window).resize(myDebounce);
 scope | Object |  | null | 提供给 handler 参数的作用域
 handler | function |  | null | 执行函数
 timeout | number |  | 1000 | 时间（毫秒）
-params | * | 可变参 |  | 定时器接收的额外参数
+params | * | 可选、可变参 |  | 定时器接收的额外参数
 
 
 > 实例：
