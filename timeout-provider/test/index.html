@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+</head>
+<body>
+	<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+	<script type="text/javascript"  src="../dist/timeout-provider.js"></script>
+	<script>
+		// eslint-disable-next-line
+		const tp = new TimeoutProviderLibrary()
+		const Person = function () {
+		  this.name = '小明'
+		}
+		const personInstance = new Person()
+		// 单个定时器
+		let see = function (...params) {
+		  console.log(params[0], ' ', this.name, ' ', params[1]);
+		}
+		tp.setTimeout(personInstance, see, 2000, 'hello', '!')
+
+		// 循环定时器
+		window.counter = 5
+		let run = function (...params) {
+		  console.info(params[0], ' ', this.name, ' ', params[1]);
+		  return window.counter--
+		}
+		tp.setInterval(personInstance, run, 2000, 'go', 'run')
+
+		// 节流定时器
+		let doSize = function () {
+		  console.info('resize');
+		}
+		var myDebounce = tp.setThrottle(personInstance, doSize, 3000)
+		// eslint-disable-next-line no-undef
+		jQuery(window).resize(myDebounce);
+	</script>
+</body>
+</html>
