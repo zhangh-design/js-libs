@@ -4,7 +4,7 @@
  * @desc
  * 高级定时器的使用 单个定时器、循环定时器和函数节流的统一定义、控制和使用
  * @see 插件功能详细介绍请查看
- * https://github.com/zhangh-design/js-libs/tree/master/observer-manager
+ * {@link https://github.com/zhangh-design/js-libs/blob/master/timeout-provider/README.md GitHub}
  * @author zhangh
  * @version 1.0.0
  * @example
@@ -23,10 +23,10 @@ const TimeoutProvider = class TimeoutProvider {
   constructor () {}
   /**
    * @desc 单个定时器
-   * @param {Object} scope - 提供给 handler 参数的作用域
+   * @param {this} scope - 提供给 handler 参数的作用域
    * @param {function} handler - 执行函数
    * @param {number} timeout - 时间（毫秒）
-   * @param  {...any} params - 定时器接收的额外参数
+   * @param  {...any} [params] - 定时器接收的额外参数
    * @returns {number}
    * @example
    * const person = function(){this.name='小明'}
@@ -42,10 +42,10 @@ const TimeoutProvider = class TimeoutProvider {
   }
   /**
    * @desc 循环定时器
-   * @param {Object} scope - 提供给 handler 参数的作用域
+   * @param {this} scope - 提供给 handler 参数的作用域
    * @param {function} handler - 执行函数（必须要有boolean返回值，false会停止定时器的循环调用）
    * @param {number} interval - 时间（毫秒）
-   * @param  {...any} params - 定时器接收的额外参数
+   * @param  {...any} [params] - 定时器接收的额外参数
    * @returns {number}
    * @example
    * window.counter = 5;
@@ -71,18 +71,21 @@ const TimeoutProvider = class TimeoutProvider {
   }
 
   /**
+   * @typedef {Object} options - 选项配置对象
+   * @property {boolean} leading - 指定在延迟开始前调用
+   * @property {boolean} trailing - 指定在延迟结束后调用
+   */
+  /**
    * @desc 节流定时器，在指定时间后执行
-   * @param {Object} scope - 提供给 handler 参数的作用域
+   * @param {this} scope - 提供给 handler 参数的作用域
    * @param {function} handler - 执行函数
    * @param {number} wait - 需要延迟的毫秒数
-   * @param {{}} options - 选项对象
-   * @prop {boolean} options.leading=false - 指定在延迟开始前调用
-   * @prop {boolean} options.trailing=true - 指定在延迟结束后调用
-   * @returns {function} 返回新的 debounced（防抖动）函数，可以用于取消防抖动调用
+   * @param {options} [options={leading: false, trailing: true}] - 选项配置
+   * @returns {function} 返回新的 debounced （防抖动）函数，可以用于取消防抖动调用
    * @example
    * let doSize = function () {console.info('resize');}
    * var myDebounce = tp.setThrottle(personInstance, doSize, 3000)
-   * jQuery(window).resize(myDebounce);
+   * jQuery(window).resize(myDebounce)
    */
   setThrottle (scope = null, handler = null, wait = 1000, options = { leading: false, trailing: true }) {
     if (_isNil(scope) || _isNil(handler) || _isNil(wait) || _isEqual(_isNumber(wait), false)) {
