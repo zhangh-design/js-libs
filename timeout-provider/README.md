@@ -124,7 +124,7 @@ const TimeoutProvider = new TimeoutProvider()
 
 ---
 
-**循环定时器**
+**方法**
 
 > 函数：setInterval(scope, handler, interval, …params) → {number}
 
