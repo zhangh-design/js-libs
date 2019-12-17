@@ -1,15 +1,13 @@
-## ObserverManager
-自定义事件发布-订阅插件
+## TimeoutProvider
+一个Javascript封装的高级定时器使用插件
 
 **插件的设计初衷**
-> 项目开发中我们经常需要使用到发布订阅模式来降低各个模块间的耦合度，但如果不妥善的管理众多的事件定义、触发，随意的定义事件名称、绑定事件对象、触发事件执行，会让整个发布订阅系统一团糟后期的维护成本也会加大很多。
+> 在项目开发中我们会有很多时候需要使用到定时器的功能，所以对定时器的使用进行一个约束使得开发中都能使用统一的语法来进行开发那对于后期的维护是有很大帮助的。
+
 
 **插件的设计思想**
-1. 统一管理、方便查看事件列表 - 提供事件模型注册中心
-2. 任意函数对象可以拥有自身的事件集合-防止事件添加到一个对象上
-3. 事件触发后可以具有传播性 - 事件如果已经触发那么后面自动加入的相同作用域下的相同名称的事件也应立马获得执行
-4. 相同名称的事件在不同的作用域中互不影响
-5. 定义对象间的一种一对多的依赖关系
+1. 在项目统一使用定时器、节流函数的用法
+2. 针对循环定时器提供执行方法，不使用`setInterval`
 
 **构建配置抽离成npm包的意义**
 > ##### 通用性
@@ -43,14 +41,14 @@
 
 版本 | 时间
 ---|---
-1.0.0 | 2019-11-19
+1.0.0 | 2019-12-17
 
 ---
 **库目录结构**
 
 ```
-未压缩版： observer-manager.js
-压缩版：observer-manager.min.js
+未压缩版： timeout-provider.js
+压缩版：timeout-provider.min.js
 ```
 
 ---
@@ -60,13 +58,13 @@
 > 使用npm
 
 ```
-$ npm install ObserverManagerLibrary --save
+$ npm install TimeoutProviderLibrary --save
 ```
 
 > 使用cdn
 
 ```
-<script type="text/javascript" src="observer-manager.min.js"></script>
+<script type="text/javascript" src="timeout-provider.min.js"></script>
 ```
 
 ---
@@ -75,275 +73,121 @@ $ npm install ObserverManagerLibrary --save
 
 ```
 // 导入插件
-import ObserverManager from 'ObserverManagerLibrary'
+import TimeoutProviderLibrary from 'TimeoutProviderLibrary'
 
-// 事件模型列表// 事件模型列表
-const eventModuleConfig = {
-	'game': [
-		{name: 'runEvent', desc: '触发跑步事件', order: 'asc', fireData: {name: '', address: '', date: ''}},
-		{name: 'swimEvent', desc: '触发游泳事件', order: 'desc', fireData: {}}
-	]
+// eslint-disable-next-line
+const tp = new TimeoutProviderLibrary()
+const Person = function () {
+  this.name = '小明'
 }
-// 初始化事件加载器，传入事件模型
-const ObserverManagerInstance = new ObserverManager(eventModuleConfig)
-
-// 一个函数作用域
-var child = class {}
-var childInstance = new child()
-
-// 事件 handler 执行函数
-let runHandler = function(a, b, {name, date}){
-	console.info('run', a, b, name, date);
+const personInstance = new Person()
+// 单个定时器
+let see = function (...params) {
+  console.log(params[0], ' ', this.name, ' ', params[1]);
 }
+tp.setTimeout(personInstance, see, 2000, 'hello', '!')
 
-// 事件 handler2 执行函数
-let runHandler2 = function(a, b){
-	console.info('run', a, b);
+// 循环定时器
+window.counter = 5
+let run = function (...params) {
+  console.info(params[0], ' ', this.name, ' ', params[1]);
+  return window.counter--
 }
+tp.setInterval(personInstance, run, 2000, 'go', 'run')
 
-// 在 window 环境下注册事件，将 handler 函数绑定到 window 环境下执行，传参1和3
-ObserverManagerInstance.add('game/runEvent', runHandler, window, window, 1, 3)
-// 注册单次事件，传参2和3
-ObserverManagerInstance.addOnce('game/runEvent', runHandler, window, window, 2, 3)
+// 节流定时器
+let doSize = function () {
+  console.info('resize');
+}
+var myDebounce = tp.setThrottle(personInstance, doSize, 3000)
+// 请注意：这里使用了jquery来做示例
+// eslint-disable-next-line no-undef
+jQuery(window).resize(myDebounce);
 
-setTimeout(() => {
-	console.info('触发事件')
-	// 触发 window 环境下的 game/runEvent 事件
-	ObserverManagerInstance .fire('game/runEvent', window, {name: '小明', date: '6-01'})
-	console.info('======')
-	// 触发 window 环境下的 game/runEvent 事件，addOnce 注册的事件不在执行因为上一个 fire 已经执行掉了
-	ObserverManagerInstance .fire('game/runEvent', window, {name: '小明', date: '6-02'})
-}, 500);
-
-setTimeout(() => {
-	console.info('-------------');
-	// 触发 window 环境下的 game/runEvent 事件
-	ObserverManagerInstance .fire('game/runEvent', window, {name: '小明', distance: 200})
-	// 注册 child 函数作用域环境下的 game/runEvent 事件，runHandler2 绑定到 childInstance环境下 （不会触发 window 环境下的 game/runEvent 事件）
-	ObserverManagerInstance .add('game/runEvent', runHandler2, childInstance, window, 2, 6)
-	console.info('-------------');
-	// 触发 child 函数作用域环境下的 game/runEvent 事件
-	ObserverManagerInstance .fire('game/runEvent', childInstance, {name: '小红'})
-}, 1500);
-
-setTimeout(() => {
-	// 注销 window 作用域下某个事件
-	ObserverManagerInstance.off('game/runEvent', window)
-	// 销毁所有事件集合
-	ObserverManagerInstance.clear()
-}, 3000);
-
-// 输出结果：
-/**
- * 触发事件
- * run 1 3 5  （window环境）
- * run 2 3 5  （window环境）
- * ======
- * run 1 3 15 （window环境）
- * -------------
- * run 1 3 10 （window环境）
- * -------------
- * run 2 6     （child环境）
- */
 
 ```
 
 ---
-##### 事件模型对象配置参数
 
-参数 | 类型 | 属性 | 默认值 | 描述
----|---|---|---|---
-name | string | | | 事件名称
-desc | string | | | 事件详细描述
-order | string | 可选 | desc | 事件触发的顺序 可选值有 asc 事件顺序触发、desc 事件倒序触发
-fireData | Object | 可选 | {} | fire触发时传递的参数对象描述，`如果传递的参数没有在这里定义将不能传递到 handler 执行函数中`
-
-==注意==：事件定义都应该配置 命名空间对象，如下示例中 命名空间配置 的是 `game`，命名空间可以有多层 参考附录①
-
-示例：
-
-```
-const eventModuleConfig = {
-	'game': [
-		{name: 'runEvent', desc: '触发跑步事件', order: 'asc', fireData: {}},
-		{name: 'swimEvent', desc: '触发游泳事件', order: 'desc', fireData: {}}
-	]
-}
-```
-
-
----
-
-
-**类: ObserverManager**
+**类: TimeoutProviderLibrary**
 > 构造器 Constructor
 
 ```
-new ObserverManager(userEventConfigModuleList)
+new TimeoutProviderLibrary()
 ```
-> 构造函数接收1个事件描述模型对象参数，用于控制事件的注册、触发、注销
-
-参数：
-
-参数 | 类型 | 属性 | 默认值 | 描述
----|---|---|---|---
-userEventConfigModuleList | Object |  | {} | 事件描述模型对象
 
 示例
 
 ```
-// 事件模型列表
-const eventModuleConfig = {
-	'game': [
-		{name: 'runEvent', desc: '触发跑步事件', order: 'asc', fireData: {}},
-		{name: 'swimEvent', desc: '触发游泳事件', order: 'desc', fireData: {}}
-	]
-}
-// 初始化事件加载器，传入事件模型
-const ObserverManager = new ObserverManagerLibrary(eventModuleConfig)
-```
----
-
-**操作函数**
-
-> 函数：add (name, handler, fireScop, handlerScope, ...data)
-
-> 说明：注册事件
-
-名称 | 类型 | 属性 | 默认值 | 描述
----|---|---|---|---
-name | string |  | `` | event名称（需要和事件模型中的命名空间+事件名称匹配）参考附录①
-handler | function |  | function | 事件对应的执行函数
-fireScop | Object |  | null | 事件定义的作用域也即是fire触发时传递的fireScope
-handlerScope | Object |  | null | 事件执行的作用域
-data | * | <可变参><可选> |  | 事件参数，触发时传入 handler函数的参数，可以传入多个参数（将会在 fire 触发的参数之前），data建议不要是一个带有原型对象的数据，而应该是字符类型或单纯的对象
-> 示例：
-
-```
-const eventModuleConfig = {
-	'game': [
-		{name: 'runEvent', desc: '触发跑步事件', order: 'asc', fireData: {}},
-		{name: 'swimEvent', desc: '触发游泳事件', order: 'desc', fireData: {}}
-	]
-}
-// 初始化事件加载器，传入事件模型
-const ObserverManager = new ObserverManagerLibrary(eventModuleConfig)
-// 事件 handler 执行函数
-let runHandler = function(a, b, c){
-	console.info('run', a, b, c);
-}
-// 在 window 环境下注册事件，将 handler 函数绑定到 window 环境下执行，传参1和3
-ObserverManager.add('game/runEvent', runHandler, window, window, 1, 3)
-```
-
-> 函数：addOnce (name, handler, fireScope, handlerScope, ...data)
-
-> 说明：注册单次事件（此事件在当前作用域环境下只触发一次）
-
-名称 | 类型 | 属性 | 默认值 | 描述
----|---|---|---|---
-name | string |  | `` | event名称（需要和事件模型中的命名空间+名称匹配）
-handler | function |  | function | 事件对应的执行函数
-fireScope | Object |  | null | 事件定义的作用域也即是fire触发时传递的fireScope
-handlerScope | Object |  | null | 事件执行的作用域
-data | * | <可变参><可选> |  | 事件参数，触发时传入 handler函数的参数，可以传入多个参数（将会在 fire 触发的参数之前），data建议不要是一个带有原型对象的数据，而应该是字符类型或单纯的对象
-> 示例：
-
-```
-const eventModuleConfig = {
-	'game': [
-		{name: 'runEvent', desc: '触发跑步事件', order: 'asc', fireData: {}},
-		{name: 'swimEvent', desc: '触发游泳事件', order: 'desc', fireData: {}}
-	]
-}
-// 初始化事件加载器，传入事件模型
-const ObserverManager = new ObserverManagerLibrary(eventModuleConfig)
-// 事件 handler 执行函数
-let runHandler = function(a, b, c){
-	console.info('run', a, b, c);
-}
-// 在 window 环境下注册事件，将 handler 函数绑定到 window 环境下执行，传参1和3
-ObserverManager.addOnce('game/runEvent', runHandler, window, window, 1, 3)
-```
-
-> 函数：fire (name, fireScope, ...data)
-
-> 说明：触发 fireScope 作用域下事件
-
-名称 | 类型 | 属性 | 默认值 | 描述
----|---|---|---|---
-name | string |  | `` | event名称（需要和事件模型中的命名空间+名称匹配）
-fireScope | Object |  | null | 事件定义的作用域
-data | {} | <可选> |  | 事件参数，触发时传入 handler 函数的参数必须满足事件模型中的 fireData 参数设置形式
-
-示例：
-
-```
-// 触发 window 环境下的 game/runEvent 事件并传入一个参数 {name: '小红'}
-ObserverManager.fire('game/runEvent', window, {name: '小红'})
-```
-> 函数：off (name, fireScope)
-
-> 说明：注销 fireScope 作用域下的事件
-
-名称 | 类型 | 属性 | 默认值 | 描述
----|---|---|---|---
-name | string |  | `` | event名称（需要和事件模型中的命名空间+名称匹配）
-fireScope | Object |  | null | 事件定义的作用域
-
-示例：
-
-```
-// 注销 window 作用域下某个事件
-ObserverManager.off('game/runEvent', window)
-```
-
-> 函数：clear ()
-
-> 说明：清空当前事件管理器对象中的所有事件
-
-示例：
-
-```
-// 销毁所有事件集合
-ObserverManager.clear()
-```
-
-> 函数：getEvents (scope)
-
-> 说明： 获取作用域中的事件列表
-
-名称 | 类型 | 属性 | 默认值 | 描述
----|---|---|---|---
-scope | Object |  | null | 事件定义的作用域
-
-返回值：
-类型 Array
-
-示例：
-
-```
-// window 作用域下所有事件
-ObserverManager.getEvents(window)
+const TimeoutProvider = new TimeoutProvider()
 ```
 
 ---
 
-### 附录
-事件名称的组合
+**循环定时器**
 
-①：事件名：命名空间`game` + `/` + 事件名`runEvent`
+> 函数：setInterval(scope, handler, interval, …params) → {number}
 
-> `game/runEvent` 命名空间和具体事件名称之间使用 `/` 分隔符组合，多层事件名称命名建议：`boy/game/runEvent`
+> 说明：用于需要循环调用的定时器
+
+> 注意：handler执行函数必须返回boolean类型
+
+名称 | 类型 | 属性 | 默认值 | 描述
+---|---|---|---|---
+scope | Object |  | null | 提供给 handler 参数的作用域
+handler | function |  |  | 执行函数
+interval | number |  | 1000 | 时间（毫秒）
+params | * | 可变参 |  | 定时器接收的额外参数
+
+> 实例：
 
 ```
-// 事件模型列表
-const eventModuleConfig = {
-	'boy/game': [
-		{name: 'runEvent', desc: '触发跑步事件', order: 'asc', fireData: {}},
-		{name: 'swimEvent', desc: '触发游泳事件', order: 'desc', fireData: {}}
-	]
+window.counter = 5;
+const person = function(){this.name='小明'}
+const doEat = function(...params){
+  console.log(params[0], this.name, params[1]);
+  return window.counter--;
 }
+timeoutProvider.setInterval(new person, doEat, 2000, 'hello', '!')
 ```
 
+> 函数：setThrottle(scope, handler, wait, options) → {function}
 
+> 说明：节流定时器，在指定时间后执行
+
+> 注意：返回新的 debounced（防抖动）函数，可以用于取消防抖动调用
+
+名称 | 类型 | 属性 | 默认值 | 描述
+---|---|---|---|---
+scope | Object |  | null | 提供给 handler 参数的作用域
+handler | function |  | null | 执行函数
+wait | number |  | 1000 | 需要延迟的毫秒数
+options | Object |  | { leading: false, trailing: true } | 选项对象
+
+> 实例：
+
+```
+let doSize = function () {console.info('resize');}
+var myDebounce = tp.setThrottle(personInstance, doSize, 3000)
+jQuery(window).resize(myDebounce);
+```
+
+> 函数：setTimeout(scope, handler, timeout, …params) → {number}
+
+> 说明：单个定时器
+
+名称 | 类型 | 属性 | 默认值 | 描述
+---|---|---|---|---
+scope | Object |  | null | 提供给 handler 参数的作用域
+handler | function |  | null | 执行函数
+timeout | number |  | 1000 | 时间（毫秒）
+params | * | 可变参 |  | 定时器接收的额外参数
+
+
+> 实例：
+
+```
+const person = function(){this.name='小明'}
+const doEat = function(...params){console.log(params[0], this.name);}
+timeoutProvider.setTimeout(new person, doEat, 2000, 'hello')
+```
