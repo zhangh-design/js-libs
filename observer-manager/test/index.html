@@ -10,9 +10,8 @@
 	<script src="../dist/observer-manager.min.js"></script>
 	<script>
 		// 一个函数作用域
-		var child = class {}
-		// eslint-disable-next-line new-cap
-		var childInstance = new child()
+		var Child = class {}
+		var childInstance = new Child()
 		// 事件模型列表
 		const eventModuleConfig = {
 		  'game': [
