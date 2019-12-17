@@ -76,6 +76,8 @@ const TimeoutProvider = class TimeoutProvider {
    * @param {function} handler - 执行函数
    * @param {number} wait - 需要延迟的毫秒数
    * @param {{}} options - 选项对象
+   * @prop {boolean} options.leading=false - 指定在延迟开始前调用
+   * @prop {boolean} options.trailing=true - 指定在延迟结束后调用
    * @returns {function} 返回新的 debounced（防抖动）函数，可以用于取消防抖动调用
    * @example
    * let doSize = function () {console.info('resize');}
