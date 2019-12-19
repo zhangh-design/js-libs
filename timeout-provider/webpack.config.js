@@ -6,7 +6,7 @@ const lodashWebpackPlugin = require('lodash-webpack-plugin')
 const terserPlugin = require('terser-webpack-plugin')
 
 function resolve (dir) {
-	return path.join(__dirname, '..', dir)
+	return path.join(__dirname, '.', dir)
 }
 
 module.exports = {
@@ -32,19 +32,15 @@ module.exports = {
 	module: {
 		rules: [
 			{
-				test: /\.(js|vue)$/,
-				loader: 'eslint-loader',
-				enforce: 'pre',
-				include: [resolve('src'), resolve('test')],
-				options: {
-					formatter: require('eslint-friendly-formatter')
-				}
-			},
-			{
 				test: /\.js$/,
 				exclude: /node_modules/,
-				use: ['babel-loader'],
-				include: [resolve('src'), resolve('test')]
+				use: ['babel-loader',{
+					loader: 'eslint-loader',
+					options: {
+						fix: true
+					}
+				}],
+				include: [resolve('src')]
 			}
 		]
 	},
