@@ -132,7 +132,7 @@ const ObserverManager = class Observer {
       _set(fireScope, 'eventIdentity', ObserverManager.uuid())
     }
     // @ts-ignore
-    this.addEvents.push({ key: name, [name]: function () { return _bind(handler, handlerScope, ...data) }, 'eventIdentity': _get(fireScope, 'eventIdentity'), once: true })
+    this.addEvents.push({ key: name, [name]: function () { return _bind(handler, handlerScope, ...data) }, eventIdentity: _get(fireScope, 'eventIdentity'), once: true })
   }
 
   /**
