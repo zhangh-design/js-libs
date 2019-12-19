@@ -112,13 +112,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var lodash_bind__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(lodash_bind__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var lodash_debounce__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(47);
 /* harmony import */ var lodash_debounce__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(lodash_debounce__WEBPACK_IMPORTED_MODULE_5__);
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
 /**
  * @class TimeoutProvider
  * @classdesc 一个Javascript封装的高级定时器使用插件
  * @desc
  * 高级定时器的使用 单个定时器、循环定时器和函数节流的统一定义、控制和使用
  * @see 插件功能详细介绍请查看
- * https://github.com/zhangh-design/js-libs/tree/master/observer-manager
+ * {@link https://github.com/zhangh-design/js-libs/blob/master/timeout-provider/README.md GitHub}
  * @author zhangh
  * @version 1.0.0
  * @example
@@ -132,81 +138,136 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-const TimeoutProvider = class TimeoutProvider {
+var TimeoutProvider =
+/*#__PURE__*/
+function () {
   // eslint-disable-next-line no-useless-constructor
-  constructor () {}
+  function TimeoutProvider() {
+    _classCallCheck(this, TimeoutProvider);
+  }
   /**
    * @desc 单个定时器
-   * @param {Object} scope - 提供给 handler 参数的作用域
+   * @param {this} scope - 提供给 handler 参数的作用域
    * @param {function} handler - 执行函数
    * @param {number} timeout - 时间（毫秒）
-   * @param  {...any} params - 定时器接收的额外参数
+   * @param  {...any} [params] - 定时器接收的额外参数
    * @returns {number}
    * @example
    * const person = function(){this.name='小明'}
-   * const doEat = function(...params){console.log(this.name, ...params);}
-   * timeoutProvider.setTimeout(new person, doEat, 2000, '吃饭')
+   * const doEat = function(...params){console.log(params[0], this.name);}
+   * timeoutProvider.setTimeout(new person, doEat, 2000, 'hello')
    */
-  setTimeout (scope = null, handler = function () {}, timeout = 1000, ...params) {
-    if (lodash_isNil__WEBPACK_IMPORTED_MODULE_0___default()(scope) || lodash_isNil__WEBPACK_IMPORTED_MODULE_0___default()(handler) || lodash_isNil__WEBPACK_IMPORTED_MODULE_0___default()(timeout) || lodash_isEqual__WEBPACK_IMPORTED_MODULE_2___default()(lodash_isNumber__WEBPACK_IMPORTED_MODULE_1___default()(timeout), false)) {
-      return
-    }
-    // @ts-ignore
-    return lodash_delay__WEBPACK_IMPORTED_MODULE_3___default()(lodash_bind__WEBPACK_IMPORTED_MODULE_4___default()(handler, scope), timeout, ...params)
-  }
-  /**
-   * @desc 循环定时器
-   * @param {Object} scope - 提供给 handler 参数的作用域
-   * @param {function} handler - 执行函数（必须要有boolean返回值，false会停止定时器的循环调用）
-   * @param {number} interval - 时间（毫秒）
-   * @param  {...any} params - 定时器接收的额外参数
-   * @returns {number}
-   * @example
-   * window.counter = 5;
-   * const person = function(){this.name='小明'}
-   * const doEat = function(...params){
-   *   console.log(this.name, ...params);
-   *   return window.counter--;
-   * }
-   * timeoutProvider.setInterval(new person, doEat, 2000, '吃饭')
-   *
-   */
-  setInterval (scope = null, handler = function () {}, interval = 1000, ...params) {
-    if (lodash_isNil__WEBPACK_IMPORTED_MODULE_0___default()(scope) || lodash_isNil__WEBPACK_IMPORTED_MODULE_0___default()(handler) || lodash_isNil__WEBPACK_IMPORTED_MODULE_0___default()(interval) || lodash_isEqual__WEBPACK_IMPORTED_MODULE_2___default()(lodash_isNumber__WEBPACK_IMPORTED_MODULE_1___default()(interval), false)) {
-      return
-    }
-    return lodash_delay__WEBPACK_IMPORTED_MODULE_3___default()(function fn (...params) {
-      // @ts-ignore
-      let result = lodash_bind__WEBPACK_IMPORTED_MODULE_4___default()(handler, scope)(...params)
-      if (lodash_isEqual__WEBPACK_IMPORTED_MODULE_2___default()(lodash_isNil__WEBPACK_IMPORTED_MODULE_0___default()(result), false)) {
-        result && lodash_delay__WEBPACK_IMPORTED_MODULE_3___default()(fn, interval, ...params)
+
+
+  _createClass(TimeoutProvider, [{
+    key: "setTimeout",
+    value: function setTimeout() {
+      var scope = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+      var handler = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : function () {};
+      var timeout = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 1000;
+
+      if (lodash_isNil__WEBPACK_IMPORTED_MODULE_0___default()(scope) || lodash_isNil__WEBPACK_IMPORTED_MODULE_0___default()(handler) || lodash_isNil__WEBPACK_IMPORTED_MODULE_0___default()(timeout) || lodash_isEqual__WEBPACK_IMPORTED_MODULE_2___default()(lodash_isNumber__WEBPACK_IMPORTED_MODULE_1___default()(timeout), false)) {
+        return;
+      } // @ts-ignore
+
+
+      for (var _len = arguments.length, params = new Array(_len > 3 ? _len - 3 : 0), _key = 3; _key < _len; _key++) {
+        params[_key - 3] = arguments[_key];
       }
-    }, interval, ...params)
-  }
 
-  /**
-   * @desc 节流定时器，在指定时间后执行
-   * @param {Object} scope - 提供给 handler 参数的作用域
-   * @param {function} handler - 执行函数
-   * @param {number} wait - 需要延迟的毫秒数
-   * @param {{}} options - 选项对象
-   * @returns {function} 返回新的 debounced（防抖动）函数，可以用于取消防抖动调用
-   * @example
-   * const person = function(){this.name='小明'}
-   * const doRun = function(...params){}
-   * timeoutProvider.setThrottle(new person, doRun, 5000)
-   */
-  setThrottle (scope = null, handler = null, wait = 1000, options = { leading: false, trailing: true }) {
-    if (lodash_isNil__WEBPACK_IMPORTED_MODULE_0___default()(scope) || lodash_isNil__WEBPACK_IMPORTED_MODULE_0___default()(handler) || lodash_isNil__WEBPACK_IMPORTED_MODULE_0___default()(wait) || lodash_isEqual__WEBPACK_IMPORTED_MODULE_2___default()(lodash_isNumber__WEBPACK_IMPORTED_MODULE_1___default()(wait), false)) {
-      return
+      return lodash_delay__WEBPACK_IMPORTED_MODULE_3___default.a.apply(void 0, [lodash_bind__WEBPACK_IMPORTED_MODULE_4___default()(handler, scope), timeout].concat(params));
     }
-    // @ts-ignore
-    const myDebounce = lodash_debounce__WEBPACK_IMPORTED_MODULE_5___default()(lodash_bind__WEBPACK_IMPORTED_MODULE_4___default()(handler, scope), wait, options)
-    return myDebounce
-  }
-}
-/* harmony default export */ __webpack_exports__["default"] = (TimeoutProvider);
+    /**
+     * @desc 循环定时器
+     * @param {this} scope - 提供给 handler 参数的作用域
+     * @param {function} handler - 执行函数（必须要有boolean返回值，false会停止定时器的循环调用）
+     * @param {number} interval - 时间（毫秒）
+     * @param  {...any} [params] - 定时器接收的额外参数
+     * @returns {number}
+     * @example
+     * window.counter = 5;
+     * const person = function(){this.name='小明'}
+     * const doEat = function(...params){
+     *   console.log(params[0], this.name, params[1]);
+     *   return window.counter--;
+     * }
+     * timeoutProvider.setInterval(new person, doEat, 2000, 'hello', '!')
+     *
+     */
 
+  }, {
+    key: "setInterval",
+    value: function setInterval() {
+      var scope = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+      var handler = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : function () {};
+      var interval = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 1000;
+
+      if (lodash_isNil__WEBPACK_IMPORTED_MODULE_0___default()(scope) || lodash_isNil__WEBPACK_IMPORTED_MODULE_0___default()(handler) || lodash_isNil__WEBPACK_IMPORTED_MODULE_0___default()(interval) || lodash_isEqual__WEBPACK_IMPORTED_MODULE_2___default()(lodash_isNumber__WEBPACK_IMPORTED_MODULE_1___default()(interval), false)) {
+        return;
+      }
+
+      for (var _len2 = arguments.length, params = new Array(_len2 > 3 ? _len2 - 3 : 0), _key2 = 3; _key2 < _len2; _key2++) {
+        params[_key2 - 3] = arguments[_key2];
+      }
+
+      return lodash_delay__WEBPACK_IMPORTED_MODULE_3___default.a.apply(void 0, [function fn() {
+        for (var _len3 = arguments.length, params = new Array(_len3), _key3 = 0; _key3 < _len3; _key3++) {
+          params[_key3] = arguments[_key3];
+        }
+
+        // @ts-ignore
+        var result = lodash_bind__WEBPACK_IMPORTED_MODULE_4___default()(handler, scope).apply(void 0, params);
+
+        if (lodash_isEqual__WEBPACK_IMPORTED_MODULE_2___default()(lodash_isNil__WEBPACK_IMPORTED_MODULE_0___default()(result), false)) {
+          result && lodash_delay__WEBPACK_IMPORTED_MODULE_3___default.a.apply(void 0, [fn, interval].concat(params));
+        }
+      }, interval].concat(params));
+    }
+    /**
+     * @typedef {Object} options - 选项配置对象
+     * @property {boolean} leading - 指定在延迟开始前调用
+     * @property {boolean} trailing - 指定在延迟结束后调用
+     */
+
+    /**
+     * @desc 节流定时器，在指定时间后执行
+     * @param {this} scope - 提供给 handler 参数的作用域
+     * @param {function} handler - 执行函数
+     * @param {number} wait - 需要延迟的毫秒数
+     * @param {options} [options={leading: false, trailing: true}] - 选项配置
+     * @returns {function} 返回新的 debounced （防抖动）函数，可以用于取消防抖动调用
+     * @example
+     * let doSize = function () {console.info('resize');}
+     * var myDebounce = tp.setThrottle(personInstance, doSize, 3000)
+     * jQuery(window).resize(myDebounce)
+     */
+
+  }, {
+    key: "setThrottle",
+    value: function setThrottle() {
+      var scope = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+      var handler = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+      var wait = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 1000;
+      var options = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {
+        leading: false,
+        trailing: true
+      };
+
+      if (lodash_isNil__WEBPACK_IMPORTED_MODULE_0___default()(scope) || lodash_isNil__WEBPACK_IMPORTED_MODULE_0___default()(handler) || lodash_isNil__WEBPACK_IMPORTED_MODULE_0___default()(wait) || lodash_isEqual__WEBPACK_IMPORTED_MODULE_2___default()(lodash_isNumber__WEBPACK_IMPORTED_MODULE_1___default()(wait), false)) {
+        return;
+      } // @ts-ignore
+
+
+      var myDebounce = lodash_debounce__WEBPACK_IMPORTED_MODULE_5___default()(lodash_bind__WEBPACK_IMPORTED_MODULE_4___default()(handler, scope), wait, options);
+
+      return myDebounce;
+    }
+  }]);
+
+  return TimeoutProvider;
+}();
+
+/* harmony default export */ __webpack_exports__["default"] = (TimeoutProvider);
 
 /***/ }),
 /* 1 */
