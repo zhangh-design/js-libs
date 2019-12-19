@@ -37,7 +37,8 @@ module.exports = {
 				use: ['babel-loader',{
 					loader: 'eslint-loader',
 					options: {
-						fix: true
+						fix: true,
+						formatter: require('eslint-friendly-formatter')
 					}
 				}],
 				include: [resolve('src')]
