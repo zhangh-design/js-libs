@@ -3,8 +3,8 @@
  * @classdesc 自定义日志工具，通过日志level级别来控制项目中日志的输出
  * @desc 构造函数接收1个日志级别参数，用于控制日志的输出
  * @see 插件功能详细介绍请查看
- * https://segmentfault.com/a/1190000015593006
- * https://github.com/zhangh-design/js-libs/tree/master/log-console
+ * {@link https://github.com/zhangh-design/js-libs/tree/master/log-console GitHub}
+ * {@link https://segmentfault.com/a/1190000015593006 segmentfault}
  * @author zhangh
  * @version 1.0.0
  * @param { number } level=1 - 日志级别 可接受值有 1、2、3、4、5，如果传入的值比5大将不做任何输出

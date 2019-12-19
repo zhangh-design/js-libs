@@ -3,7 +3,7 @@
  * @classdesc 自定义事件发布-订阅插件
  * @desc 构造函数接收1个事件描述模型对象参数，用于控制事件的注册、触发、注销
  * @see 插件功能详细介绍请查看
- * https://github.com/zhangh-design/js-libs/tree/master/observer-manager
+ * {@link https://github.com/zhangh-design/js-libs/tree/master/observer-manager GitHub}
  * @author zhangh
  * @version 1.0.0
  * @param {Object} userEventConfigModuleList={} - 事件描述模型对象集合

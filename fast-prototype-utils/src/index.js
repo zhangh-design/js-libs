@@ -3,7 +3,8 @@
  * @classdesc 公用原型帮助函数工具类管理器
  * @desc 将项目开发中使用频率较高的自定义函数封装到该构造函数的原型上方便使用和统一管理
  * @param {array} requires - 需要指定初始化的某些原型帮助函数的key值，如果不传或为空数组则注册全部默认的帮助函数
- * @see 插件功能详细介绍请查看 https://github.com/zhangh-design/js-libs/tree/master/fast-prototype-utils
+ * @see 插件功能详细介绍请查看
+ * {@link https://github.com/zhangh-design/js-libs/tree/master/fast-prototype-utils GitHub}
  * @author zhangh
  * @version 1.0.0
  * @example
