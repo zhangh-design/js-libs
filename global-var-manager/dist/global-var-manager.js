@@ -110,6 +110,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var lodash_isEqual__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(lodash_isEqual__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var lodash_isEmpty__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(41);
 /* harmony import */ var lodash_isEmpty__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(lodash_isEmpty__WEBPACK_IMPORTED_MODULE_4__);
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
+
+function _iterableToArrayLimit(arr, i) { if (!(Symbol.iterator in Object(arr) || Object.prototype.toString.call(arr) === "[object Arguments]")) { return; } var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
 
 
 
@@ -127,8 +141,14 @@ __webpack_require__.r(__webpack_exports__);
  * new GlobalVar({'token': 'test_123'})
  */
 
-const GlobalVar = class Global {
-  constructor (globalVarObject = {}) {
+var GlobalVar =
+/*#__PURE__*/
+function () {
+  function Global() {
+    var globalVarObject = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
+    _classCallCheck(this, Global);
+
     /**
      * @desc 用于存放全局变量的Map对象
      * @type {Map}
@@ -136,80 +156,108 @@ const GlobalVar = class Global {
      * @readonly
      * @default
      */
-    this.globalVarMap = new Map()
-
-    this.init(globalVarObject)
+    this.globalVarMap = new Map();
+    this.init(globalVarObject);
   }
-
   /**
    * @desc 初始化
    * @param {*} [globalVarObject={}] - 初始化的全局变量Map对象
    * @private
    */
-  init (globalVarObject = {}) {
-    if (lodash_isPlainObject__WEBPACK_IMPORTED_MODULE_0___default()(globalVarObject) && lodash_isEqual__WEBPACK_IMPORTED_MODULE_3___default()(lodash_isEmpty__WEBPACK_IMPORTED_MODULE_4___default()(globalVarObject), false)) {
-      for (const [key, value] of Object.entries(globalVarObject)) {
-        if (lodash_isEqual__WEBPACK_IMPORTED_MODULE_3___default()(lodash_isNull__WEBPACK_IMPORTED_MODULE_2___default()(key), false)) {
-          this.globalVarMap.set(lodash_trim__WEBPACK_IMPORTED_MODULE_1___default()(key), value)
+
+
+  _createClass(Global, [{
+    key: "init",
+    value: function init() {
+      var globalVarObject = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
+      if (lodash_isPlainObject__WEBPACK_IMPORTED_MODULE_0___default()(globalVarObject) && lodash_isEqual__WEBPACK_IMPORTED_MODULE_3___default()(lodash_isEmpty__WEBPACK_IMPORTED_MODULE_4___default()(globalVarObject), false)) {
+        for (var _i = 0, _Object$entries = Object.entries(globalVarObject); _i < _Object$entries.length; _i++) {
+          var _Object$entries$_i = _slicedToArray(_Object$entries[_i], 2),
+              key = _Object$entries$_i[0],
+              value = _Object$entries$_i[1];
+
+          if (lodash_isEqual__WEBPACK_IMPORTED_MODULE_3___default()(lodash_isNull__WEBPACK_IMPORTED_MODULE_2___default()(key), false)) {
+            this.globalVarMap.set(lodash_trim__WEBPACK_IMPORTED_MODULE_1___default()(key), value);
+          }
         }
       }
     }
-  }
+    /**
+    * @desc 获取某个全局变量的value，没有获取到将返回null
+    * @param {*} key - 用于获取全局变量value的key名称
+    * @param {*} [defaultValue=null] - 如果获取不到值就返回传递的默认值
+    * @example
+    * let globalVar = new GlobalVar({'token': 'test_123'})
+    * globalVar.getValue('token', 'test')
+    */
 
-  /**
-  * @desc 获取某个全局变量的value，没有获取到将返回null
-  * @param {*} key - 用于获取全局变量value的key名称
-  * @param {*} [defaultValue=null] - 如果获取不到值就返回传递的默认值
-  * @example
-  * let globalVar = new GlobalVar({'token': 'test_123'})
-  * globalVar.getValue('token', 'test')
-  */
-  getValue (key = '', defaultValue = null) {
-    if (lodash_isEqual__WEBPACK_IMPORTED_MODULE_3___default()(lodash_isNull__WEBPACK_IMPORTED_MODULE_2___default()(key), false) && this.globalVarMap.has(lodash_trim__WEBPACK_IMPORTED_MODULE_1___default()(key))) {
-      return this.globalVarMap.get(lodash_trim__WEBPACK_IMPORTED_MODULE_1___default()(key))
+  }, {
+    key: "getValue",
+    value: function getValue() {
+      var key = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+      var defaultValue = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+
+      if (lodash_isEqual__WEBPACK_IMPORTED_MODULE_3___default()(lodash_isNull__WEBPACK_IMPORTED_MODULE_2___default()(key), false) && this.globalVarMap.has(lodash_trim__WEBPACK_IMPORTED_MODULE_1___default()(key))) {
+        return this.globalVarMap.get(lodash_trim__WEBPACK_IMPORTED_MODULE_1___default()(key));
+      }
+
+      return defaultValue;
     }
-    return defaultValue
-  }
+    /**
+    * @desc 添加或者更新某个key的value
+    * @param {*} key - key键
+    * @param {*} value - value值
+    * @example
+    * let globalVar = new GlobalVar({'token': 'test_123'})
+    * globalVar.addOrUpdate('token', 'test')
+    */
 
-  /**
-  * @desc 添加或者更新某个key的value
-  * @param {*} key - key键
-  * @param {*} value - value值
-  * @example
-  * let globalVar = new GlobalVar({'token': 'test_123'})
-  * globalVar.addOrUpdate('token', 'test')
-  */
-  addOrUpdate (key = '', value = '') {
-    if (lodash_isEqual__WEBPACK_IMPORTED_MODULE_3___default()(lodash_isNull__WEBPACK_IMPORTED_MODULE_2___default()(key), false)) {
-      this.globalVarMap.set(lodash_trim__WEBPACK_IMPORTED_MODULE_1___default()(key), lodash_trim__WEBPACK_IMPORTED_MODULE_1___default()(value))
+  }, {
+    key: "addOrUpdate",
+    value: function addOrUpdate() {
+      var key = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+      var value = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
+
+      if (lodash_isEqual__WEBPACK_IMPORTED_MODULE_3___default()(lodash_isNull__WEBPACK_IMPORTED_MODULE_2___default()(key), false)) {
+        this.globalVarMap.set(lodash_trim__WEBPACK_IMPORTED_MODULE_1___default()(key), lodash_trim__WEBPACK_IMPORTED_MODULE_1___default()(value));
+      }
     }
-  }
+    /**
+    * @desc 删除某个key对应的全局变量
+    * @param {*} key - key键
+    * @example
+    * let globalVar = new GlobalVar({'token': 'test_123'})
+    * globalVar.evict('token')
+    */
 
-  /**
-  * @desc 删除某个key对应的全局变量
-  * @param {*} key - key键
-  * @example
-  * let globalVar = new GlobalVar({'token': 'test_123'})
-  * globalVar.evict('token')
-  */
-  evict (key = '') {
-    if (lodash_isEqual__WEBPACK_IMPORTED_MODULE_3___default()(lodash_isNull__WEBPACK_IMPORTED_MODULE_2___default()(key), false) && this.globalVarMap.has(lodash_trim__WEBPACK_IMPORTED_MODULE_1___default()(key))) {
-      this.globalVarMap.delete(lodash_trim__WEBPACK_IMPORTED_MODULE_1___default()(key))
+  }, {
+    key: "evict",
+    value: function evict() {
+      var key = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+
+      if (lodash_isEqual__WEBPACK_IMPORTED_MODULE_3___default()(lodash_isNull__WEBPACK_IMPORTED_MODULE_2___default()(key), false) && this.globalVarMap.has(lodash_trim__WEBPACK_IMPORTED_MODULE_1___default()(key))) {
+        this.globalVarMap["delete"](lodash_trim__WEBPACK_IMPORTED_MODULE_1___default()(key));
+      }
     }
-  }
+    /**
+    * @desc 清空所有全局变量
+    * @example
+    * let globalVar = new GlobalVar({'token': 'test_123'})
+    * globalVar.evictAll()
+    */
 
-  /**
-  * @desc 清空所有全局变量
-  * @example
-  * let globalVar = new GlobalVar({'token': 'test_123'})
-  * globalVar.evictAll()
-  */
-  evictAll () {
-    this.globalVarMap.clear()
-  }
-}
+  }, {
+    key: "evictAll",
+    value: function evictAll() {
+      this.globalVarMap.clear();
+    }
+  }]);
+
+  return Global;
+}();
+
 /* harmony default export */ __webpack_exports__["default"] = (GlobalVar);
-
 
 /***/ }),
 /* 1 */
