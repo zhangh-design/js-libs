@@ -11,7 +11,7 @@
 	<script type="text/javascript" src="loader-api.js"></script>
 </body>
 <script>
-	let apiList = [{
+	const apiList = [{
 	  name: 'get',
 	  desc: '',
 	  method: 'GET',
@@ -41,7 +41,7 @@
 	    }
 	  }
 	}]
-	let userModules = [{
+	const userModules = [{
 	  name: 'get',
 	  desc: '用户权限列表',
 	  method: 'GET',
@@ -88,9 +88,10 @@
 	}
 	]
 
+	// eslint-disable-next-line no-undef
 	const Loader = new LoaderApiLibrary({
-	  'user': apiList,
-	  'modules': userModules
+	  user: apiList,
+	  modules: userModules
 	}, {
 	  statusMessage: {
 	    404: '找不到请求地址'

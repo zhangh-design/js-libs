@@ -9,7 +9,8 @@
 <body>
 	<script src="global-var-manager.min.js"></script>
 	<script>
-		const GlobalVar = new GlobalVarManagerLibrary({ 'token': 'test_123' })
+		// eslint-disable-next-line no-undef
+		const GlobalVar = new GlobalVarManagerLibrary({ token: 'test_123' })
 		
 		console.info(GlobalVar.getValue('token', 'test'));
 	</script>

@@ -14,7 +14,7 @@
 		var childInstance = new Child()
 		// 事件模型列表
 		const eventModuleConfig = {
-		  'game': [
+		  game: [
 		    { name: 'runEvent', desc: '触发跑步事件', order: 'asc', fireData: { name: '', address: '', date: '' } },
 		    { name: 'swimEvent', desc: '触发游泳事件', order: 'desc', fireData: {} }
 		  ]
@@ -22,7 +22,7 @@
 		// 初始化事件加载器，传入事件模型
 		const ObserverManager = new ObserverManagerLibrary(eventModuleConfig)
 		// 事件 handler 执行函数
-		let runHandler = function (a, b, { name, date }) {
+		const runHandler = function (a, b, { name, date }) {
 		  console.info('run', a, b, name, date);
 		}
 		// 在 window 环境下注册事件，将 handler 函数绑定到 window 环境下执行，传参1和3
@@ -40,7 +40,7 @@
 		}, 500);
 		
 		// 事件 handler2 执行函数
-		let runHandler2 = function (a, b, c) {
+		const runHandler2 = function (a, b, c) {
 		  console.info('run', a, b, c);
 		}
 

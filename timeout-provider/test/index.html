@@ -17,21 +17,21 @@
 		}
 		const personInstance = new Person()
 		// 单个定时器
-		let see = function (...params) {
+		const see = function (...params) {
 		  console.log(params[0], ' ', this.name, ' ', params[1]);
 		}
 		tp.setTimeout(personInstance, see, 2000, 'hello', '!')
 
 		// 循环定时器
 		window.counter = 5
-		let run = function (...params) {
+		const run = function (...params) {
 		  console.info(params[0], ' ', this.name, ' ', params[1]);
 		  return window.counter--
 		}
 		tp.setInterval(personInstance, run, 2000, 'go', 'run')
 
 		// 节流定时器
-		let doSize = function () {
+		const doSize = function () {
 		  console.info('resize');
 		}
 		var myDebounce = tp.setThrottle(personInstance, doSize, 3000)
