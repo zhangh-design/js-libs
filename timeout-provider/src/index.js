@@ -40,6 +40,7 @@ const TimeoutProvider = class TimeoutProvider {
     // @ts-ignore
     return _delay(_bind(handler, scope), timeout, ...params)
   }
+
   /**
    * @desc 循环定时器
    * @param {this} scope - 提供给 handler 参数的作用域
@@ -63,7 +64,7 @@ const TimeoutProvider = class TimeoutProvider {
     }
     return _delay(function fn (...params) {
       // @ts-ignore
-      let result = _bind(handler, scope)(...params)
+      const result = _bind(handler, scope)(...params)
       if (_isEqual(_isNil(result), false)) {
         result && _delay(fn, interval, ...params)
       }
