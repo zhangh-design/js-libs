@@ -1,5 +1,5 @@
 if (process.env.NODE_ENV === 'production') {
-  module.exports = require('./dist/loader-api.min.js')
+  module.exports = require('./dist/fast-prototype-utils.min.js')
 } else {
-  module.exports = require('./dist/loader-api.js')
+  module.exports = require('./dist/fast-prototype-utils.js')
 }
