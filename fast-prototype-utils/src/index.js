@@ -38,6 +38,7 @@ const FastPrototypeUtils = class FastPrototypeUtils {
     this.prefixStr = 'f_'
     this.init(requires)
   }
+
   /**
    * @desc 初始化默认附加原型帮助函数
    * @access private
