@@ -6,7 +6,7 @@ const lodashWebpackPlugin = require('lodash-webpack-plugin')
 const terserPlugin = require('terser-webpack-plugin')
 
 function resolve (dir) {
-	return path.join(__dirname, '..', dir)
+	return path.join(__dirname, '.', dir)
 }
 
 module.exports = {
@@ -32,19 +32,18 @@ module.exports = {
 	module: {
 		rules: [
 			{
-				test: /\.(js|vue)$/,
-				loader: 'eslint-loader',
-				enforce: 'pre',
-				include: [resolve('src'), resolve('test')],
-				options: {
-					formatter: require('eslint-friendly-formatter')
-				}
-			},
-			{
 				test: /\.js$/,
 				exclude: /node_modules/,
-				use: ['babel-loader'],
-				include: [resolve('src'), resolve('test')]
+				use: ['babel-loader'/* ,{
+					// 如果运行 npm run build 命令出现找不到 `eslint`，可以先安装其它插件包然后在单独执行 cnpm install eslint-loader eslint-friendly-formatter -D
+					// 如果还是有问题可以注释这个eslint-loader
+					loader: 'eslint-loader',
+					options: {
+						fix: true,
+						formatter: require('eslint-friendly-formatter')
+					}
+				} */],
+				include: [resolve('src')]
 			}
 		]
 	},
