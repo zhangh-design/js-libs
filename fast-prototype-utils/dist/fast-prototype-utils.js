@@ -125,6 +125,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var lodash_isNil__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(lodash_isNil__WEBPACK_IMPORTED_MODULE_11__);
 /* harmony import */ var lodash_startsWith__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(74);
 /* harmony import */ var lodash_startsWith__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(lodash_startsWith__WEBPACK_IMPORTED_MODULE_12__);
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
 /**
  * @class FastPrototypeUtils
  * @classdesc 公用原型帮助函数工具类管理器
@@ -150,11 +156,17 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-const FastPrototypeUtils = class FastPrototypeUtils {
+var FastPrototypeUtils =
+/*#__PURE__*/
+function () {
   /**
    * @param {array} requires - 需要初始化的原型帮助函数的key键列表
    */
-  constructor (requires = []) {
+  function FastPrototypeUtils() {
+    var requires = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+
+    _classCallCheck(this, FastPrototypeUtils);
+
     /**
      * @desc 函数名称默认前缀
      * @readonly
@@ -162,8 +174,8 @@ const FastPrototypeUtils = class FastPrototypeUtils {
      * @type {string}
      * @default
      */
-    this.prefixStr = 'f_'
-    this.init(requires)
+    this.prefixStr = 'f_';
+    this.init(requires);
   }
   /**
    * @desc 初始化默认附加原型帮助函数
@@ -172,94 +184,132 @@ const FastPrototypeUtils = class FastPrototypeUtils {
    * @example
    * init(['Promise.f_done','Promise.f_finally'])
    */
-  init (requires = []) {
-    lodash_forOwn__WEBPACK_IMPORTED_MODULE_7___default()(lodash_isEmpty__WEBPACK_IMPORTED_MODULE_4___default()(requires) ? _config_utils__WEBPACK_IMPORTED_MODULE_0__["default"] : lodash_pick__WEBPACK_IMPORTED_MODULE_8___default()(_config_utils__WEBPACK_IMPORTED_MODULE_0__["default"], requires), value => {
-      value()
-    })
-  }
 
-  /**
-   * @desc 返回已经配置的所有原型帮助函数的key键（包括没有初始化的）
-   * @returns {array}
-   * @example
-   * fastPrototypeUtils.getKeys()
-   */
-  getKeys () {
-    return lodash_keys__WEBPACK_IMPORTED_MODULE_9___default()(_config_utils__WEBPACK_IMPORTED_MODULE_0__["default"])
-  }
 
-  /**
-   * @desc 查看指定原型函数名称是否已经定义在插件配置列表中
-   * @param {string} key - 原型帮助函数的key值
-   * @returns {boolean}
-   * @example
-   * fastPrototypeUtils.include('Number.f_toNumber')
-   */
-  include (key = '') {
-    return lodash_includes__WEBPACK_IMPORTED_MODULE_10___default()(lodash_keys__WEBPACK_IMPORTED_MODULE_9___default()(_config_utils__WEBPACK_IMPORTED_MODULE_0__["default"]), key)
-  }
+  _createClass(FastPrototypeUtils, [{
+    key: "init",
+    value: function init() {
+      var requires = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
 
-  /**
-   * @desc 注册并添加一个原型帮助函数
-   * @param {function} constructorFn 构造函数本身
-   * @param {string} name 名称key值
-   * @param {function} handler 处理逻辑函数
-   * @example
-   * const Person = function(){}
-   * fastPrototypeUtils.add(Person, 'getName', function(){return 'hello'})
-   * const PInstance = new Person
-   * console.log(PInstance.getName())
-   * console.log(Person.prototype.getName())
-   */
-  add (constructorFn = null, name = '', handler = function () {}) {
-    if (lodash_isNil__WEBPACK_IMPORTED_MODULE_11___default()(constructorFn) || lodash_isNil__WEBPACK_IMPORTED_MODULE_11___default()(handler) || lodash_isNil__WEBPACK_IMPORTED_MODULE_11___default()(name) || lodash_isEqual__WEBPACK_IMPORTED_MODULE_5___default()(lodash_isFunction__WEBPACK_IMPORTED_MODULE_3___default()(constructorFn), false) || lodash_isEqual__WEBPACK_IMPORTED_MODULE_5___default()(lodash_isFunction__WEBPACK_IMPORTED_MODULE_3___default()(handler), false)) {
-      return
+      lodash_forOwn__WEBPACK_IMPORTED_MODULE_7___default()(lodash_isEmpty__WEBPACK_IMPORTED_MODULE_4___default()(requires) ? _config_utils__WEBPACK_IMPORTED_MODULE_0__["default"] : lodash_pick__WEBPACK_IMPORTED_MODULE_8___default()(_config_utils__WEBPACK_IMPORTED_MODULE_0__["default"], requires), function (value) {
+        value();
+      });
     }
-    name = lodash_startsWith__WEBPACK_IMPORTED_MODULE_12___default()(name, this.prefixStr) ? name : `${this.prefixStr}${name}`
-    if (Reflect.isExtensible(constructorFn) && lodash_isEqual__WEBPACK_IMPORTED_MODULE_5___default()(lodash_hasIn__WEBPACK_IMPORTED_MODULE_6___default()(constructorFn.prototype, name), false) && lodash_isEqual__WEBPACK_IMPORTED_MODULE_5___default()(Reflect.has(_config_utils__WEBPACK_IMPORTED_MODULE_0__["default"], `${lodash_get__WEBPACK_IMPORTED_MODULE_2___default()(constructorFn, 'name')}.${name}`), false)) {
-      lodash_set__WEBPACK_IMPORTED_MODULE_1___default()(constructorFn, `prototype.${name}`, handler)
-      _config_utils__WEBPACK_IMPORTED_MODULE_0__["default"][`${lodash_get__WEBPACK_IMPORTED_MODULE_2___default()(constructorFn, 'name')}.${name}`] = handler
-    }
-  }
+    /**
+     * @desc 返回已经配置的所有原型帮助函数的key键（包括没有初始化的）
+     * @returns {array}
+     * @example
+     * fastPrototypeUtils.getKeys()
+     */
 
-  /**
-   * @desc 移除自定义的某个 prototype 帮助函数
-   * @param {function} constructorFn - 构造函数本身
-   * @param {string} name - 名称key值
-   * @example
-   * fastPrototypeUtils.remove(Person, 'getName')
-   */
-  remove (constructorFn = null, name = '') {
-    if (lodash_isNil__WEBPACK_IMPORTED_MODULE_11___default()(constructorFn) || lodash_isNil__WEBPACK_IMPORTED_MODULE_11___default()(name) || lodash_isEqual__WEBPACK_IMPORTED_MODULE_5___default()(lodash_isFunction__WEBPACK_IMPORTED_MODULE_3___default()(constructorFn), false)) {
-      return
+  }, {
+    key: "getKeys",
+    value: function getKeys() {
+      return lodash_keys__WEBPACK_IMPORTED_MODULE_9___default()(_config_utils__WEBPACK_IMPORTED_MODULE_0__["default"]);
     }
-    if (Reflect.isExtensible(constructorFn) && lodash_hasIn__WEBPACK_IMPORTED_MODULE_6___default()(constructorFn.prototype, name) && Reflect.has(_config_utils__WEBPACK_IMPORTED_MODULE_0__["default"], `${lodash_get__WEBPACK_IMPORTED_MODULE_2___default()(constructorFn, 'name')}.${name}`)) {
-      Reflect.deleteProperty(constructorFn.prototype, name)
-      Reflect.deleteProperty(_config_utils__WEBPACK_IMPORTED_MODULE_0__["default"], `${lodash_get__WEBPACK_IMPORTED_MODULE_2___default()(constructorFn, 'name')}.${name}`)
-    }
-  }
+    /**
+     * @desc 查看指定原型函数名称是否已经定义在插件配置列表中
+     * @param {string} key - 原型帮助函数的key值
+     * @returns {boolean}
+     * @example
+     * fastPrototypeUtils.include('Number.f_toNumber')
+     */
 
-  /**
-   * @desc 复写某个默认的原型帮助函数
-   * @param {function} constructorFn - 构造函数本身
-   * @param {string} name - 名称key值
-   * @example
-   * fastPrototypeUtils.cover(Date, 'f_format', function(){return new Date()})
-   */
-  cover (constructorFn = null, name = '', handler = function () {}) {
-    if (lodash_isNil__WEBPACK_IMPORTED_MODULE_11___default()(constructorFn) || lodash_isNil__WEBPACK_IMPORTED_MODULE_11___default()(name) || lodash_isEqual__WEBPACK_IMPORTED_MODULE_5___default()(lodash_isFunction__WEBPACK_IMPORTED_MODULE_3___default()(constructorFn), false)) {
-      return
+  }, {
+    key: "include",
+    value: function include() {
+      var key = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+      return lodash_includes__WEBPACK_IMPORTED_MODULE_10___default()(lodash_keys__WEBPACK_IMPORTED_MODULE_9___default()(_config_utils__WEBPACK_IMPORTED_MODULE_0__["default"]), key);
     }
-    if (Reflect.isExtensible(constructorFn) && lodash_hasIn__WEBPACK_IMPORTED_MODULE_6___default()(constructorFn.prototype, name) && Reflect.has(_config_utils__WEBPACK_IMPORTED_MODULE_0__["default"], `${lodash_get__WEBPACK_IMPORTED_MODULE_2___default()(constructorFn, 'name')}.${name}`)) {
-      Reflect.deleteProperty(constructorFn, name)
-      Reflect.deleteProperty(_config_utils__WEBPACK_IMPORTED_MODULE_0__["default"], `${lodash_get__WEBPACK_IMPORTED_MODULE_2___default()(constructorFn, 'name')}.${name}`)
-      lodash_set__WEBPACK_IMPORTED_MODULE_1___default()(constructorFn, `prototype.${name}`, handler)
-      _config_utils__WEBPACK_IMPORTED_MODULE_0__["default"][`${lodash_get__WEBPACK_IMPORTED_MODULE_2___default()(constructorFn, 'name')}.${name}`] = handler
+    /**
+     * @desc 注册并添加一个原型帮助函数
+     * @param {function} constructorFn 构造函数本身
+     * @param {string} name 名称key值
+     * @param {function} handler 处理逻辑函数
+     * @example
+     * const Person = function(){}
+     * fastPrototypeUtils.add(Person, 'getName', function(){return 'hello'})
+     * const PInstance = new Person
+     * console.log(PInstance.getName())
+     * console.log(Person.prototype.getName())
+     */
+
+  }, {
+    key: "add",
+    value: function add() {
+      var constructorFn = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+      var name = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
+      var handler = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : function () {};
+
+      if (lodash_isNil__WEBPACK_IMPORTED_MODULE_11___default()(constructorFn) || lodash_isNil__WEBPACK_IMPORTED_MODULE_11___default()(handler) || lodash_isNil__WEBPACK_IMPORTED_MODULE_11___default()(name) || lodash_isEqual__WEBPACK_IMPORTED_MODULE_5___default()(lodash_isFunction__WEBPACK_IMPORTED_MODULE_3___default()(constructorFn), false) || lodash_isEqual__WEBPACK_IMPORTED_MODULE_5___default()(lodash_isFunction__WEBPACK_IMPORTED_MODULE_3___default()(handler), false)) {
+        return;
+      }
+
+      name = lodash_startsWith__WEBPACK_IMPORTED_MODULE_12___default()(name, this.prefixStr) ? name : "".concat(this.prefixStr).concat(name);
+
+      if (Reflect.isExtensible(constructorFn) && lodash_isEqual__WEBPACK_IMPORTED_MODULE_5___default()(lodash_hasIn__WEBPACK_IMPORTED_MODULE_6___default()(constructorFn.prototype, name), false) && lodash_isEqual__WEBPACK_IMPORTED_MODULE_5___default()(Reflect.has(_config_utils__WEBPACK_IMPORTED_MODULE_0__["default"], "".concat(lodash_get__WEBPACK_IMPORTED_MODULE_2___default()(constructorFn, 'name'), ".").concat(name)), false)) {
+        lodash_set__WEBPACK_IMPORTED_MODULE_1___default()(constructorFn, "prototype.".concat(name), handler);
+
+        _config_utils__WEBPACK_IMPORTED_MODULE_0__["default"]["".concat(lodash_get__WEBPACK_IMPORTED_MODULE_2___default()(constructorFn, 'name'), ".").concat(name)] = handler;
+      }
     }
-  }
-}
+    /**
+     * @desc 移除自定义的某个 prototype 帮助函数
+     * @param {function} constructorFn - 构造函数本身
+     * @param {string} name - 名称key值
+     * @example
+     * fastPrototypeUtils.remove(Person, 'getName')
+     */
+
+  }, {
+    key: "remove",
+    value: function remove() {
+      var constructorFn = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+      var name = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
+
+      if (lodash_isNil__WEBPACK_IMPORTED_MODULE_11___default()(constructorFn) || lodash_isNil__WEBPACK_IMPORTED_MODULE_11___default()(name) || lodash_isEqual__WEBPACK_IMPORTED_MODULE_5___default()(lodash_isFunction__WEBPACK_IMPORTED_MODULE_3___default()(constructorFn), false)) {
+        return;
+      }
+
+      if (Reflect.isExtensible(constructorFn) && lodash_hasIn__WEBPACK_IMPORTED_MODULE_6___default()(constructorFn.prototype, name) && Reflect.has(_config_utils__WEBPACK_IMPORTED_MODULE_0__["default"], "".concat(lodash_get__WEBPACK_IMPORTED_MODULE_2___default()(constructorFn, 'name'), ".").concat(name))) {
+        Reflect.deleteProperty(constructorFn.prototype, name);
+        Reflect.deleteProperty(_config_utils__WEBPACK_IMPORTED_MODULE_0__["default"], "".concat(lodash_get__WEBPACK_IMPORTED_MODULE_2___default()(constructorFn, 'name'), ".").concat(name));
+      }
+    }
+    /**
+     * @desc 复写某个默认的原型帮助函数
+     * @param {function} constructorFn - 构造函数本身
+     * @param {string} name - 名称key值
+     * @example
+     * fastPrototypeUtils.cover(Date, 'f_format', function(){return new Date()})
+     */
+
+  }, {
+    key: "cover",
+    value: function cover() {
+      var constructorFn = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+      var name = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
+      var handler = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : function () {};
+
+      if (lodash_isNil__WEBPACK_IMPORTED_MODULE_11___default()(constructorFn) || lodash_isNil__WEBPACK_IMPORTED_MODULE_11___default()(name) || lodash_isEqual__WEBPACK_IMPORTED_MODULE_5___default()(lodash_isFunction__WEBPACK_IMPORTED_MODULE_3___default()(constructorFn), false)) {
+        return;
+      }
+
+      if (Reflect.isExtensible(constructorFn) && lodash_hasIn__WEBPACK_IMPORTED_MODULE_6___default()(constructorFn.prototype, name) && Reflect.has(_config_utils__WEBPACK_IMPORTED_MODULE_0__["default"], "".concat(lodash_get__WEBPACK_IMPORTED_MODULE_2___default()(constructorFn, 'name'), ".").concat(name))) {
+        Reflect.deleteProperty(constructorFn, name);
+        Reflect.deleteProperty(_config_utils__WEBPACK_IMPORTED_MODULE_0__["default"], "".concat(lodash_get__WEBPACK_IMPORTED_MODULE_2___default()(constructorFn, 'name'), ".").concat(name));
+
+        lodash_set__WEBPACK_IMPORTED_MODULE_1___default()(constructorFn, "prototype.".concat(name), handler);
+
+        _config_utils__WEBPACK_IMPORTED_MODULE_0__["default"]["".concat(lodash_get__WEBPACK_IMPORTED_MODULE_2___default()(constructorFn, 'name'), ".").concat(name)] = handler;
+      }
+    }
+  }]);
+
+  return FastPrototypeUtils;
+}();
+
 /* harmony default export */ __webpack_exports__["default"] = (FastPrototypeUtils);
-
 
 /***/ }),
 /* 1 */
@@ -307,73 +357,91 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
-
-const utils = {
-  'Promise.f_done': function () {
+var utils = {
+  'Promise.f_done': function PromiseF_done() {
     lodash_set__WEBPACK_IMPORTED_MODULE_2___default()(Promise, 'prototype.f_done', function (onFulfilled, onRejected) {
-      this.then(onFulfilled, onRejected).catch(function (reason) {
+      this.then(onFulfilled, onRejected)["catch"](function (reason) {
         // 抛出一个全局错误
-        setTimeout(() => { throw reason }, 0)
-      })
-    })
+        setTimeout(function () {
+          throw reason;
+        }, 0);
+      });
+    });
   },
-  'Promise.f_finally': function () {
-    lodash_set__WEBPACK_IMPORTED_MODULE_2___default()(Promise, 'prototype.f_finally', function (callback = function () {}) {
-      let P = this.constructor
-      return this.then(
-        value => P.resolve(callback(value)).then(() => value),
-        reason => P.resolve(callback(reason)).then(() => { throw reason })
-      )
-    })
+  'Promise.f_finally': function PromiseF_finally() {
+    lodash_set__WEBPACK_IMPORTED_MODULE_2___default()(Promise, 'prototype.f_finally', function () {
+      var callback = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : function () {};
+      var P = this.constructor;
+      return this.then(function (value) {
+        return P.resolve(callback(value)).then(function () {
+          return value;
+        });
+      }, function (reason) {
+        return P.resolve(callback(reason)).then(function () {
+          throw reason;
+        });
+      });
+    });
   },
-  'Date.f_formatToDate': function () {
-    lodash_set__WEBPACK_IMPORTED_MODULE_2___default()(Date, 'prototype.f_formatToDate', function (date = '2019-12-09 13:46:10') {
+  'Date.f_formatToDate': function DateF_formatToDate() {
+    lodash_set__WEBPACK_IMPORTED_MODULE_2___default()(Date, 'prototype.f_formatToDate', function () {
+      var date = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '2019-12-09 13:46:10';
       return dateformat_util__WEBPACK_IMPORTED_MODULE_0___default.a.formatToDate(date);
-    })
+    });
   },
-  'Date.f_format': function () {
-    lodash_set__WEBPACK_IMPORTED_MODULE_2___default()(Date, 'prototype.f_format', function (date = new Date(), format = 'yyyy-mm-dd') {
-      return dateformat_util__WEBPACK_IMPORTED_MODULE_0___default.a.format(date, format)
-    })
+  'Date.f_format': function DateF_format() {
+    lodash_set__WEBPACK_IMPORTED_MODULE_2___default()(Date, 'prototype.f_format', function () {
+      var date = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : new Date();
+      var format = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'yyyy-mm-dd';
+      return dateformat_util__WEBPACK_IMPORTED_MODULE_0___default.a.format(date, format);
+    });
   },
-  'Date.f_now': function () {
+  'Date.f_now': function DateF_now() {
     lodash_set__WEBPACK_IMPORTED_MODULE_2___default()(Date, 'prototype.f_now', function () {
-      return lodash_now__WEBPACK_IMPORTED_MODULE_3___default()()
-    })
+      return lodash_now__WEBPACK_IMPORTED_MODULE_3___default()();
+    });
   },
-  'Number.f_toNumber': function () {
-    lodash_set__WEBPACK_IMPORTED_MODULE_2___default()(Number, 'prototype.f_toNumber', function (value = '1') {
-      return lodash_toNumber__WEBPACK_IMPORTED_MODULE_4___default()(value)
-    })
+  'Number.f_toNumber': function NumberF_toNumber() {
+    lodash_set__WEBPACK_IMPORTED_MODULE_2___default()(Number, 'prototype.f_toNumber', function () {
+      var value = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '1';
+      return lodash_toNumber__WEBPACK_IMPORTED_MODULE_4___default()(value);
+    });
   },
-  'Object.f_objectKeys': function () {
-    lodash_set__WEBPACK_IMPORTED_MODULE_2___default()(Object, 'prototype.f_keys', function (value = {}) {
-      return lodash_keys__WEBPACK_IMPORTED_MODULE_5___default()(value)
-    })
+  'Object.f_objectKeys': function ObjectF_objectKeys() {
+    lodash_set__WEBPACK_IMPORTED_MODULE_2___default()(Object, 'prototype.f_keys', function () {
+      var value = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+      return lodash_keys__WEBPACK_IMPORTED_MODULE_5___default()(value);
+    });
   },
-  'String.f_strHaveStr': function () {
-    lodash_set__WEBPACK_IMPORTED_MODULE_2___default()(String, 'prototype.f_strHaveStr', function (str = '', regStr = '') {
-      const reg = new RegExp('^.*' + regStr + '.*$');
+  'String.f_strHaveStr': function StringF_strHaveStr() {
+    lodash_set__WEBPACK_IMPORTED_MODULE_2___default()(String, 'prototype.f_strHaveStr', function () {
+      var str = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+      var regStr = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
+      var reg = new RegExp('^.*' + regStr + '.*$');
+
       if (str.match(reg)) {
-        return true
+        return true;
       }
-      return false
-    })
+
+      return false;
+    });
   },
-  'Object.f_getPureObject': function () {
+  'Object.f_getPureObject': function ObjectF_getPureObject() {
     lodash_set__WEBPACK_IMPORTED_MODULE_2___default()(Object, 'prototype.f_getPureObject', function () {
-      return Object.create(null)
-    })
+      return Object.create(null);
+    });
   },
-  'String.f_getWordCount': function () {
-    lodash_set__WEBPACK_IMPORTED_MODULE_2___default()(String, 'prototype.f_getWordCount', function (str = '') {
-      const pattern = /[a-zA-Z0-9_\u0392-\u03c9]+|[\u4E00-\u9FFF\u3400-\u4dbf\uf900-\ufaff\u3040-\u309f\uac00-\ud7af]+/g;
-      let m = str.match(pattern);
-      let count = 0;
+  'String.f_getWordCount': function StringF_getWordCount() {
+    lodash_set__WEBPACK_IMPORTED_MODULE_2___default()(String, 'prototype.f_getWordCount', function () {
+      var str = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+      var pattern = /[a-zA-Z0-9_\u0392-\u03c9]+|[\u4E00-\u9FFF\u3400-\u4dbf\uf900-\ufaff\u3040-\u309f\uac00-\ud7af]+/g;
+      var m = str.match(pattern);
+      var count = 0;
+
       if (m === null) {
         return count;
       }
+
       for (var i = 0; i < m.length; i++) {
         if (m[i].charCodeAt(0) >= 0x4E00) {
           count += m[i].length;
@@ -381,61 +449,77 @@ const utils = {
           count += 1;
         }
       }
+
       return count;
-    })
+    });
   },
-  'String.f_toString': function () {
-    lodash_set__WEBPACK_IMPORTED_MODULE_2___default()(String, 'prototype.f_toString', function (val = '1') {
-      return (val).toString()
-    })
+  'String.f_toString': function StringF_toString() {
+    lodash_set__WEBPACK_IMPORTED_MODULE_2___default()(String, 'prototype.f_toString', function () {
+      var val = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '1';
+      return val.toString();
+    });
   },
-  'Window.f_getUrlParams': function () {
-    lodash_set__WEBPACK_IMPORTED_MODULE_2___default()(Window, 'prototype.f_getUrlParams', function (url = window.location.href) {
-      return querystring__WEBPACK_IMPORTED_MODULE_1___default.a.parse(url.split('?')[1])
-    })
+  'Window.f_getUrlParams': function WindowF_getUrlParams() {
+    lodash_set__WEBPACK_IMPORTED_MODULE_2___default()(Window, 'prototype.f_getUrlParams', function () {
+      var url = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : window.location.href;
+      return querystring__WEBPACK_IMPORTED_MODULE_1___default.a.parse(url.split('?')[1]);
+    });
   },
-  'Number.f_getNumBit': function () {
-    lodash_set__WEBPACK_IMPORTED_MODULE_2___default()(Number, 'prototype.f_getNumBit', function (num = 1) {
-      let intNum = num.toFixed(0)
-      return intNum.length
-    })
+  'Number.f_getNumBit': function NumberF_getNumBit() {
+    lodash_set__WEBPACK_IMPORTED_MODULE_2___default()(Number, 'prototype.f_getNumBit', function () {
+      var num = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
+      var intNum = num.toFixed(0);
+      return intNum.length;
+    });
   },
-  'Date.f_isTodayDate': function () {
-    lodash_set__WEBPACK_IMPORTED_MODULE_2___default()(Date, 'prototype.f_isTodayDate', function (time = new Date()) {
+  'Date.f_isTodayDate': function DateF_isTodayDate() {
+    lodash_set__WEBPACK_IMPORTED_MODULE_2___default()(Date, 'prototype.f_isTodayDate', function () {
+      var time = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : new Date();
+
       if (time.toDateString() === new Date().toDateString()) {
-        return true
+        return true;
       } else {
-        return false
+        return false;
       }
-    })
+    });
   },
-  'Date.f_getDateByMon': function () {
-    lodash_set__WEBPACK_IMPORTED_MODULE_2___default()(Date, 'prototype.f_getDateByMon', function (year = '2019', month = '12') {
-      let d = new Date(year, month, 0)
-      return d.getDate()
-    })
+  'Date.f_getDateByMon': function DateF_getDateByMon() {
+    lodash_set__WEBPACK_IMPORTED_MODULE_2___default()(Date, 'prototype.f_getDateByMon', function () {
+      var year = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '2019';
+      var month = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '12';
+      var d = new Date(year, month, 0);
+      return d.getDate();
+    });
   },
-  'String.f_delBlankSpace': function () {
-    lodash_set__WEBPACK_IMPORTED_MODULE_2___default()(String, 'prototype.f_delBlankSpace', function (str = '1') {
-      str = str.replace(/<\/?[^>]*>/gim, '');// 去掉所有的html标记
-      let result = str.replace(/(^\s+)|(\s+$)/g, '');// 去掉前后空格
-      return result.replace(/\s/g, '');// 去除文章中间空格
-    })
+  'String.f_delBlankSpace': function StringF_delBlankSpace() {
+    lodash_set__WEBPACK_IMPORTED_MODULE_2___default()(String, 'prototype.f_delBlankSpace', function () {
+      var str = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '1';
+      str = str.replace(/<\/?[^>]*>/gim, ''); // 去掉所有的html标记
+
+      var result = str.replace(/(^\s+)|(\s+$)/g, ''); // 去掉前后空格
+
+      return result.replace(/\s/g, ''); // 去除文章中间空格
+    });
   },
-  'String.f_cutText': function () {
-    lodash_set__WEBPACK_IMPORTED_MODULE_2___default()(String, 'prototype.f_cutText', function (str = '', maxLength = 0, showEllipsis = true) {
+  'String.f_cutText': function StringF_cutText() {
+    lodash_set__WEBPACK_IMPORTED_MODULE_2___default()(String, 'prototype.f_cutText', function () {
+      var str = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+      var maxLength = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+      var showEllipsis = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
+
       if (str.length > maxLength) {
         str = str.substr(0, maxLength);
+
         if (showEllipsis) {
           str += '...';
         }
       }
-      return str;
-    })
-  }
-}
-/* harmony default export */ __webpack_exports__["default"] = (utils);
 
+      return str;
+    });
+  }
+};
+/* harmony default export */ __webpack_exports__["default"] = (utils);
 
 /***/ }),
 /* 2 */
