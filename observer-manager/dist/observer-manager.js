@@ -4,9 +4,9 @@
 	else if(typeof define === 'function' && define.amd)
 		define([], factory);
 	else if(typeof exports === 'object')
-		exports["TimeoutProviderLibrary"] = factory();
+		exports["ObserverManagerLibrary"] = factory();
 	else
-		root["TimeoutProviderLibrary"] = factory();
+		root["ObserverManagerLibrary"] = factory();
 })(window, function() {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
@@ -183,6 +183,7 @@ function () {
 
     _classCallCheck(this, Observer);
 
+    var b = '';
     /**
      * @access private
      * @readonly
@@ -190,6 +191,7 @@ function () {
      * @type {Map}
      * @desc 存放事件模型
      * */
+
     this.eventModules = new Map();
     /**
      * @access private
@@ -3881,4 +3883,4 @@ module.exports = arrayFilter;
 /***/ })
 /******/ ])["default"];
 });
-//# sourceMappingURL=timeout-provider.js.map
+//# sourceMappingURL=observer-manager.js.map
