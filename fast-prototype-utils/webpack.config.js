@@ -2,12 +2,11 @@
 /* eslint-disable */
 const path = require('path')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
-const htmlWebpackExternalsPlugin = require('html-webpack-externals-plugin')
-const lodashWebpackPlugin = require('lodash-webpack-plugin')
-const terserPlugin = require('terser-webpack-plugin')
+const LodashWebpackPlugin = require('lodash-webpack-plugin')
+const TerserPlugin = require('terser-webpack-plugin')
 
 function resolve (dir) {
-	return path.join(__dirname, '..', dir)
+	return path.join(__dirname, '.', dir)
 }
 
 module.exports = {
@@ -33,30 +32,29 @@ module.exports = {
 	module: {
 		rules: [
 			{
-				test: /\.(js|vue)$/,
-				loader: 'eslint-loader',
-				enforce: 'pre',
-				include: [resolve('src'), resolve('test')],
-				options: {
-					formatter: require('eslint-friendly-formatter')
-				}
-			},
-			{
 				test: /\.js$/,
 				exclude: /node_modules/,
-				use: ['babel-loader'],
-				include: [resolve('src'), resolve('test')]
+				use: ['babel-loader'/* ,{
+					// 如果运行 npm run build 命令出现找不到 `eslint`，可以先安装其它插件包然后在单独执行 cnpm install eslint-loader eslint-friendly-formatter -D
+					// 如果还是有问题可以注释这个eslint-loader
+					loader: 'eslint-loader',
+					options: {
+						fix: true,
+						formatter: require('eslint-friendly-formatter')
+					}
+				} */],
+				include: [resolve('src')]
 			}
 		]
 	},
 	plugins: [
 		new CleanWebpackPlugin(),
-		new lodashWebpackPlugin()
+		new LodashWebpackPlugin()
 	],
 	optimization: {
 		minimize: true,
 		minimizer: [
-			new terserPlugin({
+			new TerserPlugin({
 				include: /\.min\.js$/
 			})
 		]
