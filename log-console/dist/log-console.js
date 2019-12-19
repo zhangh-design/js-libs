@@ -100,6 +100,12 @@ return /******/ (function(modules) { // webpackBootstrap
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
 /**
  * @class ConsoleLog
  * @classdesc 自定义日志工具，通过日志level级别来控制项目中日志的输出
@@ -114,8 +120,15 @@ __webpack_require__.r(__webpack_exports__);
  * @example
  * new ConsoleLog(1)
  */
-const ConsoleLog = class Log {
-  constructor (level = 1, filterTagArray = []) {
+var ConsoleLog =
+/*#__PURE__*/
+function () {
+  function Log() {
+    var level = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
+    var filterTagArray = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
+
+    _classCallCheck(this, Log);
+
     /**
      * @desc 日志输出级别-普通信息，将输出v、A、i、w、e
      * @type {number}
@@ -123,7 +136,7 @@ const ConsoleLog = class Log {
      * @readonly
      * @default
      */
-    this.VERBOSE = 1
+    this.VERBOSE = 1;
     /**
      * @desc 日志输出级别-断言调试信息，将输出A、i、w、e
      * @type {number}
@@ -131,7 +144,8 @@ const ConsoleLog = class Log {
      * @readonly
      * @default
      */
-    this.ASSERT = 2
+
+    this.ASSERT = 2;
     /**
      * @desc 日志输出级别-输出提示性信息，将输出i、w、e
      * @type {number}
@@ -139,7 +153,8 @@ const ConsoleLog = class Log {
      * @readonly
      * @default
      */
-    this.INFO = 3
+
+    this.INFO = 3;
     /**
      * @desc 日志输出级别-输出警示信息，将输出w、e
      * @type {number}
@@ -147,7 +162,8 @@ const ConsoleLog = class Log {
      * @readonly
      * @default
      */
-    this.WARN = 4
+
+    this.WARN = 4;
     /**
      * @desc 日志输出级别-输出错误信息，将输出e
      * @type {number}
@@ -155,22 +171,32 @@ const ConsoleLog = class Log {
      * @readonly
      * @default
      */
-    this.ERROR = 5
 
+    this.ERROR = 5;
     /**
      * @desc 级别
      * @type {number}
      * @private
      */
-    this.level = level
+
+    this.level = level;
     /**
      * @desc 过滤的tag
      * @type {array}
      * @private
      */
-    this.filterTagArray = filterTagArray
-  }
 
+    this.filterTagArray = filterTagArray;
+    /**
+     * 定义输出对象
+     */
+
+    this.log = console.log;
+    this.assert = console.assert;
+    this.info = console.info;
+    this.warn = console.warn;
+    this.error = console.error;
+  }
   /**
    * @desc
    * 用于输出普通信息
@@ -180,85 +206,141 @@ const ConsoleLog = class Log {
    * @example
    * new ConsoleLog().v('XXX ', '开始执行', new Date())
    */
-  v (tag = '', ...msg) {
-    if (this.level <= this.VERBOSE) {
-      if (this.filterTagArray.includes(tag) === false) {
-        console.log(tag, ...msg)
-      }
-    }
-  }
 
-  /**
-   * @desc
-   * 用于输出断言调试信息-某些为false的条件下输出消息，而不是用if-else
-   * 注意：入参不能大于ASSERT
-   * @param {boolean} condition=false - 参数为false的条件下输出消息
-   * @param {string} tag='' - tag标签
-   * @param {...*} msg  - 输出信息，可以接收多个参数
-   * @example
-   * new ConsoleLog().v('XXX ', '开始执行', new Date())
-   */
-  a (condition = false, tag = '', ...msg) {
-    if (this.level <= this.ASSERT) {
-      if (this.filterTagArray.includes(tag) === false) {
-        console.assert(condition, tag, ...msg)
-      }
-    }
-  }
 
-  /**
-   * @desc
-   * 用于输出提示性信息
-   * 注意：入参不能大于INFO
-   * @param {string} tag='' - tag标签
-   * @param {...*} msg  - 输出信息，可以接收多个参数
-   * @example
-   * new ConsoleLog().v('XXX ', '开始执行', new Date())
-   */
-  i (tag = '', ...msg) {
-    if (this.level <= this.INFO) {
-      if (this.filterTagArray.includes(tag) === false) {
-        console.info(tag, ...msg)
-      }
-    }
-  }
+  _createClass(Log, [{
+    key: "v",
+    value: function v() {
+      var tag = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
 
-  /**
-   * @desc
-   * 用于输出警示信息
-   * 注意：入参不能大于WARN
-   * @param {string} tag='' - tag标签
-   * @param {...*} msg  - 输出信息，可以接收多个参数
-   * @example
-   * new ConsoleLog().v('XXX ', '开始执行', new Date())
-   */
-  w (tag = '', ...msg) {
-    if (this.level <= this.WARN) {
-      if (this.filterTagArray.includes(tag) === false) {
-        console.warn(tag, ...msg)
-      }
-    }
-  }
+      if (this.level <= this.VERBOSE) {
+        if (this.filterTagArray.includes(tag) === false) {
+          var _console;
 
-  /**
-   * @desc
-   * 用于输出错误信息
-   * 注意：入参不能大于ERROR
-   * @param {string} tag='' - tag标签
-   * @param {...*} msg  - 输出信息，可以接收多个参数
-   * @example
-   * new ConsoleLog().v('XXX ', '开始执行', new Date())
-   */
-  e (tag = '', ...msg) {
-    if (this.level <= this.ERROR) {
-      if (this.filterTagArray.includes(tag) === false) {
-        console.error(tag, ...msg)
+          for (var _len = arguments.length, msg = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+            msg[_key - 1] = arguments[_key];
+          }
+
+          (_console = console).log.apply(_console, [tag].concat(msg));
+        }
       }
     }
-  }
-}
+    /**
+     * @desc
+     * 用于输出断言调试信息-某些为false的条件下输出消息，而不是用if-else
+     * 注意：入参不能大于ASSERT
+     * @param {boolean} condition=false - 参数为false的条件下输出消息
+     * @param {string} tag='' - tag标签
+     * @param {...*} msg  - 输出信息，可以接收多个参数
+     * @example
+     * new ConsoleLog().v('XXX ', '开始执行', new Date())
+     */
+
+  }, {
+    key: "a",
+    value: function a() {
+      var condition = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
+      var tag = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
+
+      if (this.level <= this.ASSERT) {
+        if (this.filterTagArray.includes(tag) === false) {
+          var _console2;
+
+          for (var _len2 = arguments.length, msg = new Array(_len2 > 2 ? _len2 - 2 : 0), _key2 = 2; _key2 < _len2; _key2++) {
+            msg[_key2 - 2] = arguments[_key2];
+          }
+
+          (_console2 = console).assert.apply(_console2, [condition, tag].concat(msg));
+        }
+      }
+    }
+    /**
+     * @desc
+     * 用于输出提示性信息
+     * 注意：入参不能大于INFO
+     * @param {string} tag='' - tag标签
+     * @param {...*} msg  - 输出信息，可以接收多个参数
+     * @example
+     * new ConsoleLog().v('XXX ', '开始执行', new Date())
+     */
+
+  }, {
+    key: "i",
+    value: function i() {
+      var tag = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+
+      if (this.level <= this.INFO) {
+        if (this.filterTagArray.includes(tag) === false) {
+          var _console3;
+
+          for (var _len3 = arguments.length, msg = new Array(_len3 > 1 ? _len3 - 1 : 0), _key3 = 1; _key3 < _len3; _key3++) {
+            msg[_key3 - 1] = arguments[_key3];
+          }
+
+          (_console3 = console).info.apply(_console3, [tag].concat(msg));
+        }
+      }
+    }
+    /**
+     * @desc
+     * 用于输出警示信息
+     * 注意：入参不能大于WARN
+     * @param {string} tag='' - tag标签
+     * @param {...*} msg  - 输出信息，可以接收多个参数
+     * @example
+     * new ConsoleLog().v('XXX ', '开始执行', new Date())
+     */
+
+  }, {
+    key: "w",
+    value: function w() {
+      var tag = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+
+      if (this.level <= this.WARN) {
+        if (this.filterTagArray.includes(tag) === false) {
+          var _console4;
+
+          for (var _len4 = arguments.length, msg = new Array(_len4 > 1 ? _len4 - 1 : 0), _key4 = 1; _key4 < _len4; _key4++) {
+            msg[_key4 - 1] = arguments[_key4];
+          }
+
+          (_console4 = console).warn.apply(_console4, [tag].concat(msg));
+        }
+      }
+    }
+    /**
+     * @desc
+     * 用于输出错误信息
+     * 注意：入参不能大于ERROR
+     * @param {string} tag='' - tag标签
+     * @param {...*} msg  - 输出信息，可以接收多个参数
+     * @example
+     * new ConsoleLog().v('XXX ', '开始执行', new Date())
+     */
+
+  }, {
+    key: "e",
+    value: function e() {
+      var tag = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+
+      if (this.level <= this.ERROR) {
+        if (this.filterTagArray.includes(tag) === false) {
+          var _console5;
+
+          for (var _len5 = arguments.length, msg = new Array(_len5 > 1 ? _len5 - 1 : 0), _key5 = 1; _key5 < _len5; _key5++) {
+            msg[_key5 - 1] = arguments[_key5];
+          }
+
+          (_console5 = console).error.apply(_console5, [tag].concat(msg));
+        }
+      }
+    }
+  }]);
+
+  return Log;
+}();
+
 /* harmony default export */ __webpack_exports__["default"] = (ConsoleLog);
-
 
 /***/ })
 /******/ ])["default"];
