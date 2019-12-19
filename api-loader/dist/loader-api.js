@@ -146,7 +146,25 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var lodash_toUpper__WEBPACK_IMPORTED_MODULE_22___default = /*#__PURE__*/__webpack_require__.n(lodash_toUpper__WEBPACK_IMPORTED_MODULE_22__);
 /* harmony import */ var lodash_isArray__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(13);
 /* harmony import */ var lodash_isArray__WEBPACK_IMPORTED_MODULE_23___default = /*#__PURE__*/__webpack_require__.n(lodash_isArray__WEBPACK_IMPORTED_MODULE_23__);
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
+
+function _iterableToArrayLimit(arr, i) { if (!(Symbol.iterator in Object(arr) || Object.prototype.toString.call(arr) === "[object Arguments]")) { return; } var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
 
 
@@ -208,8 +226,17 @@ __webpack_require__.r(__webpack_exports__);
  * userAxiosConfig：{'timeout': 15000, 'baseURL': 'test/goods/read'}
  *
  */
-const Loader = class Api {
-  constructor (userApiConfigModuleList = {}, userApiConfig = {}, userAxiosConfig = {}) {
+
+var Loader =
+/*#__PURE__*/
+function () {
+  function Api() {
+    var userApiConfigModuleList = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+    var userApiConfig = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+    var userAxiosConfig = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+
+    _classCallCheck(this, Api);
+
     /**
      * @description
      * 如果你要在自己的业务中使用Loader构造器构造出的axios对象，可以通过实例属性api来获取，
@@ -222,29 +249,32 @@ const Loader = class Api {
      * 获取：Loader.api['goods/fruit/apple']().then((response)=>{}).catch((error)=>{})
      * 数据：{'goods/fruit/apple': [{'read': {name: 'read',desc: '获取apple列表'}}]}
      * */
-    this.api = {}
+    this.api = {};
+
     if (!lodash_isPlainObject__WEBPACK_IMPORTED_MODULE_5___default()(userApiConfig) || !lodash_isPlainObject__WEBPACK_IMPORTED_MODULE_5___default()(userAxiosConfig) || !lodash_isPlainObject__WEBPACK_IMPORTED_MODULE_5___default()(userApiConfigModuleList)) {
-      console.error('error：01')
-      return
-    }
-    // 默认配置和传入的覆盖配置
+      console.error('error：01');
+      return;
+    } // 默认配置和传入的覆盖配置
+
     /**
      * @access private
      * @readonly
      * @desc api接口模型配置参数
      *
      * */
-    this.apiParamsConfig = lodash_pick__WEBPACK_IMPORTED_MODULE_4___default()(lodash_assign__WEBPACK_IMPORTED_MODULE_3___default()(_config_index_js__WEBPACK_IMPORTED_MODULE_0__["apiDefaultConfig"], userApiConfig), lodash_keys__WEBPACK_IMPORTED_MODULE_13___default()(_config_index_js__WEBPACK_IMPORTED_MODULE_0__["apiDefaultConfig"]))
+
+
+    this.apiParamsConfig = lodash_pick__WEBPACK_IMPORTED_MODULE_4___default()(lodash_assign__WEBPACK_IMPORTED_MODULE_3___default()(_config_index_js__WEBPACK_IMPORTED_MODULE_0__["apiDefaultConfig"], userApiConfig), lodash_keys__WEBPACK_IMPORTED_MODULE_13___default()(_config_index_js__WEBPACK_IMPORTED_MODULE_0__["apiDefaultConfig"]));
     /**
      * @access private
      * @readonly
      * @desc axios实例配置模型
      *
      * */
-    this.axiosParamsConfig = lodash_pick__WEBPACK_IMPORTED_MODULE_4___default()(lodash_assign__WEBPACK_IMPORTED_MODULE_3___default()(_config_index_js__WEBPACK_IMPORTED_MODULE_0__["axiosDefaultConfig"], userAxiosConfig), lodash_keys__WEBPACK_IMPORTED_MODULE_13___default()(_config_index_js__WEBPACK_IMPORTED_MODULE_0__["axiosDefaultConfig"]))
-    this.deconstructApiConfigModule(userApiConfigModuleList)
-  }
 
+    this.axiosParamsConfig = lodash_pick__WEBPACK_IMPORTED_MODULE_4___default()(lodash_assign__WEBPACK_IMPORTED_MODULE_3___default()(_config_index_js__WEBPACK_IMPORTED_MODULE_0__["axiosDefaultConfig"], userAxiosConfig), lodash_keys__WEBPACK_IMPORTED_MODULE_13___default()(_config_index_js__WEBPACK_IMPORTED_MODULE_0__["axiosDefaultConfig"]));
+    this.deconstructApiConfigModule(userApiConfigModuleList);
+  }
   /**
    * @description 解析api模型
    * @access private
@@ -252,261 +282,376 @@ const Loader = class Api {
    * @example
    * {'goods': [{'read': {}},{'get': {}}]}
    */
-  deconstructApiConfigModule (userApiConfigModuleList) {
-    for (const [moduleFileHierarchyNameKey, moduleListValue] of Object.entries(userApiConfigModuleList)) {
-      for (const apiConfigValue of moduleListValue.values()) {
-        this.buildInstance(moduleFileHierarchyNameKey, apiConfigValue)
+
+
+  _createClass(Api, [{
+    key: "deconstructApiConfigModule",
+    value: function deconstructApiConfigModule(userApiConfigModuleList) {
+      for (var _i = 0, _Object$entries = Object.entries(userApiConfigModuleList); _i < _Object$entries.length; _i++) {
+        var _Object$entries$_i = _slicedToArray(_Object$entries[_i], 2),
+            moduleFileHierarchyNameKey = _Object$entries$_i[0],
+            moduleListValue = _Object$entries$_i[1];
+
+        var _iteratorNormalCompletion = true;
+        var _didIteratorError = false;
+        var _iteratorError = undefined;
+
+        try {
+          for (var _iterator = moduleListValue.values()[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+            var apiConfigValue = _step.value;
+            this.buildInstance(moduleFileHierarchyNameKey, apiConfigValue);
+          }
+        } catch (err) {
+          _didIteratorError = true;
+          _iteratorError = err;
+        } finally {
+          try {
+            if (!_iteratorNormalCompletion && _iterator["return"] != null) {
+              _iterator["return"]();
+            }
+          } finally {
+            if (_didIteratorError) {
+              throw _iteratorError;
+            }
+          }
+        }
       }
     }
-  }
+    /**
+     * @description 构建api实例
+     * @access private
+     * @param {string} namespace - api请求模型命名空间名称
+     * @param {Object} args - api请求模型参数
+     * @prop {string} args.name - api接口名称
+     * @prop {string} [args.method='GET'] - 请求类型
+     * @prop {string} [args.desc] - 描述
+     * @prop {string} [args.baseURL] - 访问url目录(可以是相对 URL)
+     * @prop {string} args.path='root/user/getUserInfo' - 请求接口路径
+     * @prop {string} args.mockPath='mock/root/user/getUserInfo' - mock请求接口路径
+     * @prop {boolean} [args.mock=false] - 是否打开mock操作
+     * @prop {boolean} [args.cache=false] - 是否打开cache
+     * @prop {object} [args.restful] - restful参数
+     * @prop {object} [args.headers] - 请求首部字段参数
+     * @prop {string} [args.removeInvalidChar=true] - 是否执行参数特殊字符过滤
+     * @prop {object} [args.params] - 待发送 Key/value 参数 GET
+     * @prop {object} [args.data] - POST请求，待发送 Key/value 参数
+     * @prop {object} [args.validator] - params和data参数验证对象
+     * @prop {object} [args.restfulValidator] - restful参数验证对象
+     * @prop {string} [args.responseType='json'] - 服务器响应的数据类型
+     * @prop {object} [args.proxy=null] - 定义代理服务器的主机名称和端口
+     * @example
+     * namespace：'goods/fruit'
+     * apiConfigModule: {name: 'read', desc: '', method:'GET', path: 'root/user/getUserInfo',mockPath: 'mock/root/user/getUserInfo',mock: false, cache: false, restful: {}, headers: {}, removeInvalidChar: true, params: {}, data: {},validator: {}, restfulValidator: {}, responseType: 'json', proxy: null}
+     */
 
-  /**
-   * @description 构建api实例
-   * @access private
-   * @param {string} namespace - api请求模型命名空间名称
-   * @param {Object} args - api请求模型参数
-   * @prop {string} args.name - api接口名称
-   * @prop {string} [args.method='GET'] - 请求类型
-   * @prop {string} [args.desc] - 描述
-   * @prop {string} [args.baseURL] - 访问url目录(可以是相对 URL)
-   * @prop {string} args.path='root/user/getUserInfo' - 请求接口路径
-   * @prop {string} args.mockPath='mock/root/user/getUserInfo' - mock请求接口路径
-   * @prop {boolean} [args.mock=false] - 是否打开mock操作
-   * @prop {boolean} [args.cache=false] - 是否打开cache
-   * @prop {object} [args.restful] - restful参数
-   * @prop {object} [args.headers] - 请求首部字段参数
-   * @prop {string} [args.removeInvalidChar=true] - 是否执行参数特殊字符过滤
-   * @prop {object} [args.params] - 待发送 Key/value 参数 GET
-   * @prop {object} [args.data] - POST请求，待发送 Key/value 参数
-   * @prop {object} [args.validator] - params和data参数验证对象
-   * @prop {object} [args.restfulValidator] - restful参数验证对象
-   * @prop {string} [args.responseType='json'] - 服务器响应的数据类型
-   * @prop {object} [args.proxy=null] - 定义代理服务器的主机名称和端口
-   * @example
-   * namespace：'goods/fruit'
-   * apiConfigModule: {name: 'read', desc: '', method:'GET', path: 'root/user/getUserInfo',mockPath: 'mock/root/user/getUserInfo',mock: false, cache: false, restful: {}, headers: {}, removeInvalidChar: true, params: {}, data: {},validator: {}, restfulValidator: {}, responseType: 'json', proxy: null}
-   */
-  buildInstance (namespace = '', {
-    name,
-    method = 'GET',
-    desc = '',
-    baseURL,
-    path,
-    mockPath,
-    mock,
-    cache = false,
-    restful = {},
-    headers = {},
-    removeInvalidChar = true,
-    params = {},
-    data = {},
-    validator = {},
-    restfulValidator = {},
-    responseType,
-    proxy
-  }) {
-    // eslint-disable-next-line
-    if (lodash_isNil__WEBPACK_IMPORTED_MODULE_6___default()(name) || (lodash_isNil__WEBPACK_IMPORTED_MODULE_6___default()(path) && lodash_isNil__WEBPACK_IMPORTED_MODULE_6___default()(mockPath))) {
-      console.error('error：02')
-      return
-    }
-    const apiName = `${namespace}${lodash_get__WEBPACK_IMPORTED_MODULE_10___default()(this, 'apiParamsConfig.seq', '/')}${name}`
-    Object.defineProperty(this.api, apiName, {
-      value: (outParams = {
-        params: {},
-        data: {},
-        headers: {},
-        restful: {}
-      }, outOptions = {
-        request_error_callback: null,
-        transformResponse: null,
-        validator: null,
-        restfulValidator: null
-      }) => {
-        // outParams -> {'restful': {}, 'headers': {}, 'params': {}, 'data': {}}
-        lodash_set__WEBPACK_IMPORTED_MODULE_12___default()(headers, 'module-path', `${apiName}`)
-        lodash_eq__WEBPACK_IMPORTED_MODULE_11___default()(lodash_has__WEBPACK_IMPORTED_MODULE_7___default()(headers, 'Content-Type'), false) && lodash_set__WEBPACK_IMPORTED_MODULE_12___default()(headers, 'Content-Type', lodash_get__WEBPACK_IMPORTED_MODULE_10___default()(this, 'axiosParamsConfig.headers.Content-Type', 'application/json;charset=UTF-8'))
-        lodash_has__WEBPACK_IMPORTED_MODULE_7___default()(outParams, 'headers.Content-Type') && lodash_set__WEBPACK_IMPORTED_MODULE_12___default()(headers, 'Content-Type', lodash_get__WEBPACK_IMPORTED_MODULE_10___default()(outParams, 'headers.Content-Type'))
-        let [url, pickParams, pickData, pickHeaders, pickOptions] = [path, {}, {}, {}, {}]
-        if ((lodash_get__WEBPACK_IMPORTED_MODULE_10___default()(this, 'apiParamsConfig.mock') && lodash_isNil__WEBPACK_IMPORTED_MODULE_6___default()(mock)) || mock) {
-          url = lodash_isNil__WEBPACK_IMPORTED_MODULE_6___default()(mockPath) ? lodash_get__WEBPACK_IMPORTED_MODULE_10___default()(this, 'apiParamsConfig.mockBasePath') : mockPath
-        }
-        if (lodash_eq__WEBPACK_IMPORTED_MODULE_11___default()(lodash_isEmpty__WEBPACK_IMPORTED_MODULE_18___default()(lodash_get__WEBPACK_IMPORTED_MODULE_10___default()(outParams, 'params', {})), false) || lodash_eq__WEBPACK_IMPORTED_MODULE_11___default()(lodash_isEmpty__WEBPACK_IMPORTED_MODULE_18___default()(params), false)) {
-          pickParams = lodash_pick__WEBPACK_IMPORTED_MODULE_4___default()(lodash_assign__WEBPACK_IMPORTED_MODULE_3___default()(params, lodash_get__WEBPACK_IMPORTED_MODULE_10___default()(this, 'apiParamsConfig.gParams', {}), lodash_get__WEBPACK_IMPORTED_MODULE_10___default()(outParams, 'params', {})), lodash_concat__WEBPACK_IMPORTED_MODULE_17___default()(lodash_keys__WEBPACK_IMPORTED_MODULE_13___default()(params), lodash_keys__WEBPACK_IMPORTED_MODULE_13___default()(lodash_get__WEBPACK_IMPORTED_MODULE_10___default()(this, 'apiParamsConfig.gParams', {}))))
-        }
-        if ((lodash_eq__WEBPACK_IMPORTED_MODULE_11___default()(lodash_get__WEBPACK_IMPORTED_MODULE_10___default()(this, 'apiParamsConfig.cache', false), false) && lodash_eq__WEBPACK_IMPORTED_MODULE_11___default()(cache, false)) || lodash_eq__WEBPACK_IMPORTED_MODULE_11___default()(cache, false)) {
-          lodash_set__WEBPACK_IMPORTED_MODULE_12___default()(pickParams, '_', lodash_now__WEBPACK_IMPORTED_MODULE_19___default()())
-        }
-        if (lodash_eq__WEBPACK_IMPORTED_MODULE_11___default()(lodash_isEmpty__WEBPACK_IMPORTED_MODULE_18___default()(lodash_get__WEBPACK_IMPORTED_MODULE_10___default()(outParams, 'data', {})), false) || lodash_eq__WEBPACK_IMPORTED_MODULE_11___default()(lodash_isEmpty__WEBPACK_IMPORTED_MODULE_18___default()(data), false)) {
-          pickData = Loader.transformStringPostData(Loader.removeInvalidChar(lodash_pick__WEBPACK_IMPORTED_MODULE_4___default()(lodash_assign__WEBPACK_IMPORTED_MODULE_3___default()(data, lodash_get__WEBPACK_IMPORTED_MODULE_10___default()(outParams, 'data', {})), lodash_keys__WEBPACK_IMPORTED_MODULE_13___default()(data)), removeInvalidChar), headers, method)
-        }
-        if (lodash_eq__WEBPACK_IMPORTED_MODULE_11___default()(lodash_isEmpty__WEBPACK_IMPORTED_MODULE_18___default()(lodash_get__WEBPACK_IMPORTED_MODULE_10___default()(outParams, 'restful', {})), false) || lodash_eq__WEBPACK_IMPORTED_MODULE_11___default()(lodash_isEmpty__WEBPACK_IMPORTED_MODULE_18___default()(restful), false)) {
-          url = Loader.transformRestfulUrl(url, lodash_pick__WEBPACK_IMPORTED_MODULE_4___default()(lodash_assign__WEBPACK_IMPORTED_MODULE_3___default()(restful, lodash_get__WEBPACK_IMPORTED_MODULE_10___default()(outParams, 'restful', {})), lodash_keys__WEBPACK_IMPORTED_MODULE_13___default()(restful)))
-        }
-        if (lodash_eq__WEBPACK_IMPORTED_MODULE_11___default()(lodash_isEmpty__WEBPACK_IMPORTED_MODULE_18___default()(lodash_get__WEBPACK_IMPORTED_MODULE_10___default()(outParams, 'headers', {})), false) || lodash_eq__WEBPACK_IMPORTED_MODULE_11___default()(lodash_isEmpty__WEBPACK_IMPORTED_MODULE_18___default()(headers), false)) {
-          pickHeaders = Loader.removeInvalidChar(lodash_pick__WEBPACK_IMPORTED_MODULE_4___default()(lodash_assign__WEBPACK_IMPORTED_MODULE_3___default()(headers, lodash_get__WEBPACK_IMPORTED_MODULE_10___default()(outParams, 'headers', {})), lodash_keys__WEBPACK_IMPORTED_MODULE_13___default()(headers)), removeInvalidChar)
-        }
-        if (lodash_eq__WEBPACK_IMPORTED_MODULE_11___default()(lodash_isEmpty__WEBPACK_IMPORTED_MODULE_18___default()(outOptions), false)) {
-          pickOptions = Loader.encapsulationOutOptions(outOptions)
-        }
-        if (lodash_has__WEBPACK_IMPORTED_MODULE_7___default()(outOptions, 'validator')) {
-          lodash_assign__WEBPACK_IMPORTED_MODULE_3___default()(validator, lodash_get__WEBPACK_IMPORTED_MODULE_10___default()(outOptions, 'validator'))
-        }
-        if (lodash_has__WEBPACK_IMPORTED_MODULE_7___default()(outOptions, 'restfulValidator')) {
-          lodash_assign__WEBPACK_IMPORTED_MODULE_3___default()(restfulValidator, lodash_get__WEBPACK_IMPORTED_MODULE_10___default()(outOptions, 'restfulValidator'))
-        }
-        const requestOptions = this.encapsulationRequestOptions({
-          baseURL,
-          proxy,
-          responseType,
-          validator,
-          restfulValidator
-        })
-        return Object(_axios__WEBPACK_IMPORTED_MODULE_2__["default"])({
-          ...requestOptions,
-          ...pickOptions,
-          method: lodash_toUpper__WEBPACK_IMPORTED_MODULE_22___default()(method),
-          url,
-          headers: pickHeaders,
-          params: pickParams,
-          data: pickData,
-          restful
-        })
+  }, {
+    key: "buildInstance",
+    value: function buildInstance() {
+      var _this = this;
+
+      var namespace = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+
+      var _ref = arguments.length > 1 ? arguments[1] : undefined,
+          name = _ref.name,
+          _ref$method = _ref.method,
+          method = _ref$method === void 0 ? 'GET' : _ref$method,
+          _ref$desc = _ref.desc,
+          desc = _ref$desc === void 0 ? '' : _ref$desc,
+          baseURL = _ref.baseURL,
+          path = _ref.path,
+          mockPath = _ref.mockPath,
+          mock = _ref.mock,
+          _ref$cache = _ref.cache,
+          cache = _ref$cache === void 0 ? false : _ref$cache,
+          _ref$restful = _ref.restful,
+          restful = _ref$restful === void 0 ? {} : _ref$restful,
+          _ref$headers = _ref.headers,
+          headers = _ref$headers === void 0 ? {} : _ref$headers,
+          _ref$removeInvalidCha = _ref.removeInvalidChar,
+          removeInvalidChar = _ref$removeInvalidCha === void 0 ? true : _ref$removeInvalidCha,
+          _ref$params = _ref.params,
+          params = _ref$params === void 0 ? {} : _ref$params,
+          _ref$data = _ref.data,
+          data = _ref$data === void 0 ? {} : _ref$data,
+          _ref$validator = _ref.validator,
+          validator = _ref$validator === void 0 ? {} : _ref$validator,
+          _ref$restfulValidator = _ref.restfulValidator,
+          restfulValidator = _ref$restfulValidator === void 0 ? {} : _ref$restfulValidator,
+          responseType = _ref.responseType,
+          proxy = _ref.proxy;
+
+      // eslint-disable-next-line
+      if (lodash_isNil__WEBPACK_IMPORTED_MODULE_6___default()(name) || lodash_isNil__WEBPACK_IMPORTED_MODULE_6___default()(path) && lodash_isNil__WEBPACK_IMPORTED_MODULE_6___default()(mockPath)) {
+        console.error('error：02');
+        return;
       }
-    })
-  }
 
-  /**
-   * @desc 处理并发请求
-   * @param { array } apiArray - api请求实例数组
-   * @access public
-   * @returns {Promise}
-   * @example
-   * Loader.allApi[Loader.api['user/get'](), Loader.api['user/list']()]().then(()=>{}).catch(()=>{})
-   */
-  allApi (apiArray = []) {
-    if (lodash_eq__WEBPACK_IMPORTED_MODULE_11___default()(lodash_isArray__WEBPACK_IMPORTED_MODULE_23___default()(apiArray), false)) {
-      apiArray = []
+      var apiName = "".concat(namespace).concat(lodash_get__WEBPACK_IMPORTED_MODULE_10___default()(this, 'apiParamsConfig.seq', '/')).concat(name);
+      Object.defineProperty(this.api, apiName, {
+        value: function value() {
+          var outParams = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {
+            params: {},
+            data: {},
+            headers: {},
+            restful: {}
+          };
+          var outOptions = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {
+            request_error_callback: null,
+            transformResponse: null,
+            validator: null,
+            restfulValidator: null
+          };
+
+          // outParams -> {'restful': {}, 'headers': {}, 'params': {}, 'data': {}}
+          lodash_set__WEBPACK_IMPORTED_MODULE_12___default()(headers, 'module-path', "".concat(apiName));
+
+          lodash_eq__WEBPACK_IMPORTED_MODULE_11___default()(lodash_has__WEBPACK_IMPORTED_MODULE_7___default()(headers, 'Content-Type'), false) && lodash_set__WEBPACK_IMPORTED_MODULE_12___default()(headers, 'Content-Type', lodash_get__WEBPACK_IMPORTED_MODULE_10___default()(_this, 'axiosParamsConfig.headers.Content-Type', 'application/json;charset=UTF-8'));
+          lodash_has__WEBPACK_IMPORTED_MODULE_7___default()(outParams, 'headers.Content-Type') && lodash_set__WEBPACK_IMPORTED_MODULE_12___default()(headers, 'Content-Type', lodash_get__WEBPACK_IMPORTED_MODULE_10___default()(outParams, 'headers.Content-Type'));
+          var url = path,
+              pickParams = {},
+              pickData = {},
+              pickHeaders = {},
+              pickOptions = {};
+
+          if (lodash_get__WEBPACK_IMPORTED_MODULE_10___default()(_this, 'apiParamsConfig.mock') && lodash_isNil__WEBPACK_IMPORTED_MODULE_6___default()(mock) || mock) {
+            url = lodash_isNil__WEBPACK_IMPORTED_MODULE_6___default()(mockPath) ? lodash_get__WEBPACK_IMPORTED_MODULE_10___default()(_this, 'apiParamsConfig.mockBasePath') : mockPath;
+          }
+
+          if (lodash_eq__WEBPACK_IMPORTED_MODULE_11___default()(lodash_isEmpty__WEBPACK_IMPORTED_MODULE_18___default()(lodash_get__WEBPACK_IMPORTED_MODULE_10___default()(outParams, 'params', {})), false) || lodash_eq__WEBPACK_IMPORTED_MODULE_11___default()(lodash_isEmpty__WEBPACK_IMPORTED_MODULE_18___default()(params), false)) {
+            pickParams = lodash_pick__WEBPACK_IMPORTED_MODULE_4___default()(lodash_assign__WEBPACK_IMPORTED_MODULE_3___default()(params, lodash_get__WEBPACK_IMPORTED_MODULE_10___default()(_this, 'apiParamsConfig.gParams', {}), lodash_get__WEBPACK_IMPORTED_MODULE_10___default()(outParams, 'params', {})), lodash_concat__WEBPACK_IMPORTED_MODULE_17___default()(lodash_keys__WEBPACK_IMPORTED_MODULE_13___default()(params), lodash_keys__WEBPACK_IMPORTED_MODULE_13___default()(lodash_get__WEBPACK_IMPORTED_MODULE_10___default()(_this, 'apiParamsConfig.gParams', {}))));
+          }
+
+          if (lodash_eq__WEBPACK_IMPORTED_MODULE_11___default()(lodash_get__WEBPACK_IMPORTED_MODULE_10___default()(_this, 'apiParamsConfig.cache', false), false) && lodash_eq__WEBPACK_IMPORTED_MODULE_11___default()(cache, false) || lodash_eq__WEBPACK_IMPORTED_MODULE_11___default()(cache, false)) {
+            lodash_set__WEBPACK_IMPORTED_MODULE_12___default()(pickParams, '_', lodash_now__WEBPACK_IMPORTED_MODULE_19___default()());
+          }
+
+          if (lodash_eq__WEBPACK_IMPORTED_MODULE_11___default()(lodash_isEmpty__WEBPACK_IMPORTED_MODULE_18___default()(lodash_get__WEBPACK_IMPORTED_MODULE_10___default()(outParams, 'data', {})), false) || lodash_eq__WEBPACK_IMPORTED_MODULE_11___default()(lodash_isEmpty__WEBPACK_IMPORTED_MODULE_18___default()(data), false)) {
+            pickData = Loader.transformStringPostData(Loader.removeInvalidChar(lodash_pick__WEBPACK_IMPORTED_MODULE_4___default()(lodash_assign__WEBPACK_IMPORTED_MODULE_3___default()(data, lodash_get__WEBPACK_IMPORTED_MODULE_10___default()(outParams, 'data', {})), lodash_keys__WEBPACK_IMPORTED_MODULE_13___default()(data)), removeInvalidChar), headers, method);
+          }
+
+          if (lodash_eq__WEBPACK_IMPORTED_MODULE_11___default()(lodash_isEmpty__WEBPACK_IMPORTED_MODULE_18___default()(lodash_get__WEBPACK_IMPORTED_MODULE_10___default()(outParams, 'restful', {})), false) || lodash_eq__WEBPACK_IMPORTED_MODULE_11___default()(lodash_isEmpty__WEBPACK_IMPORTED_MODULE_18___default()(restful), false)) {
+            url = Loader.transformRestfulUrl(url, lodash_pick__WEBPACK_IMPORTED_MODULE_4___default()(lodash_assign__WEBPACK_IMPORTED_MODULE_3___default()(restful, lodash_get__WEBPACK_IMPORTED_MODULE_10___default()(outParams, 'restful', {})), lodash_keys__WEBPACK_IMPORTED_MODULE_13___default()(restful)));
+          }
+
+          if (lodash_eq__WEBPACK_IMPORTED_MODULE_11___default()(lodash_isEmpty__WEBPACK_IMPORTED_MODULE_18___default()(lodash_get__WEBPACK_IMPORTED_MODULE_10___default()(outParams, 'headers', {})), false) || lodash_eq__WEBPACK_IMPORTED_MODULE_11___default()(lodash_isEmpty__WEBPACK_IMPORTED_MODULE_18___default()(headers), false)) {
+            pickHeaders = Loader.removeInvalidChar(lodash_pick__WEBPACK_IMPORTED_MODULE_4___default()(lodash_assign__WEBPACK_IMPORTED_MODULE_3___default()(headers, lodash_get__WEBPACK_IMPORTED_MODULE_10___default()(outParams, 'headers', {})), lodash_keys__WEBPACK_IMPORTED_MODULE_13___default()(headers)), removeInvalidChar);
+          }
+
+          if (lodash_eq__WEBPACK_IMPORTED_MODULE_11___default()(lodash_isEmpty__WEBPACK_IMPORTED_MODULE_18___default()(outOptions), false)) {
+            pickOptions = Loader.encapsulationOutOptions(outOptions);
+          }
+
+          if (lodash_has__WEBPACK_IMPORTED_MODULE_7___default()(outOptions, 'validator')) {
+            lodash_assign__WEBPACK_IMPORTED_MODULE_3___default()(validator, lodash_get__WEBPACK_IMPORTED_MODULE_10___default()(outOptions, 'validator'));
+          }
+
+          if (lodash_has__WEBPACK_IMPORTED_MODULE_7___default()(outOptions, 'restfulValidator')) {
+            lodash_assign__WEBPACK_IMPORTED_MODULE_3___default()(restfulValidator, lodash_get__WEBPACK_IMPORTED_MODULE_10___default()(outOptions, 'restfulValidator'));
+          }
+
+          var requestOptions = _this.encapsulationRequestOptions({
+            baseURL: baseURL,
+            proxy: proxy,
+            responseType: responseType,
+            validator: validator,
+            restfulValidator: restfulValidator
+          });
+
+          return Object(_axios__WEBPACK_IMPORTED_MODULE_2__["default"])(_objectSpread({}, requestOptions, {}, pickOptions, {
+            method: lodash_toUpper__WEBPACK_IMPORTED_MODULE_22___default()(method),
+            url: url,
+            headers: pickHeaders,
+            params: pickParams,
+            data: pickData,
+            restful: restful
+          }));
+        }
+      });
     }
-    return Promise.all(apiArray)
-  }
+    /**
+     * @desc 处理并发请求
+     * @param { array } apiArray - api请求实例数组
+     * @access public
+     * @returns {Promise}
+     * @example
+     * Loader.allApi[Loader.api['user/get'](), Loader.api['user/list']()]().then(()=>{}).catch(()=>{})
+     */
 
-  /**
-   * @static
-   * @desc 转换url地址 fruit/hz/xh/{shop}/read -> fruit/hz/xh/1001/read
-   * @access private
-   * @param {string} url
-   * @param {{}} restfulData
-   * @returns {string}
-   * @example
-   * url：fruit/hz/xh/{shop}/read
-   * restfulData：{'shop': 10,'id': 1}
-   */
-  static transformRestfulUrl (url, restfulData) {
-    let restfulUrl = url
-    for (const [key, value] of Object.entries(restfulData)) {
-      if (lodash_includes__WEBPACK_IMPORTED_MODULE_16___default()(restfulUrl, `{${key}}`)) {
-        restfulUrl = lodash_replace__WEBPACK_IMPORTED_MODULE_8___default()(restfulUrl, `{${key}}`, value)
+  }, {
+    key: "allApi",
+    value: function allApi() {
+      var apiArray = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+
+      if (lodash_eq__WEBPACK_IMPORTED_MODULE_11___default()(lodash_isArray__WEBPACK_IMPORTED_MODULE_23___default()(apiArray), false)) {
+        apiArray = [];
       }
-    }
-    return restfulUrl
-  }
 
-  /**
-   * @desc 特殊字符过滤
-   * @access private
-   * @static
-   * @param {{}} requestData - 请求的数据对象 get post put delete
-   * @param {boolean} removeInvalidChar=true - 是否需要过滤特殊字符
-   */
-  static removeInvalidChar (requestData = {}, removeInvalidChar = true) {
-    if (!removeInvalidChar) return requestData
-    // 全局替换正则
-    const reg = new RegExp(lodash_get__WEBPACK_IMPORTED_MODULE_10___default()(this, 'apiParamsConfig.invalidChar'), 'g')
-    for (const [key, value] of Object.entries(requestData)) {
-      if (lodash_isString__WEBPACK_IMPORTED_MODULE_9___default()(value) && reg.test(value)) {
-        requestData[key] = lodash_replace__WEBPACK_IMPORTED_MODULE_8___default()(value, reg, '')
+      return Promise.all(apiArray);
+    }
+    /**
+     * @static
+     * @desc 转换url地址 fruit/hz/xh/{shop}/read -> fruit/hz/xh/1001/read
+     * @access private
+     * @param {string} url
+     * @param {{}} restfulData
+     * @returns {string}
+     * @example
+     * url：fruit/hz/xh/{shop}/read
+     * restfulData：{'shop': 10,'id': 1}
+     */
+
+  }, {
+    key: "encapsulationRequestOptions",
+
+    /**
+     * @desc 封装request请求参数
+     * @access private
+     * @returns {{}}
+     */
+    value: function encapsulationRequestOptions(_ref2) {
+      var baseURL = _ref2.baseURL,
+          proxy = _ref2.proxy,
+          responseType = _ref2.responseType,
+          validator = _ref2.validator,
+          restfulValidator = _ref2.restfulValidator;
+
+      var options = lodash_cloneDeep__WEBPACK_IMPORTED_MODULE_15___default()(lodash_get__WEBPACK_IMPORTED_MODULE_10___default()(this, 'axiosParamsConfig'));
+
+      if (lodash_isObject__WEBPACK_IMPORTED_MODULE_14___default()(proxy)) {
+        lodash_set__WEBPACK_IMPORTED_MODULE_12___default()(options, 'proxy', proxy);
       }
-    }
-    return requestData
-  }
 
-  /**
-   * @desc
-   * axios post请求 headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}
-   * 参数需要通过qs.stringify()进行设置
-   * @static
-   * @access private
-   * @param {{}} requestData
-   * @param {{}} headersData
-   * @param {string} method=GET
-   */
-  static transformStringPostData (requestData, headersData, method = 'GET') {
-    if (lodash_eq__WEBPACK_IMPORTED_MODULE_11___default()(lodash_toUpper__WEBPACK_IMPORTED_MODULE_22___default()(method), 'POST') && lodash_eq__WEBPACK_IMPORTED_MODULE_11___default()(lodash_get__WEBPACK_IMPORTED_MODULE_10___default()(headersData, 'Content-Type'), 'application/x-www-form-urlencoded; charset=UTF-8')) {
-      requestData = querystring__WEBPACK_IMPORTED_MODULE_1___default.a.stringify(requestData)
-    }
-    return requestData
-  }
+      if (lodash_isString__WEBPACK_IMPORTED_MODULE_9___default()(responseType)) {
+        lodash_set__WEBPACK_IMPORTED_MODULE_12___default()(options, 'responseType', responseType);
+      }
 
-  /**
-   * @desc 封装外部配置参数
-   * @static
-   * @access private
-   * @param {{}} outOptions - 外部参数
-   * @returns {{}}
-   */
-  static encapsulationOutOptions (outOptions = {}) {
-    const options = {}
-    const requestErrorCallback = lodash_get__WEBPACK_IMPORTED_MODULE_10___default()(outOptions, 'request_error_callback', null)
-    const transformResponse = lodash_get__WEBPACK_IMPORTED_MODULE_10___default()(outOptions, 'transformResponse', null)
-    if (lodash_isFunction__WEBPACK_IMPORTED_MODULE_21___default()(requestErrorCallback)) {
-      lodash_set__WEBPACK_IMPORTED_MODULE_12___default()(options, 'request_error_callback', requestErrorCallback)
-    }
-    if (lodash_isArray__WEBPACK_IMPORTED_MODULE_23___default()(transformResponse) || lodash_isFunction__WEBPACK_IMPORTED_MODULE_21___default()(transformResponse)) {
-      lodash_set__WEBPACK_IMPORTED_MODULE_12___default()(options, 'transformResponse', lodash_isArray__WEBPACK_IMPORTED_MODULE_23___default()(transformResponse) ? transformResponse : [lodash_isFunction__WEBPACK_IMPORTED_MODULE_21___default()(transformResponse)])
-    }
-    return options
-  }
+      if (lodash_isUndefined__WEBPACK_IMPORTED_MODULE_20___default()(baseURL)) {
+        lodash_set__WEBPACK_IMPORTED_MODULE_12___default()(options, 'baseURL', baseURL);
+      }
 
-  /**
-   * @desc 封装request请求参数
-   * @access private
-   * @returns {{}}
-   */
-  encapsulationRequestOptions ({
-    baseURL,
-    proxy,
-    responseType,
-    validator,
-    restfulValidator
-  }) {
-    const options = lodash_cloneDeep__WEBPACK_IMPORTED_MODULE_15___default()(lodash_get__WEBPACK_IMPORTED_MODULE_10___default()(this, 'axiosParamsConfig'))
-    if (lodash_isObject__WEBPACK_IMPORTED_MODULE_14___default()(proxy)) {
-      lodash_set__WEBPACK_IMPORTED_MODULE_12___default()(options, 'proxy', proxy)
+      if (lodash_isFunction__WEBPACK_IMPORTED_MODULE_21___default()(lodash_get__WEBPACK_IMPORTED_MODULE_10___default()(this, 'apiParamsConfig.request_error_callback', null))) {
+        lodash_set__WEBPACK_IMPORTED_MODULE_12___default()(options, 'request_error_callback', lodash_get__WEBPACK_IMPORTED_MODULE_10___default()(this, 'apiParamsConfig.request_error_callback'));
+      }
+
+      lodash_set__WEBPACK_IMPORTED_MODULE_12___default()(options, 'statusMessage', lodash_get__WEBPACK_IMPORTED_MODULE_10___default()(this, 'apiParamsConfig.statusMessage', {}));
+
+      lodash_set__WEBPACK_IMPORTED_MODULE_12___default()(options, 'console_response_enable', lodash_get__WEBPACK_IMPORTED_MODULE_10___default()(this, 'apiParamsConfig.console_response_enable', false));
+
+      lodash_set__WEBPACK_IMPORTED_MODULE_12___default()(options, 'console_request_enable', lodash_get__WEBPACK_IMPORTED_MODULE_10___default()(this, 'apiParamsConfig.console_request_enable', false));
+
+      if (lodash_eq__WEBPACK_IMPORTED_MODULE_11___default()(lodash_isArray__WEBPACK_IMPORTED_MODULE_23___default()(lodash_get__WEBPACK_IMPORTED_MODULE_10___default()(options, 'transformResponse', null)), false) && lodash_isFunction__WEBPACK_IMPORTED_MODULE_21___default()(lodash_get__WEBPACK_IMPORTED_MODULE_10___default()(options, 'transformResponse', null))) {
+        lodash_set__WEBPACK_IMPORTED_MODULE_12___default()(options, 'transformResponse', [lodash_get__WEBPACK_IMPORTED_MODULE_10___default()(options, 'transformResponse')]);
+      }
+
+      return lodash_assign__WEBPACK_IMPORTED_MODULE_3___default()(options, {
+        validator: validator,
+        restfulValidator: restfulValidator
+      });
     }
-    if (lodash_isString__WEBPACK_IMPORTED_MODULE_9___default()(responseType)) {
-      lodash_set__WEBPACK_IMPORTED_MODULE_12___default()(options, 'responseType', responseType)
+  }], [{
+    key: "transformRestfulUrl",
+    value: function transformRestfulUrl(url, restfulData) {
+      var restfulUrl = url;
+
+      for (var _i2 = 0, _Object$entries2 = Object.entries(restfulData); _i2 < _Object$entries2.length; _i2++) {
+        var _Object$entries2$_i = _slicedToArray(_Object$entries2[_i2], 2),
+            key = _Object$entries2$_i[0],
+            value = _Object$entries2$_i[1];
+
+        if (lodash_includes__WEBPACK_IMPORTED_MODULE_16___default()(restfulUrl, "{".concat(key, "}"))) {
+          restfulUrl = lodash_replace__WEBPACK_IMPORTED_MODULE_8___default()(restfulUrl, "{".concat(key, "}"), value);
+        }
+      }
+
+      return restfulUrl;
     }
-    if (lodash_isUndefined__WEBPACK_IMPORTED_MODULE_20___default()(baseURL)) {
-      lodash_set__WEBPACK_IMPORTED_MODULE_12___default()(options, 'baseURL', baseURL)
+    /**
+     * @desc 特殊字符过滤
+     * @access private
+     * @static
+     * @param {{}} requestData - 请求的数据对象 get post put delete
+     * @param {boolean} removeInvalidChar=true - 是否需要过滤特殊字符
+     */
+
+  }, {
+    key: "removeInvalidChar",
+    value: function removeInvalidChar() {
+      var requestData = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
+      var _removeInvalidChar = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
+
+      if (!_removeInvalidChar) return requestData; // 全局替换正则
+
+      var reg = new RegExp(lodash_get__WEBPACK_IMPORTED_MODULE_10___default()(this, 'apiParamsConfig.invalidChar'), 'g');
+
+      for (var _i3 = 0, _Object$entries3 = Object.entries(requestData); _i3 < _Object$entries3.length; _i3++) {
+        var _Object$entries3$_i = _slicedToArray(_Object$entries3[_i3], 2),
+            key = _Object$entries3$_i[0],
+            value = _Object$entries3$_i[1];
+
+        if (lodash_isString__WEBPACK_IMPORTED_MODULE_9___default()(value) && reg.test(value)) {
+          requestData[key] = lodash_replace__WEBPACK_IMPORTED_MODULE_8___default()(value, reg, '');
+        }
+      }
+
+      return requestData;
     }
-    if (lodash_isFunction__WEBPACK_IMPORTED_MODULE_21___default()(lodash_get__WEBPACK_IMPORTED_MODULE_10___default()(this, 'apiParamsConfig.request_error_callback', null))) {
-      lodash_set__WEBPACK_IMPORTED_MODULE_12___default()(options, 'request_error_callback', lodash_get__WEBPACK_IMPORTED_MODULE_10___default()(this, 'apiParamsConfig.request_error_callback'))
+    /**
+     * @desc
+     * axios post请求 headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}
+     * 参数需要通过qs.stringify()进行设置
+     * @static
+     * @access private
+     * @param {{}} requestData
+     * @param {{}} headersData
+     * @param {string} method=GET
+     */
+
+  }, {
+    key: "transformStringPostData",
+    value: function transformStringPostData(requestData, headersData) {
+      var method = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'GET';
+
+      if (lodash_eq__WEBPACK_IMPORTED_MODULE_11___default()(lodash_toUpper__WEBPACK_IMPORTED_MODULE_22___default()(method), 'POST') && lodash_eq__WEBPACK_IMPORTED_MODULE_11___default()(lodash_get__WEBPACK_IMPORTED_MODULE_10___default()(headersData, 'Content-Type'), 'application/x-www-form-urlencoded; charset=UTF-8')) {
+        requestData = querystring__WEBPACK_IMPORTED_MODULE_1___default.a.stringify(requestData);
+      }
+
+      return requestData;
     }
-    lodash_set__WEBPACK_IMPORTED_MODULE_12___default()(options, 'statusMessage', lodash_get__WEBPACK_IMPORTED_MODULE_10___default()(this, 'apiParamsConfig.statusMessage', {}))
-    lodash_set__WEBPACK_IMPORTED_MODULE_12___default()(options, 'console_response_enable', lodash_get__WEBPACK_IMPORTED_MODULE_10___default()(this, 'apiParamsConfig.console_response_enable', false))
-    lodash_set__WEBPACK_IMPORTED_MODULE_12___default()(options, 'console_request_enable', lodash_get__WEBPACK_IMPORTED_MODULE_10___default()(this, 'apiParamsConfig.console_request_enable', false))
-    if (lodash_eq__WEBPACK_IMPORTED_MODULE_11___default()(lodash_isArray__WEBPACK_IMPORTED_MODULE_23___default()(lodash_get__WEBPACK_IMPORTED_MODULE_10___default()(options, 'transformResponse', null)), false) && lodash_isFunction__WEBPACK_IMPORTED_MODULE_21___default()(lodash_get__WEBPACK_IMPORTED_MODULE_10___default()(options, 'transformResponse', null))) {
-      lodash_set__WEBPACK_IMPORTED_MODULE_12___default()(options, 'transformResponse', [lodash_get__WEBPACK_IMPORTED_MODULE_10___default()(options, 'transformResponse')])
+    /**
+     * @desc 封装外部配置参数
+     * @static
+     * @access private
+     * @param {{}} outOptions - 外部参数
+     * @returns {{}}
+     */
+
+  }, {
+    key: "encapsulationOutOptions",
+    value: function encapsulationOutOptions() {
+      var outOptions = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+      var options = {};
+
+      var requestErrorCallback = lodash_get__WEBPACK_IMPORTED_MODULE_10___default()(outOptions, 'request_error_callback', null);
+
+      var transformResponse = lodash_get__WEBPACK_IMPORTED_MODULE_10___default()(outOptions, 'transformResponse', null);
+
+      if (lodash_isFunction__WEBPACK_IMPORTED_MODULE_21___default()(requestErrorCallback)) {
+        lodash_set__WEBPACK_IMPORTED_MODULE_12___default()(options, 'request_error_callback', requestErrorCallback);
+      }
+
+      if (lodash_isArray__WEBPACK_IMPORTED_MODULE_23___default()(transformResponse) || lodash_isFunction__WEBPACK_IMPORTED_MODULE_21___default()(transformResponse)) {
+        lodash_set__WEBPACK_IMPORTED_MODULE_12___default()(options, 'transformResponse', lodash_isArray__WEBPACK_IMPORTED_MODULE_23___default()(transformResponse) ? transformResponse : [lodash_isFunction__WEBPACK_IMPORTED_MODULE_21___default()(transformResponse)]);
+      }
+
+      return options;
     }
-    return lodash_assign__WEBPACK_IMPORTED_MODULE_3___default()(options, {
-      validator,
-      restfulValidator
-    })
-  }
-}
+  }]);
+
+  return Api;
+}();
+
 /* harmony default export */ __webpack_exports__["default"] = (Loader);
-
 
 /***/ }),
 /* 1 */
@@ -517,6 +662,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "apiDefaultConfig", function() { return apiDefaultConfig; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "axiosDefaultConfig", function() { return axiosDefaultConfig; });
 // @ts-nocheck
+
 /**
  * @desc
  * api接口插件全局应该提供的统一参数
@@ -533,7 +679,7 @@ __webpack_require__.r(__webpack_exports__);
  * @property {boolean} console_response_enable=false 开启响应参数打印
  * @property {function} request_error_callback=null 请求错误回调函数
  */
-const apiDefaultConfig = {
+var apiDefaultConfig = {
   // mock-url请求地址(可以是相对 URL), 应该外部传入
   mockBasePath: '',
   // mock全局控制开关
@@ -563,8 +709,7 @@ const apiDefaultConfig = {
   console_response_enable: false,
   // 请求错误回调函数
   request_error_callback: null
-}
-
+};
 /**
  * @desc
  * axios全局应该提供的统一参数
@@ -580,7 +725,8 @@ const apiDefaultConfig = {
  * @property {string} responseType='json' 服务器响应的数据类型
  * @property {object} proxy 定义代理服务器的主机名称和端口
  */
-const axiosDefaultConfig = {
+
+var axiosDefaultConfig = {
   // 超时时间（毫秒）
   timeout: 15000,
   // 访问url目录(可以是相对 URL), 应该外部传入
@@ -603,8 +749,7 @@ const axiosDefaultConfig = {
   responseType: 'json',
   // 定义代理服务器的主机名称和端口
   proxy: {}
-}
-
+};
 
 /***/ }),
 /* 2 */
@@ -812,24 +957,22 @@ __webpack_require__.r(__webpack_exports__);
 // 构建axios实例
 
 
-
 /**
  * @description 自定义axios实例
  */
-let instance = null;
-instance = axios__WEBPACK_IMPORTED_MODULE_1___default.a.create()
 
+var instance = null;
+instance = axios__WEBPACK_IMPORTED_MODULE_1___default.a.create();
 /**
  * @desc
  * 异常拦截器只设置了响应错误拦截器如果同时设置两个错误拦截器最终起效果的只有响应错误拦截器
  */
 // 添加请求拦截器
-instance.interceptors.request.use(_interceptor_index_js__WEBPACK_IMPORTED_MODULE_0__["requestSuccessFunc"])
-// 添加响应拦截器
-instance.interceptors.response.use(_interceptor_index_js__WEBPACK_IMPORTED_MODULE_0__["responseSuccessFunc"], _interceptor_index_js__WEBPACK_IMPORTED_MODULE_0__["responseErrorFunc"])
 
+instance.interceptors.request.use(_interceptor_index_js__WEBPACK_IMPORTED_MODULE_0__["requestSuccessFunc"]); // 添加响应拦截器
+
+instance.interceptors.response.use(_interceptor_index_js__WEBPACK_IMPORTED_MODULE_0__["responseSuccessFunc"], _interceptor_index_js__WEBPACK_IMPORTED_MODULE_0__["responseErrorFunc"]);
 /* harmony default export */ __webpack_exports__["default"] = (instance);
-
 
 /***/ }),
 /* 6 */
@@ -885,95 +1028,120 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
 /**
  * @desc request前置拦截器
  * @param {{}} requestConfig 请求配置参数
  * @returns {{}} {}
  */
-function requestSuccessFunc (requestConfig) {
-  lodash_get__WEBPACK_IMPORTED_MODULE_3___default()(requestConfig, 'console_request_enable', false) && (console.info('requestInterceptorFunc', `url: ${lodash_get__WEBPACK_IMPORTED_MODULE_3___default()(requestConfig, 'url', '')}`, requestConfig))
+
+function requestSuccessFunc(requestConfig) {
+  lodash_get__WEBPACK_IMPORTED_MODULE_3___default()(requestConfig, 'console_request_enable', false) && console.info('requestInterceptorFunc', "url: ".concat(lodash_get__WEBPACK_IMPORTED_MODULE_3___default()(requestConfig, 'url', '')), requestConfig);
+
   if (lodash_isFunction__WEBPACK_IMPORTED_MODULE_12___default()(lodash_get__WEBPACK_IMPORTED_MODULE_3___default()(window, 'apiRequestStartHandler', null))) {
     // 通知函数定义处-请求开始发送
-    lodash_spread__WEBPACK_IMPORTED_MODULE_13___default()(lodash_get__WEBPACK_IMPORTED_MODULE_3___default()(window, 'apiRequestStartHandler'))()
+    lodash_spread__WEBPACK_IMPORTED_MODULE_13___default()(lodash_get__WEBPACK_IMPORTED_MODULE_3___default()(window, 'apiRequestStartHandler'))();
   }
-  let qsData = lodash_get__WEBPACK_IMPORTED_MODULE_3___default()(requestConfig, 'data', {})
-  if (lodash_eq__WEBPACK_IMPORTED_MODULE_4___default()(lodash_get__WEBPACK_IMPORTED_MODULE_3___default()(requestConfig, 'headers.Content-Type', ''), 'application/x-www-form-urlencoded; charset=UTF-8')) {
-    qsData = querystring__WEBPACK_IMPORTED_MODULE_1___default.a.parse(lodash_get__WEBPACK_IMPORTED_MODULE_3___default()(requestConfig, 'data', null))
-  }
-  const validateResult = []
-  const paramsValidatorRule = lodash_pick__WEBPACK_IMPORTED_MODULE_9___default()(lodash_get__WEBPACK_IMPORTED_MODULE_3___default()(requestConfig, 'validator', {}), lodash_keys__WEBPACK_IMPORTED_MODULE_10___default()(lodash_get__WEBPACK_IMPORTED_MODULE_3___default()(requestConfig, 'params', {})))
-  const dataValidatorRule = lodash_pick__WEBPACK_IMPORTED_MODULE_9___default()(lodash_get__WEBPACK_IMPORTED_MODULE_3___default()(requestConfig, 'validator', {}), lodash_keys__WEBPACK_IMPORTED_MODULE_10___default()(qsData))
-  const restfulValidatorRule = lodash_pick__WEBPACK_IMPORTED_MODULE_9___default()(lodash_get__WEBPACK_IMPORTED_MODULE_3___default()(requestConfig, 'restfulValidator', {}), lodash_keys__WEBPACK_IMPORTED_MODULE_10___default()(lodash_get__WEBPACK_IMPORTED_MODULE_3___default()(requestConfig, 'restful', {})))
-  if (lodash_has__WEBPACK_IMPORTED_MODULE_2___default()(requestConfig, 'validator') && !lodash_isEmpty__WEBPACK_IMPORTED_MODULE_7___default()(lodash_get__WEBPACK_IMPORTED_MODULE_3___default()(requestConfig, 'params'))) {
-    validateResult.push(Object(_validate_js__WEBPACK_IMPORTED_MODULE_0__["default"])(lodash_get__WEBPACK_IMPORTED_MODULE_3___default()(requestConfig, 'params', {}), paramsValidatorRule))
-  }
-  if (lodash_has__WEBPACK_IMPORTED_MODULE_2___default()(requestConfig, 'validator') && !lodash_isEmpty__WEBPACK_IMPORTED_MODULE_7___default()(lodash_get__WEBPACK_IMPORTED_MODULE_3___default()(requestConfig, 'data'))) {
-    validateResult.push(Object(_validate_js__WEBPACK_IMPORTED_MODULE_0__["default"])(qsData, dataValidatorRule))
-  }
-  if (lodash_has__WEBPACK_IMPORTED_MODULE_2___default()(requestConfig, 'restfulValidator') && !lodash_isEmpty__WEBPACK_IMPORTED_MODULE_7___default()(lodash_get__WEBPACK_IMPORTED_MODULE_3___default()(requestConfig, 'restful'))) {
-    validateResult.push(Object(_validate_js__WEBPACK_IMPORTED_MODULE_0__["default"])(lodash_get__WEBPACK_IMPORTED_MODULE_3___default()(requestConfig, 'restful', {}), restfulValidatorRule))
-  }
-  let status = false
-  const validateFailMsg = []
-  lodash_forEach__WEBPACK_IMPORTED_MODULE_8___default()(validateResult, (value) => {
-    if (lodash_get__WEBPACK_IMPORTED_MODULE_3___default()(value, 'status')) {
-      status = true
-      validateFailMsg.push(lodash_get__WEBPACK_IMPORTED_MODULE_3___default()(value, 'msg'))
-    }
-  })
-  if (status) {
-    return Promise.reject(new Error(lodash_uniq__WEBPACK_IMPORTED_MODULE_6___default()(validateFailMsg[0]).join()))
-  }
-  return requestConfig
-}
 
+  var qsData = lodash_get__WEBPACK_IMPORTED_MODULE_3___default()(requestConfig, 'data', {});
+
+  if (lodash_eq__WEBPACK_IMPORTED_MODULE_4___default()(lodash_get__WEBPACK_IMPORTED_MODULE_3___default()(requestConfig, 'headers.Content-Type', ''), 'application/x-www-form-urlencoded; charset=UTF-8')) {
+    qsData = querystring__WEBPACK_IMPORTED_MODULE_1___default.a.parse(lodash_get__WEBPACK_IMPORTED_MODULE_3___default()(requestConfig, 'data', null));
+  }
+
+  var validateResult = [];
+
+  var paramsValidatorRule = lodash_pick__WEBPACK_IMPORTED_MODULE_9___default()(lodash_get__WEBPACK_IMPORTED_MODULE_3___default()(requestConfig, 'validator', {}), lodash_keys__WEBPACK_IMPORTED_MODULE_10___default()(lodash_get__WEBPACK_IMPORTED_MODULE_3___default()(requestConfig, 'params', {})));
+
+  var dataValidatorRule = lodash_pick__WEBPACK_IMPORTED_MODULE_9___default()(lodash_get__WEBPACK_IMPORTED_MODULE_3___default()(requestConfig, 'validator', {}), lodash_keys__WEBPACK_IMPORTED_MODULE_10___default()(qsData));
+
+  var restfulValidatorRule = lodash_pick__WEBPACK_IMPORTED_MODULE_9___default()(lodash_get__WEBPACK_IMPORTED_MODULE_3___default()(requestConfig, 'restfulValidator', {}), lodash_keys__WEBPACK_IMPORTED_MODULE_10___default()(lodash_get__WEBPACK_IMPORTED_MODULE_3___default()(requestConfig, 'restful', {})));
+
+  if (lodash_has__WEBPACK_IMPORTED_MODULE_2___default()(requestConfig, 'validator') && !lodash_isEmpty__WEBPACK_IMPORTED_MODULE_7___default()(lodash_get__WEBPACK_IMPORTED_MODULE_3___default()(requestConfig, 'params'))) {
+    validateResult.push(Object(_validate_js__WEBPACK_IMPORTED_MODULE_0__["default"])(lodash_get__WEBPACK_IMPORTED_MODULE_3___default()(requestConfig, 'params', {}), paramsValidatorRule));
+  }
+
+  if (lodash_has__WEBPACK_IMPORTED_MODULE_2___default()(requestConfig, 'validator') && !lodash_isEmpty__WEBPACK_IMPORTED_MODULE_7___default()(lodash_get__WEBPACK_IMPORTED_MODULE_3___default()(requestConfig, 'data'))) {
+    validateResult.push(Object(_validate_js__WEBPACK_IMPORTED_MODULE_0__["default"])(qsData, dataValidatorRule));
+  }
+
+  if (lodash_has__WEBPACK_IMPORTED_MODULE_2___default()(requestConfig, 'restfulValidator') && !lodash_isEmpty__WEBPACK_IMPORTED_MODULE_7___default()(lodash_get__WEBPACK_IMPORTED_MODULE_3___default()(requestConfig, 'restful'))) {
+    validateResult.push(Object(_validate_js__WEBPACK_IMPORTED_MODULE_0__["default"])(lodash_get__WEBPACK_IMPORTED_MODULE_3___default()(requestConfig, 'restful', {}), restfulValidatorRule));
+  }
+
+  var status = false;
+  var validateFailMsg = [];
+
+  lodash_forEach__WEBPACK_IMPORTED_MODULE_8___default()(validateResult, function (value) {
+    if (lodash_get__WEBPACK_IMPORTED_MODULE_3___default()(value, 'status')) {
+      status = true;
+      validateFailMsg.push(lodash_get__WEBPACK_IMPORTED_MODULE_3___default()(value, 'msg'));
+    }
+  });
+
+  if (status) {
+    return Promise.reject(new Error(lodash_uniq__WEBPACK_IMPORTED_MODULE_6___default()(validateFailMsg[0]).join()));
+  }
+
+  return requestConfig;
+}
 /**
  * @desc response后置拦截器
  * @param {{}} response
  * @returns {{}}
  */
-function responseSuccessFunc (response) {
-  lodash_get__WEBPACK_IMPORTED_MODULE_3___default()(response, 'config.console_response_enable', false) && (console.info('responseInterceptorFunc：', response))
+
+function responseSuccessFunc(response) {
+  lodash_get__WEBPACK_IMPORTED_MODULE_3___default()(response, 'config.console_response_enable', false) && console.info('responseInterceptorFunc：', response);
+
   if (lodash_isFunction__WEBPACK_IMPORTED_MODULE_12___default()(lodash_get__WEBPACK_IMPORTED_MODULE_3___default()(window, 'apiRequestEndHandler', null))) {
     // 通知函数定义处-请求结束
-    lodash_spread__WEBPACK_IMPORTED_MODULE_13___default()(lodash_get__WEBPACK_IMPORTED_MODULE_3___default()(window, 'apiRequestEndHandler'))()
+    lodash_spread__WEBPACK_IMPORTED_MODULE_13___default()(lodash_get__WEBPACK_IMPORTED_MODULE_3___default()(window, 'apiRequestEndHandler'))();
   }
+
   if (lodash_eq__WEBPACK_IMPORTED_MODULE_4___default()(lodash_get__WEBPACK_IMPORTED_MODULE_3___default()(response, 'status', 200), lodash_get__WEBPACK_IMPORTED_MODULE_3___default()(response, 'config.status', 200)) && lodash_eq__WEBPACK_IMPORTED_MODULE_4___default()(lodash_get__WEBPACK_IMPORTED_MODULE_3___default()(response, 'statusText', 'OK'), lodash_get__WEBPACK_IMPORTED_MODULE_3___default()(response, 'config.statusText', 'OK'))) {
-    const data = lodash_get__WEBPACK_IMPORTED_MODULE_3___default()(response, 'data', null)
-    return lodash_eq__WEBPACK_IMPORTED_MODULE_4___default()(data, null) ? {} : data
+    var data = lodash_get__WEBPACK_IMPORTED_MODULE_3___default()(response, 'data', null);
+
+    return lodash_eq__WEBPACK_IMPORTED_MODULE_4___default()(data, null) ? {} : data;
   } else {
-    return Promise.reject(new Error('返回response的status和statusText和设置值不匹配'))
+    return Promise.reject(new Error('返回response的status和statusText和设置值不匹配'));
   }
 }
-
 /**
  * @desc response后置异常拦截器
  * @param {{}} responseError
  * @returns {Promise}
  */
-function responseErrorFunc (responseError) {
+
+function responseErrorFunc(responseError) {
   if (lodash_isFunction__WEBPACK_IMPORTED_MODULE_12___default()(lodash_get__WEBPACK_IMPORTED_MODULE_3___default()(window, 'apiRequestEndHandler', null))) {
     // 通知函数定义处-请求结束
-    lodash_spread__WEBPACK_IMPORTED_MODULE_13___default()(lodash_get__WEBPACK_IMPORTED_MODULE_3___default()(window, 'apiRequestEndHandler'))()
+    lodash_spread__WEBPACK_IMPORTED_MODULE_13___default()(lodash_get__WEBPACK_IMPORTED_MODULE_3___default()(window, 'apiRequestEndHandler'))();
   }
-  const response = lodash_get__WEBPACK_IMPORTED_MODULE_3___default()(responseError, 'response', null)
-  if (lodash_eq__WEBPACK_IMPORTED_MODULE_4___default()(lodash_isNull__WEBPACK_IMPORTED_MODULE_11___default()(response), false) && lodash_isFunction__WEBPACK_IMPORTED_MODULE_12___default()(lodash_get__WEBPACK_IMPORTED_MODULE_3___default()(responseError, 'response.config.request_error_callback', null))) {
-    lodash_get__WEBPACK_IMPORTED_MODULE_3___default()(responseError, 'response.config.console_response_enable', false) && (console.info('responseErrorFunc：', responseError))
-    const callBack = lodash_spread__WEBPACK_IMPORTED_MODULE_13___default()(lodash_get__WEBPACK_IMPORTED_MODULE_3___default()(responseError, 'response.config.request_error_callback'))
-    const status = lodash_get__WEBPACK_IMPORTED_MODULE_3___default()(responseError, 'response.status', null)
-    if (lodash_isPlainObject__WEBPACK_IMPORTED_MODULE_14___default()(lodash_get__WEBPACK_IMPORTED_MODULE_3___default()(response, 'config.statusMessage', null)) && lodash_has__WEBPACK_IMPORTED_MODULE_2___default()(response, `config.statusMessage.${status}`)) {
-      lodash_set__WEBPACK_IMPORTED_MODULE_5___default()(response, 'statusText', lodash_get__WEBPACK_IMPORTED_MODULE_3___default()(response, `config.statusMessage.${status}`))
-    }
-    callBack([lodash_pick__WEBPACK_IMPORTED_MODULE_9___default()(lodash_get__WEBPACK_IMPORTED_MODULE_3___default()(responseError, 'response', null), ['status', 'statusText'])])
-  }
-  if (lodash_isNull__WEBPACK_IMPORTED_MODULE_11___default()(response)) {
-    const callBack = lodash_spread__WEBPACK_IMPORTED_MODULE_13___default()(lodash_get__WEBPACK_IMPORTED_MODULE_3___default()(window, 'apiRequestInterceptErrorHandler', function () {}))
-    callBack([lodash_get__WEBPACK_IMPORTED_MODULE_3___default()(responseError, 'message', '')])
-  }
-  return Promise.reject(responseError)
-}
 
+  var response = lodash_get__WEBPACK_IMPORTED_MODULE_3___default()(responseError, 'response', null);
+
+  if (lodash_eq__WEBPACK_IMPORTED_MODULE_4___default()(lodash_isNull__WEBPACK_IMPORTED_MODULE_11___default()(response), false) && lodash_isFunction__WEBPACK_IMPORTED_MODULE_12___default()(lodash_get__WEBPACK_IMPORTED_MODULE_3___default()(responseError, 'response.config.request_error_callback', null))) {
+    lodash_get__WEBPACK_IMPORTED_MODULE_3___default()(responseError, 'response.config.console_response_enable', false) && console.info('responseErrorFunc：', responseError);
+
+    var callBack = lodash_spread__WEBPACK_IMPORTED_MODULE_13___default()(lodash_get__WEBPACK_IMPORTED_MODULE_3___default()(responseError, 'response.config.request_error_callback'));
+
+    var status = lodash_get__WEBPACK_IMPORTED_MODULE_3___default()(responseError, 'response.status', null);
+
+    if (lodash_isPlainObject__WEBPACK_IMPORTED_MODULE_14___default()(lodash_get__WEBPACK_IMPORTED_MODULE_3___default()(response, 'config.statusMessage', null)) && lodash_has__WEBPACK_IMPORTED_MODULE_2___default()(response, "config.statusMessage.".concat(status))) {
+      lodash_set__WEBPACK_IMPORTED_MODULE_5___default()(response, 'statusText', lodash_get__WEBPACK_IMPORTED_MODULE_3___default()(response, "config.statusMessage.".concat(status)));
+    }
+
+    callBack([lodash_pick__WEBPACK_IMPORTED_MODULE_9___default()(lodash_get__WEBPACK_IMPORTED_MODULE_3___default()(responseError, 'response', null), ['status', 'statusText'])]);
+  }
+
+  if (lodash_isNull__WEBPACK_IMPORTED_MODULE_11___default()(response)) {
+    var _callBack = lodash_spread__WEBPACK_IMPORTED_MODULE_13___default()(lodash_get__WEBPACK_IMPORTED_MODULE_3___default()(window, 'apiRequestInterceptErrorHandler', function () {}));
+
+    _callBack([lodash_get__WEBPACK_IMPORTED_MODULE_3___default()(responseError, 'message', '')]);
+  }
+
+  return Promise.reject(responseError);
+}
 
 /***/ }),
 /* 7 */
@@ -987,7 +1155,6 @@ __webpack_require__.r(__webpack_exports__);
 // 验证插件
 // @ts-ignore
 
-
 /**
  * @desc 验证函数
  * @param {*} data 待验证数据
@@ -998,7 +1165,12 @@ __webpack_require__.r(__webpack_exports__);
  * data：{name: 'xm', nickname: 'xmm', password: '123'}
  * constraints：{name: {required: true, msg: '名称不能为空'},password: {required: true, not: '123456', min: 6, msg: 'password验证不通过'}}
  */
-function validate (data = {}, constraints = {}, isOne = false) {
+
+function validate() {
+  var data = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  var constraints = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+  var isOne = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
+
   /**
    * @desc
    * valid.fails()检查是否失败，如果存在字段检查不通过，则返回true，反之false
@@ -1006,22 +1178,28 @@ function validate (data = {}, constraints = {}, isOne = false) {
    * {status: true,msg: ["password验证不通过", "两次输入密码不一致"]}
    * @type {object}
    */
-  const valid = vdjs__WEBPACK_IMPORTED_MODULE_0___default.a.validate(data, constraints, isOne)
-  return { status: valid.fails(), msg: valid.all(true) }
-}
+  var valid = vdjs__WEBPACK_IMPORTED_MODULE_0___default.a.validate(data, constraints, isOne);
+  return {
+    status: valid.fails(),
+    msg: valid.all(true)
+  };
+} // URL地址防注入 针对查询参数
 
-// URL地址防注入 针对查询参数
-vdjs__WEBPACK_IMPORTED_MODULE_0___default.a.pushRule('sqlXss', function (val = '', rval = true) {
+vdjs__WEBPACK_IMPORTED_MODULE_0___default.a.pushRule('sqlXss', function () {
+  var val = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+  var rval = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
+
   if (rval) {
-    const re = /select|update|delete|truncate|join|union|exec|insert|drop|count|script|<|>|'|"|=|;/gi;
-    const status = re.test(val)
+    var re = /select|update|delete|truncate|join|union|exec|insert|drop|count|script|<|>|'|"|=|;/gi;
+    var status = re.test(val);
+
     if (status) {
-      return false
+      return false;
     }
   }
-  return true
-})
 
+  return true;
+});
 
 /***/ }),
 /* 8 */
