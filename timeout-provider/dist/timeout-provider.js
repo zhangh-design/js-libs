@@ -252,7 +252,6 @@ function () {
         leading: false,
         trailing: true
       };
-      var b = '';
 
       if (lodash_isNil__WEBPACK_IMPORTED_MODULE_0___default()(scope) || lodash_isNil__WEBPACK_IMPORTED_MODULE_0___default()(handler) || lodash_isNil__WEBPACK_IMPORTED_MODULE_0___default()(wait) || lodash_isEqual__WEBPACK_IMPORTED_MODULE_2___default()(lodash_isNumber__WEBPACK_IMPORTED_MODULE_1___default()(wait), false)) {
         return;

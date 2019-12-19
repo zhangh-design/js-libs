@@ -4,9 +4,9 @@
 	else if(typeof define === 'function' && define.amd)
 		define([], factory);
 	else if(typeof exports === 'object')
-		exports["ObserverManagerLibrary"] = factory();
+		exports["TimeoutProviderLibrary"] = factory();
 	else
-		root["ObserverManagerLibrary"] = factory();
+		root["TimeoutProviderLibrary"] = factory();
 })(window, function() {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
@@ -130,6 +130,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var lodash_keys__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(lodash_keys__WEBPACK_IMPORTED_MODULE_13__);
 /* harmony import */ var lodash_filter__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(100);
 /* harmony import */ var lodash_filter__WEBPACK_IMPORTED_MODULE_14___default = /*#__PURE__*/__webpack_require__.n(lodash_filter__WEBPACK_IMPORTED_MODULE_14__);
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
+
+function _iterableToArrayLimit(arr, i) { if (!(Symbol.iterator in Object(arr) || Object.prototype.toString.call(arr) === "[object Arguments]")) { return; } var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
 /**
  * @class ObserverManager
  * @classdesc 自定义事件发布-订阅插件
@@ -159,8 +175,14 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-const ObserverManager = class Observer {
-  constructor (userEventConfigModuleList = {}) {
+var ObserverManager =
+/*#__PURE__*/
+function () {
+  function Observer() {
+    var userEventConfigModuleList = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
+    _classCallCheck(this, Observer);
+
     /**
      * @access private
      * @readonly
@@ -168,7 +190,7 @@ const ObserverManager = class Observer {
      * @type {Map}
      * @desc 存放事件模型
      * */
-    this.eventModules = new Map()
+    this.eventModules = new Map();
     /**
      * @access private
      * @readonly
@@ -176,7 +198,8 @@ const ObserverManager = class Observer {
      * @type {Array}
      * @desc 调用 fire() 函数添加触发的事件
      * */
-    this.fireEvents = []
+
+    this.fireEvents = [];
     /**
      * @access private
      * @readonly
@@ -184,10 +207,10 @@ const ObserverManager = class Observer {
      * @type {Array}
      * @desc 调用 add() 函数添加注册的事件
      * */
-    this.addEvents = []
-    this.deconstructEventConfigModule(userEventConfigModuleList)
-  }
 
+    this.addEvents = [];
+    this.deconstructEventConfigModule(userEventConfigModuleList);
+  }
   /**
    * @description 解析事件模型
    * @access private
@@ -195,191 +218,377 @@ const ObserverManager = class Observer {
    * @example
    * {'game':[{name: 'runEvent', desc: '跑步', data: {num: 10}}]}
    */
-  deconstructEventConfigModule (userEventConfigModuleList = {}) {
-    lodash_forOwn__WEBPACK_IMPORTED_MODULE_8___default()(userEventConfigModuleList, (module, key) => {
-      lodash_forOwn__WEBPACK_IMPORTED_MODULE_8___default()(module, eventValue => {
-        if (lodash_has__WEBPACK_IMPORTED_MODULE_4___default()(eventValue, 'name') && lodash_isEqual__WEBPACK_IMPORTED_MODULE_0___default()(lodash_isNull__WEBPACK_IMPORTED_MODULE_5___default()(lodash_get__WEBPACK_IMPORTED_MODULE_6___default()(eventValue, 'name')), false) && lodash_isEqual__WEBPACK_IMPORTED_MODULE_0___default()(this.eventModules.has(lodash_get__WEBPACK_IMPORTED_MODULE_6___default()(eventValue, 'name')), false)) {
-          this.eventModules.set(`${key}/${lodash_get__WEBPACK_IMPORTED_MODULE_6___default()(eventValue, 'name')}`, eventValue)
+
+
+  _createClass(Observer, [{
+    key: "deconstructEventConfigModule",
+    value: function deconstructEventConfigModule() {
+      var _this = this;
+
+      var userEventConfigModuleList = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
+      lodash_forOwn__WEBPACK_IMPORTED_MODULE_8___default()(userEventConfigModuleList, function (module, key) {
+        lodash_forOwn__WEBPACK_IMPORTED_MODULE_8___default()(module, function (eventValue) {
+          if (lodash_has__WEBPACK_IMPORTED_MODULE_4___default()(eventValue, 'name') && lodash_isEqual__WEBPACK_IMPORTED_MODULE_0___default()(lodash_isNull__WEBPACK_IMPORTED_MODULE_5___default()(lodash_get__WEBPACK_IMPORTED_MODULE_6___default()(eventValue, 'name')), false) && lodash_isEqual__WEBPACK_IMPORTED_MODULE_0___default()(_this.eventModules.has(lodash_get__WEBPACK_IMPORTED_MODULE_6___default()(eventValue, 'name')), false)) {
+            _this.eventModules.set("".concat(key, "/").concat(lodash_get__WEBPACK_IMPORTED_MODULE_6___default()(eventValue, 'name')), eventValue);
+          }
+        });
+      });
+    }
+    /**
+     * @description 注册事件
+     * @param { string } name=`` -event名称（需要和事件模型中的命名空间+名称匹配）
+     * @param { function } handler -事件对应的执行函数
+     * @param { Object } fireScope=null -事件定义的作用域也即是fire触发时传递的fireScope
+     * @param { Object } handlerScope=null -事件执行的作用域
+     * @param {...*} [data] -事件参数<br/>
+     * 触发时传入 handler 函数的参数，可以传入多个参数（将会在 fire 触发的参数之前），<br/>
+     * data建议不要是一个带有原型对象的数据，而应该是字符类型或单纯的对象
+     * @example
+     * 事件模型定义：{'game':[{name: 'runEvent', desc: '跑步', data: {num: 10}}]}
+     * add('game/runEvent', function(p, p1){}},this.parent, this, '参数1', '参数2')
+     */
+
+  }, {
+    key: "add",
+    value: function add() {
+      var _this$addEvents$push;
+
+      var name = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+      var handler = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : function () {};
+      var fireScope = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
+      var handlerScope = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : null;
+
+      for (var _len = arguments.length, data = new Array(_len > 4 ? _len - 4 : 0), _key = 4; _key < _len; _key++) {
+        data[_key - 4] = arguments[_key];
+      }
+
+      if (lodash_isEqual__WEBPACK_IMPORTED_MODULE_0___default()(lodash_trim__WEBPACK_IMPORTED_MODULE_2___default()(name), '') || lodash_isNull__WEBPACK_IMPORTED_MODULE_5___default()(name) || lodash_isEqual__WEBPACK_IMPORTED_MODULE_0___default()(this.eventModules.has(name), false)) {
+        return;
+      }
+
+      var firingEvent = lodash_find__WEBPACK_IMPORTED_MODULE_7___default()(this.fireEvents, function (elem) {
+        return lodash_has__WEBPACK_IMPORTED_MODULE_4___default()(elem, name) && lodash_isEqual__WEBPACK_IMPORTED_MODULE_0___default()(lodash_get__WEBPACK_IMPORTED_MODULE_6___default()(fireScope, 'eventIdentity', null), lodash_get__WEBPACK_IMPORTED_MODULE_6___default()(elem, 'eventIdentity'));
+      });
+
+      if (lodash_isEqual__WEBPACK_IMPORTED_MODULE_0___default()(lodash_isUndefined__WEBPACK_IMPORTED_MODULE_11___default()(firingEvent), false)) {
+        // @ts-ignore
+        lodash_bind__WEBPACK_IMPORTED_MODULE_1___default.a.apply(void 0, [handler, handlerScope].concat(data))(lodash_get__WEBPACK_IMPORTED_MODULE_6___default()(firingEvent, 'data', []));
+      }
+
+      if (lodash_isEqual__WEBPACK_IMPORTED_MODULE_0___default()(lodash_has__WEBPACK_IMPORTED_MODULE_4___default()(fireScope, 'eventIdentity'), false)) {
+        lodash_set__WEBPACK_IMPORTED_MODULE_3___default()(fireScope, 'eventIdentity', ObserverManager.uuid());
+      } // @ts-ignore
+
+
+      this.addEvents.push((_this$addEvents$push = {
+        key: name
+      }, _defineProperty(_this$addEvents$push, name, function () {
+        return lodash_bind__WEBPACK_IMPORTED_MODULE_1___default.a.apply(void 0, [handler, handlerScope].concat(data));
+      }), _defineProperty(_this$addEvents$push, "eventIdentity", lodash_get__WEBPACK_IMPORTED_MODULE_6___default()(fireScope, 'eventIdentity')), _defineProperty(_this$addEvents$push, "once", false), _this$addEvents$push));
+    }
+    /**
+     * @description 注册单次事件（此事件在当前作用域环境下只触发一次）
+     * @param { string } name=`` -event名称（需要和事件模型中的命名空间+名称匹配）
+     * @param { function } handler -事件对应的执行函数
+     * @param { Object } fireScope=null -事件定义的作用域也即是 fire 触发时传递的 fireScope
+     * @param { Object } handlerScope=null -事件执行的作用域
+     * @param {...*} [data] -事件参数<br/>
+     * 触发时传入 handler 函数的参数，可以传入多个参数（将会在 fire 触发的参数之前），<br/>
+     * data建议不要是一个带有原型对象的数据，而应该是字符类型或单纯的对象
+     * @example
+     * 事件模型定义：{'game':[{name: 'runEvent', desc: '跑步', data: {num: 10}}]}
+     * addOnce('game/runEvent', function(p, p1){}},this.parent, this, '参数1', '参数2')
+     */
+
+  }, {
+    key: "addOnce",
+    value: function addOnce() {
+      var _this$addEvents$push2;
+
+      var name = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+      var handler = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : function () {};
+      var fireScope = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
+      var handlerScope = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : null;
+
+      for (var _len2 = arguments.length, data = new Array(_len2 > 4 ? _len2 - 4 : 0), _key2 = 4; _key2 < _len2; _key2++) {
+        data[_key2 - 4] = arguments[_key2];
+      }
+
+      if (lodash_isEqual__WEBPACK_IMPORTED_MODULE_0___default()(lodash_trim__WEBPACK_IMPORTED_MODULE_2___default()(name), '') || lodash_isNull__WEBPACK_IMPORTED_MODULE_5___default()(name) || lodash_isEqual__WEBPACK_IMPORTED_MODULE_0___default()(this.eventModules.has(name), false)) {
+        return;
+      }
+
+      var firingEvent = lodash_find__WEBPACK_IMPORTED_MODULE_7___default()(this.fireEvents, function (elem) {
+        return lodash_has__WEBPACK_IMPORTED_MODULE_4___default()(elem, name) && lodash_isEqual__WEBPACK_IMPORTED_MODULE_0___default()(lodash_get__WEBPACK_IMPORTED_MODULE_6___default()(fireScope, 'eventIdentity', null), lodash_get__WEBPACK_IMPORTED_MODULE_6___default()(elem, 'eventIdentity'));
+      });
+
+      if (lodash_isEqual__WEBPACK_IMPORTED_MODULE_0___default()(lodash_isUndefined__WEBPACK_IMPORTED_MODULE_11___default()(firingEvent), false)) {
+        // @ts-ignore
+        lodash_bind__WEBPACK_IMPORTED_MODULE_1___default.a.apply(void 0, [handler, handlerScope].concat(data))(lodash_get__WEBPACK_IMPORTED_MODULE_6___default()(firingEvent, 'data', []));
+      }
+
+      if (lodash_isEqual__WEBPACK_IMPORTED_MODULE_0___default()(lodash_has__WEBPACK_IMPORTED_MODULE_4___default()(fireScope, 'eventIdentity'), false)) {
+        lodash_set__WEBPACK_IMPORTED_MODULE_3___default()(fireScope, 'eventIdentity', ObserverManager.uuid());
+      } // @ts-ignore
+
+
+      this.addEvents.push((_this$addEvents$push2 = {
+        key: name
+      }, _defineProperty(_this$addEvents$push2, name, function () {
+        return lodash_bind__WEBPACK_IMPORTED_MODULE_1___default.a.apply(void 0, [handler, handlerScope].concat(data));
+      }), _defineProperty(_this$addEvents$push2, "eventIdentity", lodash_get__WEBPACK_IMPORTED_MODULE_6___default()(fireScope, 'eventIdentity')), _defineProperty(_this$addEvents$push2, "once", true), _this$addEvents$push2));
+    }
+    /**
+     * @desc 触发事件
+     * @param {string} name=`` -event名称（需要和事件模型中的命名空间+名称匹配）
+     * @param {*} fireScope=null -事件定义的作用域
+     * @param {{}} [data] - 事件参数，触发时传入 handler 函数的参数必须满足事件模型中的 fireData 参数设置形式
+     * @example
+     * 事件模型定义：{'game':[{name: 'runEvent', desc: '跑步', data: {num: 10}}]}
+     * fire('game/runEvent', this, 'fire参数1', 'fire参数2')
+     */
+
+  }, {
+    key: "fire",
+    value: function fire() {
+      var _this2 = this;
+
+      var name = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+      var fireScope = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+      var data = arguments.length > 2 ? arguments[2] : undefined;
+
+      if (lodash_isEqual__WEBPACK_IMPORTED_MODULE_0___default()(lodash_trim__WEBPACK_IMPORTED_MODULE_2___default()(name), '') || lodash_isNull__WEBPACK_IMPORTED_MODULE_5___default()(name) || lodash_isEqual__WEBPACK_IMPORTED_MODULE_0___default()(this.eventModules.has(name), false) || lodash_isNull__WEBPACK_IMPORTED_MODULE_5___default()(lodash_get__WEBPACK_IMPORTED_MODULE_6___default()(fireScope, 'eventIdentity', null))) {
+        return;
+      }
+
+      var _iteratorNormalCompletion = true;
+      var _didIteratorError = false;
+      var _iteratorError = undefined;
+
+      try {
+        for (var _iterator = this.fireEvents.entries()[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+          var _step$value = _slicedToArray(_step.value, 2),
+              index = _step$value[0],
+              elem = _step$value[1];
+
+          if (lodash_has__WEBPACK_IMPORTED_MODULE_4___default()(elem, name) && lodash_isEqual__WEBPACK_IMPORTED_MODULE_0___default()(lodash_get__WEBPACK_IMPORTED_MODULE_6___default()(fireScope, 'eventIdentity', null), lodash_get__WEBPACK_IMPORTED_MODULE_6___default()(elem, 'eventIdentity')) && lodash_isEqual__WEBPACK_IMPORTED_MODULE_0___default()(lodash_get__WEBPACK_IMPORTED_MODULE_6___default()(elem, 'once', false), false)) {
+            this.fireEvents.splice(index, 1);
+          }
         }
-      })
-    })
-  }
-
-  /**
-   * @description 注册事件
-   * @param { string } name=`` -event名称（需要和事件模型中的命名空间+名称匹配）
-   * @param { function } handler -事件对应的执行函数
-   * @param { Object } fireScope=null -事件定义的作用域也即是fire触发时传递的fireScope
-   * @param { Object } handlerScope=null -事件执行的作用域
-   * @param {...*} [data] -事件参数<br/>
-   * 触发时传入 handler 函数的参数，可以传入多个参数（将会在 fire 触发的参数之前），<br/>
-   * data建议不要是一个带有原型对象的数据，而应该是字符类型或单纯的对象
-   * @example
-   * 事件模型定义：{'game':[{name: 'runEvent', desc: '跑步', data: {num: 10}}]}
-   * add('game/runEvent', function(p, p1){}},this.parent, this, '参数1', '参数2')
-   */
-  add (name = '', handler = function () {}, fireScope = null, handlerScope = null, ...data) {
-    if (lodash_isEqual__WEBPACK_IMPORTED_MODULE_0___default()(lodash_trim__WEBPACK_IMPORTED_MODULE_2___default()(name), '') || lodash_isNull__WEBPACK_IMPORTED_MODULE_5___default()(name) || lodash_isEqual__WEBPACK_IMPORTED_MODULE_0___default()(this.eventModules.has(name), false)) {
-      return
-    }
-    const firingEvent = lodash_find__WEBPACK_IMPORTED_MODULE_7___default()(this.fireEvents, (elem) => {
-      return lodash_has__WEBPACK_IMPORTED_MODULE_4___default()(elem, name) && lodash_isEqual__WEBPACK_IMPORTED_MODULE_0___default()(lodash_get__WEBPACK_IMPORTED_MODULE_6___default()(fireScope, 'eventIdentity', null), lodash_get__WEBPACK_IMPORTED_MODULE_6___default()(elem, 'eventIdentity'))
-    })
-    if (lodash_isEqual__WEBPACK_IMPORTED_MODULE_0___default()(lodash_isUndefined__WEBPACK_IMPORTED_MODULE_11___default()(firingEvent), false)) {
-      // @ts-ignore
-      lodash_bind__WEBPACK_IMPORTED_MODULE_1___default()(handler, handlerScope, ...data)(lodash_get__WEBPACK_IMPORTED_MODULE_6___default()(firingEvent, 'data', []))
-    }
-    if (lodash_isEqual__WEBPACK_IMPORTED_MODULE_0___default()(lodash_has__WEBPACK_IMPORTED_MODULE_4___default()(fireScope, 'eventIdentity'), false)) {
-      lodash_set__WEBPACK_IMPORTED_MODULE_3___default()(fireScope, 'eventIdentity', ObserverManager.uuid())
-    }
-    // @ts-ignore
-    this.addEvents.push({ key: name, [name]: function () { return lodash_bind__WEBPACK_IMPORTED_MODULE_1___default()(handler, handlerScope, ...data) }, eventIdentity: lodash_get__WEBPACK_IMPORTED_MODULE_6___default()(fireScope, 'eventIdentity'), once: false })
-  }
-
-  /**
-   * @description 注册单次事件（此事件在当前作用域环境下只触发一次）
-   * @param { string } name=`` -event名称（需要和事件模型中的命名空间+名称匹配）
-   * @param { function } handler -事件对应的执行函数
-   * @param { Object } fireScope=null -事件定义的作用域也即是 fire 触发时传递的 fireScope
-   * @param { Object } handlerScope=null -事件执行的作用域
-   * @param {...*} [data] -事件参数<br/>
-   * 触发时传入 handler 函数的参数，可以传入多个参数（将会在 fire 触发的参数之前），<br/>
-   * data建议不要是一个带有原型对象的数据，而应该是字符类型或单纯的对象
-   * @example
-   * 事件模型定义：{'game':[{name: 'runEvent', desc: '跑步', data: {num: 10}}]}
-   * addOnce('game/runEvent', function(p, p1){}},this.parent, this, '参数1', '参数2')
-   */
-  addOnce (name = '', handler = function () {}, fireScope = null, handlerScope = null, ...data) {
-    if (lodash_isEqual__WEBPACK_IMPORTED_MODULE_0___default()(lodash_trim__WEBPACK_IMPORTED_MODULE_2___default()(name), '') || lodash_isNull__WEBPACK_IMPORTED_MODULE_5___default()(name) || lodash_isEqual__WEBPACK_IMPORTED_MODULE_0___default()(this.eventModules.has(name), false)) {
-      return
-    }
-    const firingEvent = lodash_find__WEBPACK_IMPORTED_MODULE_7___default()(this.fireEvents, (elem) => {
-      return lodash_has__WEBPACK_IMPORTED_MODULE_4___default()(elem, name) && lodash_isEqual__WEBPACK_IMPORTED_MODULE_0___default()(lodash_get__WEBPACK_IMPORTED_MODULE_6___default()(fireScope, 'eventIdentity', null), lodash_get__WEBPACK_IMPORTED_MODULE_6___default()(elem, 'eventIdentity'))
-    })
-    if (lodash_isEqual__WEBPACK_IMPORTED_MODULE_0___default()(lodash_isUndefined__WEBPACK_IMPORTED_MODULE_11___default()(firingEvent), false)) {
-      // @ts-ignore
-      lodash_bind__WEBPACK_IMPORTED_MODULE_1___default()(handler, handlerScope, ...data)(lodash_get__WEBPACK_IMPORTED_MODULE_6___default()(firingEvent, 'data', []))
-    }
-    if (lodash_isEqual__WEBPACK_IMPORTED_MODULE_0___default()(lodash_has__WEBPACK_IMPORTED_MODULE_4___default()(fireScope, 'eventIdentity'), false)) {
-      lodash_set__WEBPACK_IMPORTED_MODULE_3___default()(fireScope, 'eventIdentity', ObserverManager.uuid())
-    }
-    // @ts-ignore
-    this.addEvents.push({ key: name, [name]: function () { return lodash_bind__WEBPACK_IMPORTED_MODULE_1___default()(handler, handlerScope, ...data) }, 'eventIdentity': lodash_get__WEBPACK_IMPORTED_MODULE_6___default()(fireScope, 'eventIdentity'), once: true })
-  }
-
-  /**
-   * @desc 触发事件
-   * @param {string} name=`` -event名称（需要和事件模型中的命名空间+名称匹配）
-   * @param {*} fireScope=null -事件定义的作用域
-   * @param {{}} [data] - 事件参数，触发时传入 handler 函数的参数必须满足事件模型中的 fireData 参数设置形式
-   * @example
-   * 事件模型定义：{'game':[{name: 'runEvent', desc: '跑步', data: {num: 10}}]}
-   * fire('game/runEvent', this, 'fire参数1', 'fire参数2')
-   */
-  fire (name = '', fireScope = null, data) {
-    if (lodash_isEqual__WEBPACK_IMPORTED_MODULE_0___default()(lodash_trim__WEBPACK_IMPORTED_MODULE_2___default()(name), '') || lodash_isNull__WEBPACK_IMPORTED_MODULE_5___default()(name) || lodash_isEqual__WEBPACK_IMPORTED_MODULE_0___default()(this.eventModules.has(name), false) || lodash_isNull__WEBPACK_IMPORTED_MODULE_5___default()(lodash_get__WEBPACK_IMPORTED_MODULE_6___default()(fireScope, 'eventIdentity', null))) {
-      return
-    }
-    for (const [index, elem] of this.fireEvents.entries()) {
-      if (lodash_has__WEBPACK_IMPORTED_MODULE_4___default()(elem, name) && lodash_isEqual__WEBPACK_IMPORTED_MODULE_0___default()(lodash_get__WEBPACK_IMPORTED_MODULE_6___default()(fireScope, 'eventIdentity', null), lodash_get__WEBPACK_IMPORTED_MODULE_6___default()(elem, 'eventIdentity')) && lodash_isEqual__WEBPACK_IMPORTED_MODULE_0___default()(lodash_get__WEBPACK_IMPORTED_MODULE_6___default()(elem, 'once', false), false)) {
-        this.fireEvents.splice(index, 1)
+      } catch (err) {
+        _didIteratorError = true;
+        _iteratorError = err;
+      } finally {
+        try {
+          if (!_iteratorNormalCompletion && _iterator["return"] != null) {
+            _iterator["return"]();
+          }
+        } finally {
+          if (_didIteratorError) {
+            throw _iteratorError;
+          }
+        }
       }
-    }
-    const fireData = lodash_pick__WEBPACK_IMPORTED_MODULE_12___default()(data, lodash_keys__WEBPACK_IMPORTED_MODULE_13___default()(lodash_get__WEBPACK_IMPORTED_MODULE_6___default()(this.eventModules.get(name), 'fireData', {})))
-    const firingEvents = []
-    for (const addEvent of this.addEvents.values()) {
-      const onceEvent = lodash_find__WEBPACK_IMPORTED_MODULE_7___default()(this.fireEvents, (fireEvent) => {
-        return lodash_isEqual__WEBPACK_IMPORTED_MODULE_0___default()(lodash_get__WEBPACK_IMPORTED_MODULE_6___default()(fireEvent, name), lodash_get__WEBPACK_IMPORTED_MODULE_6___default()(addEvent, name)) && lodash_isEqual__WEBPACK_IMPORTED_MODULE_0___default()(lodash_get__WEBPACK_IMPORTED_MODULE_6___default()(fireEvent, 'eventIdentity', null), lodash_get__WEBPACK_IMPORTED_MODULE_6___default()(addEvent, 'eventIdentity')) && lodash_isEqual__WEBPACK_IMPORTED_MODULE_0___default()(lodash_get__WEBPACK_IMPORTED_MODULE_6___default()(addEvent, 'once', false), true)
-      })
-      if (lodash_isUndefined__WEBPACK_IMPORTED_MODULE_11___default()(onceEvent)) {
-        if (lodash_has__WEBPACK_IMPORTED_MODULE_4___default()(addEvent, name) && lodash_isEqual__WEBPACK_IMPORTED_MODULE_0___default()(lodash_get__WEBPACK_IMPORTED_MODULE_6___default()(fireScope, 'eventIdentity', null), lodash_get__WEBPACK_IMPORTED_MODULE_6___default()(addEvent, 'eventIdentity'))) {
-          firingEvents.push(lodash_get__WEBPACK_IMPORTED_MODULE_6___default()(addEvent, name))
-          this.fireEvents.push(lodash_set__WEBPACK_IMPORTED_MODULE_3___default()(addEvent, 'data', fireData))
+
+      var fireData = lodash_pick__WEBPACK_IMPORTED_MODULE_12___default()(data, lodash_keys__WEBPACK_IMPORTED_MODULE_13___default()(lodash_get__WEBPACK_IMPORTED_MODULE_6___default()(this.eventModules.get(name), 'fireData', {})));
+
+      var firingEvents = [];
+      var _iteratorNormalCompletion2 = true;
+      var _didIteratorError2 = false;
+      var _iteratorError2 = undefined;
+
+      try {
+        var _loop = function _loop() {
+          var addEvent = _step2.value;
+
+          var onceEvent = lodash_find__WEBPACK_IMPORTED_MODULE_7___default()(_this2.fireEvents, function (fireEvent) {
+            return lodash_isEqual__WEBPACK_IMPORTED_MODULE_0___default()(lodash_get__WEBPACK_IMPORTED_MODULE_6___default()(fireEvent, name), lodash_get__WEBPACK_IMPORTED_MODULE_6___default()(addEvent, name)) && lodash_isEqual__WEBPACK_IMPORTED_MODULE_0___default()(lodash_get__WEBPACK_IMPORTED_MODULE_6___default()(fireEvent, 'eventIdentity', null), lodash_get__WEBPACK_IMPORTED_MODULE_6___default()(addEvent, 'eventIdentity')) && lodash_isEqual__WEBPACK_IMPORTED_MODULE_0___default()(lodash_get__WEBPACK_IMPORTED_MODULE_6___default()(addEvent, 'once', false), true);
+          });
+
+          if (lodash_isUndefined__WEBPACK_IMPORTED_MODULE_11___default()(onceEvent)) {
+            if (lodash_has__WEBPACK_IMPORTED_MODULE_4___default()(addEvent, name) && lodash_isEqual__WEBPACK_IMPORTED_MODULE_0___default()(lodash_get__WEBPACK_IMPORTED_MODULE_6___default()(fireScope, 'eventIdentity', null), lodash_get__WEBPACK_IMPORTED_MODULE_6___default()(addEvent, 'eventIdentity'))) {
+              firingEvents.push(lodash_get__WEBPACK_IMPORTED_MODULE_6___default()(addEvent, name));
+
+              _this2.fireEvents.push(lodash_set__WEBPACK_IMPORTED_MODULE_3___default()(addEvent, 'data', fireData));
+            }
+          }
+        };
+
+        for (var _iterator2 = this.addEvents.values()[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+          _loop();
+        }
+      } catch (err) {
+        _didIteratorError2 = true;
+        _iteratorError2 = err;
+      } finally {
+        try {
+          if (!_iteratorNormalCompletion2 && _iterator2["return"] != null) {
+            _iterator2["return"]();
+          }
+        } finally {
+          if (_didIteratorError2) {
+            throw _iteratorError2;
+          }
+        }
+      }
+
+      if (lodash_isEqual__WEBPACK_IMPORTED_MODULE_0___default()(lodash_isEmpty__WEBPACK_IMPORTED_MODULE_9___default()(firingEvents), false)) {
+        var order = lodash_get__WEBPACK_IMPORTED_MODULE_6___default()(this.eventModules.get(name), 'order', 'desc');
+
+        if (lodash_isEqual__WEBPACK_IMPORTED_MODULE_0___default()(order, 'asc')) {
+          lodash_forOwn__WEBPACK_IMPORTED_MODULE_8___default()(firingEvents, function (event) {
+            return event()(fireData);
+          });
+        }
+
+        if (lodash_isEqual__WEBPACK_IMPORTED_MODULE_0___default()(order, 'desc')) {
+          lodash_forOwnRight__WEBPACK_IMPORTED_MODULE_10___default()(firingEvents, function (event) {
+            return event()(fireData);
+          });
         }
       }
     }
-    if (lodash_isEqual__WEBPACK_IMPORTED_MODULE_0___default()(lodash_isEmpty__WEBPACK_IMPORTED_MODULE_9___default()(firingEvents), false)) {
-      const order = lodash_get__WEBPACK_IMPORTED_MODULE_6___default()(this.eventModules.get(name), 'order', 'desc')
-      if (lodash_isEqual__WEBPACK_IMPORTED_MODULE_0___default()(order, 'asc')) {
-        lodash_forOwn__WEBPACK_IMPORTED_MODULE_8___default()(firingEvents, event => event()(fireData))
+    /**
+     * @desc 注销事件
+     * @param {string} name=`` -event名称（需要和事件模型中的命名空间+名称匹配）
+     * @param {*} fireScope=null -事件定义的作用域
+     * @example
+     * 事件模型定义：{'game':[{name: 'runEvent', desc: '跑步', data: {num: 10}}]}
+     * off('game/runEvent', this)
+     */
+
+  }, {
+    key: "off",
+    value: function off() {
+      var name = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+      var fireScope = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+
+      if (lodash_isEqual__WEBPACK_IMPORTED_MODULE_0___default()(lodash_trim__WEBPACK_IMPORTED_MODULE_2___default()(name), '') || lodash_isNull__WEBPACK_IMPORTED_MODULE_5___default()(name) || lodash_isNull__WEBPACK_IMPORTED_MODULE_5___default()(fireScope) || lodash_isEqual__WEBPACK_IMPORTED_MODULE_0___default()(lodash_has__WEBPACK_IMPORTED_MODULE_4___default()(fireScope, 'eventIdentity'), false)) {
+        return;
       }
-      if (lodash_isEqual__WEBPACK_IMPORTED_MODULE_0___default()(order, 'desc')) {
-        lodash_forOwnRight__WEBPACK_IMPORTED_MODULE_10___default()(firingEvents, event => event()(fireData))
+
+      var _iteratorNormalCompletion3 = true;
+      var _didIteratorError3 = false;
+      var _iteratorError3 = undefined;
+
+      try {
+        for (var _iterator3 = this.fireEvents.entries()[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
+          var _step3$value = _slicedToArray(_step3.value, 2),
+              index = _step3$value[0],
+              elem = _step3$value[1];
+
+          if (lodash_has__WEBPACK_IMPORTED_MODULE_4___default()(elem, name) && lodash_isEqual__WEBPACK_IMPORTED_MODULE_0___default()(lodash_get__WEBPACK_IMPORTED_MODULE_6___default()(fireScope, 'eventIdentity', null), lodash_get__WEBPACK_IMPORTED_MODULE_6___default()(elem, 'eventIdentity'))) {
+            this.fireEvents.splice(index, 1);
+          }
+        }
+      } catch (err) {
+        _didIteratorError3 = true;
+        _iteratorError3 = err;
+      } finally {
+        try {
+          if (!_iteratorNormalCompletion3 && _iterator3["return"] != null) {
+            _iterator3["return"]();
+          }
+        } finally {
+          if (_didIteratorError3) {
+            throw _iteratorError3;
+          }
+        }
+      }
+
+      var _iteratorNormalCompletion4 = true;
+      var _didIteratorError4 = false;
+      var _iteratorError4 = undefined;
+
+      try {
+        for (var _iterator4 = this.addEvents.entries()[Symbol.iterator](), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
+          var _step4$value = _slicedToArray(_step4.value, 2),
+              _index = _step4$value[0],
+              _elem = _step4$value[1];
+
+          if (lodash_has__WEBPACK_IMPORTED_MODULE_4___default()(_elem, name) && lodash_isEqual__WEBPACK_IMPORTED_MODULE_0___default()(lodash_get__WEBPACK_IMPORTED_MODULE_6___default()(fireScope, 'eventIdentity', null), lodash_get__WEBPACK_IMPORTED_MODULE_6___default()(_elem, 'eventIdentity'))) {
+            this.addEvents.splice(_index, 1);
+          }
+        }
+      } catch (err) {
+        _didIteratorError4 = true;
+        _iteratorError4 = err;
+      } finally {
+        try {
+          if (!_iteratorNormalCompletion4 && _iterator4["return"] != null) {
+            _iterator4["return"]();
+          }
+        } finally {
+          if (_didIteratorError4) {
+            throw _iteratorError4;
+          }
+        }
       }
     }
-  }
+    /**
+     * @desc 释放资源
+     */
 
-  /**
-   * @desc 注销事件
-   * @param {string} name=`` -event名称（需要和事件模型中的命名空间+名称匹配）
-   * @param {*} fireScope=null -事件定义的作用域
-   * @example
-   * 事件模型定义：{'game':[{name: 'runEvent', desc: '跑步', data: {num: 10}}]}
-   * off('game/runEvent', this)
-   */
-  off (name = '', fireScope = null) {
-    if (lodash_isEqual__WEBPACK_IMPORTED_MODULE_0___default()(lodash_trim__WEBPACK_IMPORTED_MODULE_2___default()(name), '') || lodash_isNull__WEBPACK_IMPORTED_MODULE_5___default()(name) || lodash_isNull__WEBPACK_IMPORTED_MODULE_5___default()(fireScope) || lodash_isEqual__WEBPACK_IMPORTED_MODULE_0___default()(lodash_has__WEBPACK_IMPORTED_MODULE_4___default()(fireScope, 'eventIdentity'), false)) {
-      return
+  }, {
+    key: "clear",
+    value: function clear() {
+      this.fireEvents = null;
+      this.addEvents = null;
+      this.eventModules.clear();
     }
-    for (const [index, elem] of this.fireEvents.entries()) {
-      if (lodash_has__WEBPACK_IMPORTED_MODULE_4___default()(elem, name) && lodash_isEqual__WEBPACK_IMPORTED_MODULE_0___default()(lodash_get__WEBPACK_IMPORTED_MODULE_6___default()(fireScope, 'eventIdentity', null), lodash_get__WEBPACK_IMPORTED_MODULE_6___default()(elem, 'eventIdentity'))) {
-        this.fireEvents.splice(index, 1)
+    /**
+     * @desc 获取作用域中的事件列表
+     * @param {*} scope -事件定义的作用域
+     * @returns {Array}
+     * @example
+     * getEvents(window)
+     */
+
+  }, {
+    key: "getEvents",
+    value: function getEvents() {
+      var scope = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+
+      if (lodash_isNull__WEBPACK_IMPORTED_MODULE_5___default()(scope) || lodash_isEqual__WEBPACK_IMPORTED_MODULE_0___default()(lodash_has__WEBPACK_IMPORTED_MODULE_4___default()(scope, 'eventIdentity'), false)) {
+        return;
       }
+
+      return lodash_filter__WEBPACK_IMPORTED_MODULE_14___default()(this.addEvents, function (event) {
+        return lodash_isEqual__WEBPACK_IMPORTED_MODULE_0___default()(lodash_get__WEBPACK_IMPORTED_MODULE_6___default()(event, 'eventIdentity'), lodash_get__WEBPACK_IMPORTED_MODULE_6___default()(scope, 'eventIdentity', ''));
+      });
     }
-    for (const [index, elem] of this.addEvents.entries()) {
-      if (lodash_has__WEBPACK_IMPORTED_MODULE_4___default()(elem, name) && lodash_isEqual__WEBPACK_IMPORTED_MODULE_0___default()(lodash_get__WEBPACK_IMPORTED_MODULE_6___default()(fireScope, 'eventIdentity', null), lodash_get__WEBPACK_IMPORTED_MODULE_6___default()(elem, 'eventIdentity'))) {
-        this.addEvents.splice(index, 1)
+    /**
+     * @desc 生成随机值
+     * @access private
+     * @returns {String}
+     */
+
+  }], [{
+    key: "uuid",
+    value: function uuid() {
+      var s = [];
+      var hexDigits = '0123456789abcdef';
+
+      for (var i = 0; i < 36; i++) {
+        s[i] = hexDigits.substr(Math.floor(Math.random() * 0x10), 1);
       }
+
+      s[14] = '4'; // bits 12-15 of the time_hi_and_version field to 0010
+      // @ts-ignore
+
+      s[19] = hexDigits.substr(s[19] & 0x3 | 0x8, 1); // bits 6-7 of the clock_seq_hi_and_reserved to 01
+
+      s[8] = s[13] = s[18] = s[23] = '-';
+      var uuid = s.join('');
+      return uuid;
     }
-  }
+  }]);
 
-  /**
-   * @desc 释放资源
-   */
-  clear () {
-    this.fireEvents = null
-    this.addEvents = null
-    this.eventModules.clear()
-  }
+  return Observer;
+}();
 
-  /**
-   * @desc 获取作用域中的事件列表
-   * @param {*} scope -事件定义的作用域
-   * @returns {Array}
-   * @example
-   * getEvents(window)
-   */
-  getEvents (scope = null) {
-    if (lodash_isNull__WEBPACK_IMPORTED_MODULE_5___default()(scope) || lodash_isEqual__WEBPACK_IMPORTED_MODULE_0___default()(lodash_has__WEBPACK_IMPORTED_MODULE_4___default()(scope, 'eventIdentity'), false)) {
-      return
-    }
-    return lodash_filter__WEBPACK_IMPORTED_MODULE_14___default()(this.addEvents, (event) => {
-      return lodash_isEqual__WEBPACK_IMPORTED_MODULE_0___default()(lodash_get__WEBPACK_IMPORTED_MODULE_6___default()(event, 'eventIdentity'), lodash_get__WEBPACK_IMPORTED_MODULE_6___default()(scope, 'eventIdentity', ''))
-    })
-  }
-
-  /**
-   * @desc 生成随机值
-   * @access private
-   * @returns {String}
-   */
-  static uuid () {
-    const s = [];
-    const hexDigits = '0123456789abcdef';
-    for (let i = 0; i < 36; i++) {
-      s[i] = hexDigits.substr(Math.floor(Math.random() * 0x10), 1);
-    }
-    s[14] = '4'; // bits 12-15 of the time_hi_and_version field to 0010
-    // @ts-ignore
-    s[19] = hexDigits.substr((s[19] & 0x3) | 0x8, 1); // bits 6-7 of the clock_seq_hi_and_reserved to 01
-    s[8] = s[13] = s[18] = s[23] = '-';
-
-    const uuid = s.join('');
-    return uuid;
-  }
-}
 /* harmony default export */ __webpack_exports__["default"] = (ObserverManager);
-
 
 /***/ }),
 /* 1 */
@@ -3672,4 +3881,4 @@ module.exports = arrayFilter;
 /***/ })
 /******/ ])["default"];
 });
-//# sourceMappingURL=observer-manager.js.map
+//# sourceMappingURL=timeout-provider.js.map
