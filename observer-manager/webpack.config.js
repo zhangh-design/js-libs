@@ -34,7 +34,9 @@ module.exports = {
 			{
 				test: /\.js$/,
 				exclude: /node_modules/,
-				use: ['babel-loader'/* ,{
+				use: ['babel-loader',/* {
+					// 如果运行 npm run build 命令出现找不到 `eslint`，可以先安装其它插件包然后在单独执行 cnpm install eslint-loader eslint-friendly-formatter -D
+					// 如果还是有问题可以注释这个eslint-loader
 					loader: 'eslint-loader',
 					options: {
 						fix: true,
