@@ -138,8 +138,8 @@ const RootDataFilterLibrary = new RootDataFilterLibrary({})
 
 名称 | 类型 | 描述
 ---|---|---
-val | string\|number | 字典名称 key
-id | string \|number | paramValue 的值
+val | string\|number | paramValue 的值
+id | string \|number | 字典名称 key
 
 > 实例：
 
