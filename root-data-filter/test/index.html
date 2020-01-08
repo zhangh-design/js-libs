@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script type="text/javascript" src="../dist/root-data-filter.js"></script>
+    <script>
+      // 真实项目开发时应该把 data 数据放到专门的文件中进行模块化区分管理
+      var data = {
+        SEX_TYPE: [
+          { paramValue: 0, paramDesc: '女' },
+          { paramValue: 1, paramDesc: '男' }
+        ],
+        FLAG_TYPE: [
+          { paramValue: 1, paramDesc: '新增' },
+          { paramValue: 10, paramDesc: '等待' },
+          { paramValue: 128, paramDesc: '归档' },
+          { paramValue: 256, paramDesc: '停用' },
+          { paramValue: 384, paramDesc: '丢弃' }
+        ],
+        WF_TYPE: [
+          { paramValue: 0, paramDesc: '退回' },
+          { paramValue: 1, paramDesc: '提交' },
+          { paramValue: 2, paramDesc: '转交' }
+        ],
+        BOOLEAN_NUMBER_TYPE: [
+          { paramValue: 0, paramDesc: '否' },
+          { paramValue: 1, paramDesc: '是' }
+        ],
+        BOOLEAN_BOOLEAN_TYPE: [
+          { paramValue: false, paramDesc: '否' },
+          { paramValue: true, paramDesc: '是' }
+        ],
+        // KEY 也可以是 '命名空间/名称' 防止命名冲突
+        'USER/BOOLEAN_BOOLEAN_TYPE': [
+          { paramValue: false, paramDesc: '否' },
+          { paramValue: true, paramDesc: '是' }
+        ]
+      };
+      // eslint-disable-next-line
+      var Filter = new RootDataFilterLibrary(data);
+      var value = Filter._rootFilter(true, 'USER/BOOLEAN_BOOLEAN_TYPE');
+      console.info(value);
+    </script>
+  </body>
+</html>
