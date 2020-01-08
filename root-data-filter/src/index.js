@@ -49,8 +49,8 @@ const RootDataFilter = class RootDataFilter {
    * @desc
    * 插件对外接口函数
    * 转换真实的 value
-   * @param {string|number} val - 字典名称
-   * @param {string|number} id - 真实的 value
+   * @param {string|number} val - paramValue 的值
+   * @param {string|number} id - 字典名称 key
    * @returns {string|number}
    * @example
    * var data = {'USER/BOOLEAN_BOOLEAN_TYPE': [{ paramValue: false, paramDesc: '否' },{ paramValue: true, paramDesc: '是' }]}
