@@ -16,5 +16,5 @@ common-cache-sdk | 通用前端自定义缓存sdk
 fast-prototype-utils | 前端通用自定义原型处理函数
 timeout-provider | 定时器封装提供器
 promise-provider | Promise异步操作封装提供器
-
+root-data-filter | 全局常量数据过滤转换器
 
