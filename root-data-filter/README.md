@@ -137,9 +137,9 @@ const RootDataFilterLibrary = new RootDataFilterLibrary({})
 > 说明：插件对外接口函数，转换真实的 value
 
 名称 | 类型 | 描述
----|---|---|---
-val | string、number | 字典名称 key
-id | string、number | paramValue的值
+---|---|---
+val | string\|number | 字典名称 key
+id | string \|number | paramValue 的值
 
 > 实例：
 
