@@ -188,6 +188,32 @@ Loader.allApi([Loader.api['user/get']({params: {token: 'czdg_app'}, data: {name:
   })
 ```
 
+如果把`loader-api.min.js`插件直接放在工程目录的某个文件夹下，可以这么来使用：
+
+（访问的请求代理我们可以在 webpackDevServer中设置proxy参数）
+
+```
+import LoaderApiLibrary from './utils/loader-api.min.js'
+
+let user = [{
+  name: 'getUserInfo',
+  desc: '获取某个用户的信息',
+  method: 'GET',
+  path: '/combobox_data1.json',
+  mockPath: '/combobox_data1.json',
+  mock: false, // 是否使用mock地址
+  cache: false, // 不是用缓存
+  removeInvalidChar: true,
+  params: { token: 'test' }
+}]
+const Loader = new LoaderApiLibrary({ 'user': user });
+
+Object.defineProperty(Vue.prototype, '$api', { value: Loader.api })
+/* Vue.prototype.$api = Loader.api
+Vue.prototype.$api['user/getUserInfo']().then((data) => {
+  console.info(data);
+}) */
+```
 
 **类: Loader**
 > 构造器 Constructor
