@@ -12,7 +12,7 @@
     [
       "@babel/plugin-transform-runtime",
       {
-        "absoluteRuntime": true,
+        "absoluteRuntime": false,
         "corejs": 3,
         "helpers": true,
         "regenerator": true,
