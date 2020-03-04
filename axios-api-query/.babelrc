@@ -6,12 +6,13 @@
 			"version": 3
 		}
 	}]] */
+	"presets": ["@babel/preset-env"],
 	/*类库或者组件库配置项*/
 	"plugins": [
     [
       "@babel/plugin-transform-runtime",
       {
-        "absoluteRuntime": false,
+        "absoluteRuntime": true,
         "corejs": 3,
         "helpers": true,
         "regenerator": true,
