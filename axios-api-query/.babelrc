@@ -1,9 +1,23 @@
 {
-	"presets": [["@babel/preset-env", {
+	/* 业务代码配置项 "presets": [["@babel/preset-env", {
 		"useBuiltIns": "usage",
 		"targets": {"browsers": ["> 1%", "last 2 versions", "not ie < 11"]},
 		"corejs": {
 			"version": 3
 		}
-	}]]
+	}]] */
+	/*类库或者组件库配置项*/
+	"plugins": [
+    [
+      "@babel/plugin-transform-runtime",
+      {
+        "absoluteRuntime": false,
+        "corejs": 3,
+        "helpers": true,
+        "regenerator": true,
+        "useESModules": false,
+        "version": "^7.8.4"
+      }
+    ]
+  ]
 }
