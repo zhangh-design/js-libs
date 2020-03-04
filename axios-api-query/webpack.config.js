@@ -23,6 +23,7 @@ module.exports = {
 		libraryTarget: 'umd'			//支持库引入的方式 AMD、CJS、EM module、CDN
 	},
 	// mode: 'development',
+	// mode: 'production',
 	mode: 'none',
 	resolve: {
 		extensions: ['.js', '.json'],
@@ -69,6 +70,6 @@ module.exports = {
 			})
 		]
 	},
-	devtool: 'cheap-source-map'
+	devtool: 'cheap-module-source-map'
 }
 
