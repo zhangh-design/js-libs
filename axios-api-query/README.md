@@ -75,7 +75,7 @@
 > 使用npm
 
 ```
-$ npm install loaderApiLibrary --save
+$ cnpm install axios-api-query -S
 ```
 
 > 使用cdn
@@ -84,9 +84,39 @@ $ npm install loaderApiLibrary --save
 <script type="text/javascript" src="loader-api.min.js"></script>
 ```
 
+本地使用
+
+可以使用`nginx`之类的服务器把`loader-api.min.js`文件放到电脑的某个本地盘里（例如：D盘），然后在`Webpack`配置文件的`plugins`中使用`html-webpack-externals-plugin`这个插件已`script`标签的形式加载到html文件中。
+
+```
+const HtmlWebpackExternalsPlugin = require('html-webpack-externals-plugin')
+
+module.exports = {
+  plugins: [
+      new HtmlWebpackExternalsPlugin({
+        externals: [
+          {
+            module: 'axios',
+            entry: 'https://cdn.bootcss.com/axios/0.18.0/axios.min.js',
+            global: 'axios'
+          }
+          {
+            module: 'LoaderApiLibrary',
+            entry: 'http://127.0.0.1:8085/loader-api.min.js',
+            // 这里的 global 之后会在 import 导入时使用
+            // import LoaderApiLibrary from 'LoaderApiLibrary'
+            global: 'LoaderApiLibrary'
+          }
+        ]
+      })
+  ]
+}
+```
+
+
 > axios库
 
-> 注意：axios库在插件中使用html-webpack-externals-plugin插件进行了分离所以需要在自己项目中的index.html中使用cdn的形式进行导入
+> 注意：axios库在插件中使用`html-webpack-externals-plugin`插件进行了分离所以需要在自己项目中的index.html中使用cdn的形式进行导入
 ```
 <script type="text/javascript" src="https://cdn.bootcss.com/axios/0.18.0/axios.min.js"></script>
 ```
@@ -99,7 +129,8 @@ $ npm install loaderApiLibrary --save
 
 ```
 // 导入插件
-import LoaderApiLibrary from 'loaderApiLibrary'
+（npm 安装的形式，如果是通过`html-webpack-externals-plugin`加载的请用自己配置的`global`名称值）
+import LoaderApiLibrary from 'axios-api-query'
 
 // 构建user接口描述模型
 // 静态描述建议不要将动态参数设置在模型中，以免影响模型的表述
