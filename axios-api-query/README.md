@@ -1,4 +1,4 @@
-##  LoaderApi
+##  axios-api-query
 一个javascript通过api对象模型描述自动生成axios请求实例的插件
 
 **插件的设计初衷**
