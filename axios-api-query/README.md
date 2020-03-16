@@ -47,7 +47,7 @@
 1. "lodash": "^4.17.15",
 2. "querystring": "^0.2.0",
 3. "vdjs": "^1.0.0" [参数验证插件]
-
+4. "axios": "^0.18.0" （请使用这个版本，不要使用 npm i axios --save 安装最新的版本）
 
 **文档**
 1. https://www.lodashjs.com/docs/latest
@@ -116,7 +116,10 @@ module.exports = {
 
 > axios库
 
-> 注意：axios库在插件中使用`html-webpack-externals-plugin`插件进行了分离所以需要在自己项目中的index.html中使用cdn的形式进行导入
+> 注意：axios库在插件中使用`html-webpack-externals-plugin`插件进行了分离所以需要在自己项目中的index.html中使用cdn的形式进行导入。
+
+（如果配置了`html-webpack-externals-plugin`就不需要手动引入了）
+
 ```
 <script type="text/javascript" src="https://cdn.bootcss.com/axios/0.18.0/axios.min.js"></script>
 ```
