@@ -20,7 +20,7 @@ module.exports = {
 		filename: '[name].js',
 		library: 'LoaderApiLibrary',	//指定库的全局变量
 		libraryExport: 'default',		//默认即使用LoaderApiLibrary为插件的全局变量名
-		libraryTarget: 'umd'			//支持库引入的方式 AMD、CJS、EM module、CDN
+		libraryTarget: 'umd'			//通用模块，支持库引入的方式 AMD、CJS、EM module、CDN
 	},
 	// mode: 'development',
 	// mode: 'production',
