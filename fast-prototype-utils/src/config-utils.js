@@ -39,7 +39,7 @@ const utils = {
   },
   'Promise.f_finally': function () {
     _set(Promise, 'prototype.f_finally', function (callback = function () {}) {
-      let P = this.constructor
+      const P = this.constructor
       return this.then(
         value => P.resolve(callback(value)).then(() => value),
         reason => P.resolve(callback(reason)).then(() => { throw reason })
@@ -48,7 +48,7 @@ const utils = {
   },
   'Date.f_formatToDate': function () {
     _set(Date, 'prototype.f_formatToDate', function (date = '2019-12-09 13:46:10') {
-      return dateformat.formatToDate(date);
+      return dateformat.formatToDate(date)
     })
   },
   'Date.f_format': function () {
@@ -88,7 +88,7 @@ const utils = {
   'String.f_getWordCount': function () {
     _set(String, 'prototype.f_getWordCount', function (str = '') {
       const pattern = /[a-zA-Z0-9_\u0392-\u03c9]+|[\u4E00-\u9FFF\u3400-\u4dbf\uf900-\ufaff\u3040-\u309f\uac00-\ud7af]+/g;
-      let m = str.match(pattern);
+      const m = str.match(pattern);
       let count = 0;
       if (m === null) {
         return count;
@@ -115,7 +115,7 @@ const utils = {
   },
   'Number.f_getNumBit': function () {
     _set(Number, 'prototype.f_getNumBit', function (num = 1) {
-      let intNum = num.toFixed(0)
+      const intNum = num.toFixed(0)
       return intNum.length
     })
   },
@@ -130,14 +130,14 @@ const utils = {
   },
   'Date.f_getDateByMon': function () {
     _set(Date, 'prototype.f_getDateByMon', function (year = '2019', month = '12') {
-      let d = new Date(year, month, 0)
+      const d = new Date(year, month, 0)
       return d.getDate()
     })
   },
   'String.f_delBlankSpace': function () {
     _set(String, 'prototype.f_delBlankSpace', function (str = '1') {
       str = str.replace(/<\/?[^>]*>/gim, '');// 去掉所有的html标记
-      let result = str.replace(/(^\s+)|(\s+$)/g, '');// 去掉前后空格
+      const result = str.replace(/(^\s+)|(\s+$)/g, '');// 去掉前后空格
       return result.replace(/\s/g, '');// 去除文章中间空格
     })
   },
