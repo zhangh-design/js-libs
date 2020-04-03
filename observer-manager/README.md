@@ -1,4 +1,4 @@
-## ObserverManager
+## observer-manager
 自定义事件发布-订阅插件
 
 **插件的设计初衷**
@@ -53,21 +53,6 @@
 压缩版：observer-manager.min.js
 ```
 
-**浏览器兼容版本**
-"browsers": ["> 1%", "last 2 versions", "not ie < 11"]
-
-如果你确定运行环境是在比如：Chrome 67 这些现代先进的浏览器下（基本已经全部实现 ES6 语法），可以修改 .babelrc 文件中的 browsers：
-
-[->ES6语法浏览器兼容查询可以前往](https://www.caniuse.com/)
-
-```
-"targets": {
-	"chrome": "67"
-}
-```
-
-这样打包文件的体积将大幅缩小。
-
 ---
 
 
@@ -75,7 +60,7 @@
 > 使用npm
 
 ```
-$ npm install ObserverManagerLibrary --save
+$ npm install observer-manager --save
 ```
 
 > 使用cdn
@@ -90,7 +75,7 @@ $ npm install ObserverManagerLibrary --save
 
 ```
 // 导入插件
-import ObserverManager from 'ObserverManagerLibrary'
+import ObserverManager from 'observer-manager'
 
 // 事件模型列表// 事件模型列表
 const eventModuleConfig = {

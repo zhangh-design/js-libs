@@ -1,4 +1,4 @@
-## GlobalVar
+## global-var-manager
 一个js全局变量管理器
 
 **插件的设计初衷**
@@ -49,19 +49,6 @@
 压缩版：global-var-manager.min.js
 ```
 
-**浏览器兼容版本**
-"browsers": ["> 1%", "last 2 versions", "not ie < 11"]
-
-如果你确定运行环境是在比如：Chrome 67 这些现代先进的浏览器下（基本已经全部实现 ES6 语法），可以修改 .babelrc 文件中的 browsers：
-
-[->ES6语法浏览器兼容查询可以前往](https://www.caniuse.com/)
-
-```
-"targets": {
-	"chrome": "67"
-}
-```
-
 这样打包文件的体积将大幅缩小。
 
 ---
@@ -71,7 +58,7 @@
 > 使用npm
 
 ```
-$ npm install globalVarManagerLibrary --save
+$ npm install global-var-manager --save
 ```
 
 > 使用cdn
@@ -86,7 +73,7 @@ $ npm install globalVarManagerLibrary --save
 
 ```
 // 导入插件
-import GlobalVarManagerLibrary from 'globalVarManagerLibrary'
+import GlobalVarManagerLibrary from 'global-var-manager'
 
 // 初始化插件并传入需要在初始化时立马构建的全局变量对象
 let globalVar = new GlobalVarManagerLibrary ({'token': 'test_123'})

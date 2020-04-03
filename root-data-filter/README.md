@@ -1,4 +1,4 @@
-## RootDataFilter
+## root-data-filter
 一个 Javascript 封装的全局数据过滤转换器
 
 **插件的设计初衷**
@@ -73,7 +73,7 @@
 > 使用npm
 
 ```
-$ npm install RootDataFilterLibrary --save
+$ npm install root-data-filter --save
 ```
 
 > 使用cdn
@@ -88,7 +88,7 @@ $ npm install RootDataFilterLibrary --save
 
 ```
 // 导入插件
-import RootDataFilterLibrary from 'RootDataFilterLibrary'
+import RootDataFilterLibrary from 'root-data-filter'
 
 // 真实项目开发时应该把 data 数据放到专门的文件中进行模块化区分管理
 var data = {

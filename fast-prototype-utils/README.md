@@ -38,19 +38,8 @@
 1. npm run build
 
 **浏览器兼容版本**
-"browsers": ["> 1%", "last 2 versions", "not ie < 11"]
 
-如果你确定运行环境是在比如：Chrome 67 这些现代先进的浏览器下（基本已经全部实现 ES6 语法），可以修改 .babelrc 文件中的 browsers：
-
-[->ES6语法浏览器兼容查询可以前往](https://www.caniuse.com/)
-
-```
-"targets": {
-	"chrome": "67"
-}
-```
-
-这样打包文件的体积将大幅缩小。
+兼容 `IE`、`Chrome`。
 
 **更新状态**
 
@@ -73,7 +62,7 @@
 > 使用npm
 
 ```
-$ npm install FastPrototypeUtilsLibrary --save
+$ npm install fast-prototype-utils --save
 ```
 
 > 使用cdn
@@ -88,12 +77,12 @@ $ npm install FastPrototypeUtilsLibrary --save
 
 ```
 // 导入插件
-import FastPrototypeUtilsLibrary from 'FastPrototypeUtilsLibrary'
+import FastPrototypeUtilsLibrary from 'fast-prototype-utils'
 
 // 初始化的原型帮助函数列表key值名称
 const requires = ['Promise.f_done', 'Promise.f_finally', 'Date.f_formatToDate', 'Date.f_format', 'Date.f_now', 'Number.f_toNumber', 'String.f_getWordCount']
 // 初始化全局原型帮助函数
-// const requires = [] 
+// const requires = []
 const FastPrototypeUtils = new FastPrototypeUtilsLibrary(requires)
 
 // 输出所有帮助函数key值的列表

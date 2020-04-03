@@ -1,8 +1,9 @@
-## LogConsole
+## log-console
 一个console输出自定义日志工具
 
 **插件的设计初衷**
-> 我们经常会在程序中使用console对象来进行调试信息的输出，这很方便，但是当大量的console对象留在了底层的代码中但是马上去除这些输出日志又无法立即实现。
+> 我们经常会在程序中使用`console`对象来进行调试信息的输出，但是如果我们的项目是多人协作开发那么每个人输出的信息都不规范这样对我们项目的调试会带来负面的左右，
+或者各个模块应该有自己日志的主题这样便于区分输出，然后我们也可以快速的去掉某些类型的日志输出从而不让别人的日志影响到我们自己的调试日志。
 
 **插件的设计思想**
 1. 统一项目中输出日志的使用
@@ -54,21 +55,6 @@
 压缩版：log-console.min.js
 ```
 
-**浏览器兼容版本**
-"browsers": ["> 1%", "last 2 versions", "not ie < 11"]
-
-如果你确定运行环境是在比如：Chrome 67 这些现代先进的浏览器下（基本已经全部实现 ES6 语法），可以修改 .babelrc 文件中的 browsers：
-
-[->ES6语法浏览器兼容查询可以前往](https://www.caniuse.com/)
-
-```
-"targets": {
-	"chrome": "67"
-}
-```
-
-这样打包文件的体积将大幅缩小。
-
 ---
 
 
@@ -76,7 +62,7 @@
 > 使用npm
 
 ```
-$ npm install LogConsoleLibrary --save
+$ npm install log-console --save
 ```
 
 > 使用cdn
@@ -91,7 +77,7 @@ $ npm install LogConsoleLibrary --save
 
 ```
 // 导入插件
-import LogConsoleLibrary from 'logConsoleLibrary'
+import LogConsoleLibrary from 'log-console'
 
 // 初始化插件并传入日志的级别，并过滤user-data和goods-data为tag的日志
 const LogConsole = new LogConsoleLibrary(1, ['user-data','goods-data']);
