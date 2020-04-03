@@ -1,5 +1,5 @@
 {
-  "name": "timeout-provider",
+  "name": "root-data-filter",
   "version": "1.0.0",
   "description": "一个Javascript封装的全局数据过滤转换器",
   "main": "index.js",
