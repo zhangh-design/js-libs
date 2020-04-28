@@ -1,168 +1,178 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Webpack App</title>
+  </head>
 
-<head>
-	<meta charset="UTF-8">
-	<title>Webpack App</title>
-</head>
+  <body>
+    <script
+      type="text/javascript"
+      src="https://cdn.bootcss.com/axios/0.18.0/axios.min.js"
+    ></script>
+    <script type="text/javascript" src="loader-api.js"></script>
+  </body>
+  <script>
+    const apiList = [
+      {
+        name: "get",
+        desc: "",
+        method: "GET",
+        path: "root/login/LoginController/getUserInfo",
+        mockPath: "mock/root/login/LoginController/getUserInfo",
+        params: {
+          token: "",
+          v: 100
+        },
+        headers: {},
+        data: {
+          type: "bbbbb"
+        },
+        validator: {
+          token: {
+            required: true,
+            sqlXss: true,
+            type: String,
+            not: "",
+            msg: "token不能为空!"
+          },
+          name: {
+            required: true,
+            type: String,
+            not: "",
+            msg: "名称不能为空!"
+          }
+        }
+      }
+    ];
+    const userModules = [
+      {
+        name: "get",
+        desc: "用户权限列表",
+        method: "GET",
+        path: "root/main/MainController/readUserModules",
+        mockPath: "mock/root/main/MainController/readUserModules",
+        params: {
+          token: "czdg_app"
+        }
+      },
+      {
+        name: "login",
+        desc: "登录",
+        method: "POST",
+        path: "root/login/LoginController/{id}/getLogin",
+        mockPath: "mock/root/login/LoginController/getLogin",
+        data: {
+          account: "12345",
+          password: ""
+        },
+        restful: {
+          id: 111
+        },
+        validator: {
+          account: [
+            {
+              length: [3, 20],
+              msg: "account字段保持3~20字符"
+            },
+            {
+              eq: "123456",
+              msg: "必须是123456"
+            }
+          ],
+          password: {
+            not: "",
+            msg: "password不能为空!"
+          }
+        },
+        restfulValidator: {
+          id: {
+            eq: 123,
+            msg: "必须是123"
+          }
+        }
+      }
+    ];
 
-<body>
-	<script type="text/javascript" src="https://cdn.bootcss.com/axios/0.18.0/axios.min.js"></script>
-	<script type="text/javascript" src="loader-api.js"></script>
-</body>
-<script>
-	const apiList = [{
-	  name: 'get',
-	  desc: '',
-	  method: 'GET',
-	  path: 'root/login/LoginController/getUserInfo',
-	  mockPath: 'mock/root/login/LoginController/getUserInfo',
-	  params: {
-	    token: '',
-	    v: 100
-	  },
-	  headers: {},
-	  data: {
-	    type: 'bbbbb'
-	  },
-	  validator: {
-	    token: {
-	      required: true,
-	      sqlXss: true,
-	      type: String,
-	      not: '',
-	      msg: 'token不能为空!'
-	    },
-	    name: {
-	      required: true,
-	      type: String,
-	      not: '',
-	      msg: '名称不能为空!'
-	    }
-	  }
-	}]
-	const userModules = [{
-	  name: 'get',
-	  desc: '用户权限列表',
-	  method: 'GET',
-	  path: 'root/main/MainController/readUserModules',
-	  mockPath: 'mock/root/main/MainController/readUserModules',
-	  params: {
-	    token: 'czdg_app'
-	  }
+    // eslint-disable-next-line no-undef
+    const Loader = new LoaderApiLibrary(
+      {
+        user: apiList,
+        modules: userModules
+      },
+      {
+        statusMessage: {
+          404: "找不到请求地址"
+        },
+        console_request_enable: true,
+        console_response_enable: false,
+        request_error_callback: function({ status, statusText }) {
+          console.info("aaaaaaaa ", status, statusText);
+        }
+      },
+      {
+        timeout: 30000,
+        transformResponse: function(data = {}) {
+          return data;
+        }
+      }
+    );
+    window.apiRequestStartHandler = function() {
+      console.info("请求开始发送");
+    };
+    window.apiRequestEndHandler = function() {
+      console.info("请求结束");
+    };
+    window.apiRequestInterceptErrorHandler = function(message) {
+      console.info(message);
+    };
+    Loader.api["user/get"](
+      {
+        params: {
+          token: "czdg_app"
+        },
+        data: {
+          name: "123"
+        }
+      },
+      {
+        request_error_callback: function({ status, statusText }) {
+          console.info("bbbbbbbbbbbbb ", status, statusText);
+        }
+      }
+    )
+      .then(response => {
+        console.info(response);
+      })
+      .catch(error => {
+        console.info(error);
+      });
+    /* var bb = '333333333'
+	Loader.api['modules/login']({data: {account: '333333333',password: 'Wkq003001'}, headers: {'Content-Type': 'application/json;charset=UTF-8'}}, {
+	validator: {
+	account: {eq: bb, msg: 'account必须是333333333'}
 	},
-	{
-	  name: 'login',
-	  desc: '登录',
-	  method: 'POST',
-	  path: 'root/login/LoginController/{id}/getLogin',
-	  mockPath: 'mock/root/login/LoginController/getLogin',
-	  data: {
-	    account: '12345',
-	    password: ''
-	  },
-	  restful: {
-	    id: 111
-	  },
-	  validator: {
-	    account: [{
-	      length: [3, 20],
-	      msg: 'account字段保持3~20字符'
-	    },
-	    {
-	      eq: '123456',
-	      msg: '必须是123456'
-	    }
-	    ],
-	    password: {
-	      not: '',
-	      msg: 'password不能为空!'
-	    }
-	  },
-	  restfulValidator: {
-	    id: {
-	      eq: 123,
-	      msg: '必须是123'
-	    }
-	  }
+	restfulValidator: {
+	id: {eq: 123, msg: '必须是12345'}
 	}
-	]
+	}).then((response)=>{
+	console.info(response);
+	}).catch((error)=>{
+	console.info(error);
+	}) */
 
-	// eslint-disable-next-line no-undef
-	const Loader = new LoaderApiLibrary({
-	  user: apiList,
-	  modules: userModules
-	}, {
-	  statusMessage: {
-	    404: '找不到请求地址'
-	  },
-	  console_request_enable: true,
-	  console_response_enable: false,
-	  request_error_callback: function ({
-	    status,
-	    statusText
-	  }) {
-	    console.info('aaaaaaaa ', status, statusText);
-	  }
-	}, {
-	  timeout: 30000,
-	  transformResponse: function (data = {}) {
-	    return data
-	  }
-	})
-	window.apiRequestStartHandler = function () {
-	  console.info('请求开始发送');
-	}
-	window.apiRequestEndHandler = function () {
-	  console.info('请求结束');
-	}
-	window.apiRequestInterceptErrorHandler = function (message) {
-	  console.info(message)
-	}
-	Loader.api['user/get']({
-	  params: {
-	    token: 'czdg_app'
-	  },
-	  data: {
-	    name: '123'
-	  }
-	}, {
-	  request_error_callback: function ({
-	    status,
-	    statusText
-	  }) {
-	    console.info('bbbbbbbbbbbbb ', status, statusText);
-	  }
-	}).then((response) => {
-	  console.info(response);
-	}).catch((error) => {
-	  console.info(error);
-	})
-	/* var bb = '333333333'
-	  Loader.api['modules/login']({data: {account: '333333333',password: 'Wkq003001'}, headers: {'Content-Type': 'application/json;charset=UTF-8'}}, {
-	  validator: {
-	    account: {eq: bb, msg: 'account必须是333333333'}
-	  },
-	  restfulValidator: {
-	    id: {eq: 123, msg: '必须是12345'}
-	  }
-	  }).then((response)=>{
-	    console.info(response);
-	  }).catch((error)=>{
-	    console.info(error);
-	  }) */
+    Loader.api["modules/get"]()
+      .then(response => {
+        console.info(response);
+      })
+      .catch(error => {
+        console.info(error);
+      });
 
-	Loader.api['modules/get']().then((response) => {
-	  console.info(response);
-	}).catch((error) => {
-	  console.info(error);
-	})
-
-	/* Loader.allApi([Loader.api['user/get']({params: {token: 'czdg_app'}, data: {name: '123'}}), Loader.api['modules/get']()]).then((data)=>{
+    /* Loader.allApi([Loader.api['user/get']({params: {token: 'czdg_app'}, data: {name: '123'}}), Loader.api['modules/get']()]).then((data)=>{
       console.info('3333333',data);
-	  }).catch((error)=>{
+	}).catch((error)=>{
       console.info('44444444444',error);
-	  }) */
-</script>
-
+	}) */
+  </script>
 </html>
