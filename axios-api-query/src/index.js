@@ -185,7 +185,9 @@ const Loader = class Api {
         _has(outParams, 'headers.Content-Type') && _set(headers, 'Content-Type', _get(outParams, 'headers.Content-Type'))
         let [url, pickParams, pickData, pickHeaders, pickOptions] = [path, {}, {}, {}, {}]
         if ((_get(this, 'apiParamsConfig.mock') && _isNil(mock)) || mock) {
-          url = _isNil(mockPath) ? _get(this, 'apiParamsConfig.mockBasePath') : mockPath
+          // url = _isNil(mockPath) ? _get(this, 'apiParamsConfig.mockBasePath') : mockPath
+          url = _isNil(mockPath) ? '' : mockPath
+          baseURL = _get(this, 'apiParamsConfig.mockBasePath')
         }
         if (_eq(_isEmpty(_get(outParams, 'params', {})), false) || _eq(_isEmpty(params), false)) {
           pickParams = _pick(_assign(params, _get(this, 'apiParamsConfig.gParams', {}), _get(outParams, 'params', {})), _concat(_keys(params), _keys(_get(this, 'apiParamsConfig.gParams', {}))))
@@ -343,7 +345,7 @@ const Loader = class Api {
     if (_isString(responseType)) {
       _set(options, 'responseType', responseType)
     }
-    if (_isUndefined(baseURL)) {
+    if (!_isUndefined(baseURL)) {
       _set(options, 'baseURL', baseURL)
     }
     if (_isFunction(_get(this, 'apiParamsConfig.request_error_callback', null))) {
