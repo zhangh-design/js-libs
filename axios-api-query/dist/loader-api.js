@@ -5924,7 +5924,7 @@ function responseSuccessFunc(response) {
     lodash_spread__WEBPACK_IMPORTED_MODULE_14___default()(lodash_get__WEBPACK_IMPORTED_MODULE_4___default()(window, 'apiRequestEndHandler'))();
   }
 
-  if (lodash_eq__WEBPACK_IMPORTED_MODULE_5___default()(lodash_get__WEBPACK_IMPORTED_MODULE_4___default()(response, 'status', 200), lodash_get__WEBPACK_IMPORTED_MODULE_4___default()(response, 'config.status', 200)) && lodash_eq__WEBPACK_IMPORTED_MODULE_5___default()(lodash_get__WEBPACK_IMPORTED_MODULE_4___default()(response, 'statusText', 'OK'), lodash_get__WEBPACK_IMPORTED_MODULE_4___default()(response, 'config.statusText', 'OK'))) {
+  if (lodash_eq__WEBPACK_IMPORTED_MODULE_5___default()(lodash_get__WEBPACK_IMPORTED_MODULE_4___default()(response, 'status', 200), lodash_get__WEBPACK_IMPORTED_MODULE_4___default()(response, 'config.status', 200))) {
     var data = lodash_get__WEBPACK_IMPORTED_MODULE_4___default()(response, 'data', null);
 
     return lodash_eq__WEBPACK_IMPORTED_MODULE_5___default()(data, null) ? {} : data;
