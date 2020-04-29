@@ -68,7 +68,7 @@ export function responseSuccessFunc (response) {
     // 通知函数定义处-请求结束
     _spread(_get(window, 'apiRequestEndHandler'))()
   }
-  if (_eq(_get(response, 'status', 200), _get(response, 'config.status', 200)) && _eq(_get(response, 'statusText', 'OK'), _get(response, 'config.statusText', 'OK'))) {
+  if (_eq(_get(response, 'status', 200), _get(response, 'config.status', 200))) {
     const data = _get(response, 'data', null)
     return _eq(data, null) ? {} : data
   } else {
