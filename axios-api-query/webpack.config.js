@@ -1,8 +1,8 @@
 'user strict'
 /* eslint-disable */
 const path = require('path')
+const webpack = require('webpack')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
-const HtmlWebpackExternalsPlugin = require('html-webpack-externals-plugin')
 const LodashWebpackPlugin = require('lodash-webpack-plugin')
 const TerserPlugin = require('terser-webpack-plugin')
 
@@ -30,7 +30,8 @@ module.exports = {
 		alias: {
 		  '@': resolve('src')
 		}
-	},
+  },
+  externals: {axios: 'axios'},
 	module: {
 		rules: [
 			{
@@ -51,16 +52,8 @@ module.exports = {
 	},
 	plugins: [
 		new CleanWebpackPlugin(),
-		new HtmlWebpackExternalsPlugin({
-			externals: [
-				{
-					module: 'axios',
-					entry: 'https://cdn.bootcss.com/axios/0.18.0/axios.min.js',
-					global: 'axios'
-				}
-			]
-		}),
-		new LodashWebpackPlugin()
+    new LodashWebpackPlugin(),
+    new webpack.optimize.ModuleConcatenationPlugin()
 	],
 	optimization: {
 		minimize: true,
@@ -68,7 +61,7 @@ module.exports = {
 			new TerserPlugin({
 				include: /\.min\.js$/
 			})
-		]
+    ]
 	},
 	devtool: 'cheap-module-source-map'
 }

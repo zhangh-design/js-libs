@@ -13,7 +13,7 @@
       "@babel/plugin-transform-runtime",
       {
         "absoluteRuntime": false,
-        "corejs": 3,
+        "corejs": 3, // 如果不需要支持 ie 这些低版本浏览器，那么可以设置为 "corejs": false 构建包体积也会大大降低
         "helpers": true,
         "regenerator": true,
         "useESModules": false,

@@ -27,6 +27,7 @@ import _isUndefined from 'lodash/isUndefined'
 import _isFunction from 'lodash/isFunction'
 import _toUpper from 'lodash/toUpper'
 import _isArray from 'lodash/isArray'
+// window.Promise = Promise 如果是在 html 页面中直接测试（ie不支持Promise，Chrome则不用解释），请解释这句话
 /**
  * @class Loader
  * @classdesc axios请求实例构建器
