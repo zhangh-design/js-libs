@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>自建 webpack 配置</title>
+  <script type="text/javascript" src="https://cdn.bootcss.com/axios/0.18.0/axios.min.js"></script>
+  <script src="./loader-api.js"></script>
+</head>
+<body>
+
+  <script>
+    console.info('aaaa ',LoaderApiLibrary);
+	let user = [
+	  {
+		name: 'doLogin',
+		method: 'POST',
+		desc: '用户登录',
+		path: '/api/login',
+		mockPath: '/api/mock/login',
+		data: { name: '', pswd: '' },
+		validator: {
+		  name: { required: true, type: String, sqlXss: true, not: '', msg: '用户名不能为空!' },
+		  pswd: { required: true, type: String, sqlXss: true, not: '', msg: '密码不能为空!' }
+		}
+	  }
+	]
+	const Loader = new LoaderApiLibrary({user: user},{
+	  mockBasePath: 'https://yapi.tianli.shop/mock/438/',
+      mock: true,
+      console_request_enable: true,
+      console_response_enable: true
+	},{
+	  baseURL: 'http://www.xxxx.com/',
+      timeout: 30000
+	});
+	// 全局钩子函数
+	window.apiRequestStartHandler = function(){
+		console.info('请求开始发送');
+	}
+	window.apiRequestEndHandler = function(){
+		console.info('请求结束');
+	}
+	window.apiRequestInterceptErrorHandler = function(message){
+		// 请求出现拦截器无法捕获的异常 例如：timeout 请求超时
+		console.log('aaaaaaaa  ',message)
+	}
+	Loader.api['user/doLogin']({ data: { name:'admin', pswd: '123' }, headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' } })
+        .then(resData => {
+          console.log('resData', resData)
+        })
+        .catch(error => {
+          console.log('error ',error);
+        })
+  </script>
+</body>
+</html>
