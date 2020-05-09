@@ -68,11 +68,20 @@ export function responseSuccessFunc (response) {
     // 通知函数定义处-请求结束
     _spread(_get(window, 'apiRequestEndHandler'))()
   }
+  if (_has(response, 'data.errcode')) {
+    // 虽然请求的 status 是 200，但是返回 response 不符合要求
+    // 比如：{"errcode":404,"errmsg":"不存在的api, 当前请求path为 /login， 请求方法为 GET ，请确认是否定义此请求。","data":null}
+    const callBack = _spread(_get(window, 'apiRequestInterceptErrorHandler', function () {}))
+    callBack([_get(response, 'data.errmsg', '请求异常')])
+    return Promise.reject(new Error(_get(response, 'data.errmsg', '请求异常')))
+  }
   if (_eq(_get(response, 'status', 200), _get(response, 'config.status', 200))) {
     const data = _get(response, 'data', null)
     return _eq(data, null) ? {} : data
   } else {
-    return Promise.reject(new Error('返回response的status和statusText和设置值不匹配'))
+    const callBack = _spread(_get(window, 'apiRequestInterceptErrorHandler', function () {}))
+    callBack(['返回 response 的 status 值不是 200'])
+    return Promise.reject(new Error('返回 response 的 status 值不是 200'))
   }
 }
 

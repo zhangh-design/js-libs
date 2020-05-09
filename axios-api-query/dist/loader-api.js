@@ -194,7 +194,7 @@ __webpack_require__.r(__webpack_exports__);
 
 function _createForOfIteratorHelper(o) { if (typeof _babel_runtime_corejs3_core_js_stable_symbol__WEBPACK_IMPORTED_MODULE_3___default.a === "undefined" || _babel_runtime_corejs3_core_js_get_iterator_method__WEBPACK_IMPORTED_MODULE_2___default()(o) == null) { if (_babel_runtime_corejs3_core_js_stable_array_is_array__WEBPACK_IMPORTED_MODULE_1___default()(o) || (o = _unsupportedIterableToArray(o))) { var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var it, normalCompletion = true, didErr = false, err; return { s: function s() { it = _babel_runtime_corejs3_core_js_get_iterator__WEBPACK_IMPORTED_MODULE_0___default()(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
 
-function _unsupportedIterableToArray(o, minLen) { var _context3; if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = _babel_runtime_corejs3_core_js_stable_instance_slice__WEBPACK_IMPORTED_MODULE_5___default()(_context3 = Object.prototype.toString.call(o)).call(_context3, 8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return _babel_runtime_corejs3_core_js_stable_array_from__WEBPACK_IMPORTED_MODULE_4___default()(n); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _unsupportedIterableToArray(o, minLen) { var _context3; if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = _babel_runtime_corejs3_core_js_stable_instance_slice__WEBPACK_IMPORTED_MODULE_5___default()(_context3 = Object.prototype.toString.call(o)).call(_context3, 8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return _babel_runtime_corejs3_core_js_stable_array_from__WEBPACK_IMPORTED_MODULE_4___default()(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
@@ -483,7 +483,7 @@ var Loader = /*#__PURE__*/function () {
             restfulValidator: restfulValidator
           });
 
-          return Object(_axios__WEBPACK_IMPORTED_MODULE_17__["default"])(_babel_runtime_corejs3_helpers_objectSpread2__WEBPACK_IMPORTED_MODULE_7___default()({}, requestOptions, {}, pickOptions, {
+          return Object(_axios__WEBPACK_IMPORTED_MODULE_17__["default"])(_babel_runtime_corejs3_helpers_objectSpread2__WEBPACK_IMPORTED_MODULE_7___default()(_babel_runtime_corejs3_helpers_objectSpread2__WEBPACK_IMPORTED_MODULE_7___default()(_babel_runtime_corejs3_helpers_objectSpread2__WEBPACK_IMPORTED_MODULE_7___default()({}, requestOptions), pickOptions), {}, {
             method: lodash_toUpper__WEBPACK_IMPORTED_MODULE_37___default()(method),
             url: url,
             headers: pickHeaders,
@@ -5298,7 +5298,7 @@ function _unsupportedIterableToArray(o, minLen) {
   var n = _sliceInstanceProperty(_context = Object.prototype.toString.call(o)).call(_context, 8, -1);
 
   if (n === "Object" && o.constructor) n = o.constructor.name;
-  if (n === "Map" || n === "Set") return _Array$from(n);
+  if (n === "Map" || n === "Set") return _Array$from(o);
   if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return arrayLikeToArray(o, minLen);
 }
 
@@ -5924,12 +5924,25 @@ function responseSuccessFunc(response) {
     lodash_spread__WEBPACK_IMPORTED_MODULE_14___default()(lodash_get__WEBPACK_IMPORTED_MODULE_4___default()(window, 'apiRequestEndHandler'))();
   }
 
+  if (lodash_has__WEBPACK_IMPORTED_MODULE_3___default()(response, 'data.errcode')) {
+    // 虽然请求的 status 是 200，但是返回 response 不符合要求
+    // 比如：{"errcode":404,"errmsg":"不存在的api, 当前请求path为 /login， 请求方法为 GET ，请确认是否定义此请求。","data":null}
+    var callBack = lodash_spread__WEBPACK_IMPORTED_MODULE_14___default()(lodash_get__WEBPACK_IMPORTED_MODULE_4___default()(window, 'apiRequestInterceptErrorHandler', function () {}));
+
+    callBack([lodash_get__WEBPACK_IMPORTED_MODULE_4___default()(response, 'data.errmsg', '请求异常')]);
+    return _babel_runtime_corejs3_core_js_stable_promise__WEBPACK_IMPORTED_MODULE_0___default.a.reject(new Error(lodash_get__WEBPACK_IMPORTED_MODULE_4___default()(response, 'data.errmsg', '请求异常')));
+  }
+
   if (lodash_eq__WEBPACK_IMPORTED_MODULE_5___default()(lodash_get__WEBPACK_IMPORTED_MODULE_4___default()(response, 'status', 200), lodash_get__WEBPACK_IMPORTED_MODULE_4___default()(response, 'config.status', 200))) {
     var data = lodash_get__WEBPACK_IMPORTED_MODULE_4___default()(response, 'data', null);
 
     return lodash_eq__WEBPACK_IMPORTED_MODULE_5___default()(data, null) ? {} : data;
   } else {
-    return _babel_runtime_corejs3_core_js_stable_promise__WEBPACK_IMPORTED_MODULE_0___default.a.reject(new Error('返回response的status和statusText和设置值不匹配'));
+    var _callBack = lodash_spread__WEBPACK_IMPORTED_MODULE_14___default()(lodash_get__WEBPACK_IMPORTED_MODULE_4___default()(window, 'apiRequestInterceptErrorHandler', function () {}));
+
+    _callBack(['返回 response 的 status 值不是 200']);
+
+    return _babel_runtime_corejs3_core_js_stable_promise__WEBPACK_IMPORTED_MODULE_0___default.a.reject(new Error('返回 response 的 status 值不是 200'));
   }
 }
 /**
@@ -5943,6 +5956,8 @@ function responseErrorFunc(responseError) {
     // 通知函数定义处-请求结束
     lodash_spread__WEBPACK_IMPORTED_MODULE_14___default()(lodash_get__WEBPACK_IMPORTED_MODULE_4___default()(window, 'apiRequestEndHandler'))();
   }
+
+  console.info('aaaaa ', responseError);
 
   var response = lodash_get__WEBPACK_IMPORTED_MODULE_4___default()(responseError, 'response', null);
 
@@ -5961,9 +5976,9 @@ function responseErrorFunc(responseError) {
   }
 
   if (lodash_isNull__WEBPACK_IMPORTED_MODULE_12___default()(response)) {
-    var _callBack = lodash_spread__WEBPACK_IMPORTED_MODULE_14___default()(lodash_get__WEBPACK_IMPORTED_MODULE_4___default()(window, 'apiRequestInterceptErrorHandler', function () {}));
+    var _callBack2 = lodash_spread__WEBPACK_IMPORTED_MODULE_14___default()(lodash_get__WEBPACK_IMPORTED_MODULE_4___default()(window, 'apiRequestInterceptErrorHandler', function () {}));
 
-    _callBack([lodash_get__WEBPACK_IMPORTED_MODULE_4___default()(responseError, 'message', '')]);
+    _callBack2([lodash_get__WEBPACK_IMPORTED_MODULE_4___default()(responseError, 'message', '')]);
   }
 
   return _babel_runtime_corejs3_core_js_stable_promise__WEBPACK_IMPORTED_MODULE_0___default.a.reject(responseError);
