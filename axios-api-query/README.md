@@ -124,6 +124,18 @@ module.exports = {
 <script type="text/javascript" src="https://cdn.bootcss.com/axios/0.18.0/axios.min.js"></script>
 ```
 
+> vdjs 验证库
+
+```
+npm i vdjs@1.0.0 -S
+```
+
+> querystring
+
+```
+npm i querystring@0.2.0 -S
+```
+
 ---
 
 > 示例：
