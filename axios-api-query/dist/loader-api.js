@@ -7094,7 +7094,6 @@ var Loader = /*#__PURE__*/function () {
             // url = _isNil(mockPath) ? _get(this, 'apiParamsConfig.mockBasePath') : mockPath
             url = !mockPath ? '' : mockPath;
             baseURL = get_default()(_this, 'apiParamsConfig.mockBasePath');
-            console.info('111111111111111111111111 ', baseURL);
           }
 
           if (!isEmpty_default()(get_default()(outParams, 'params', {})) || !isEmpty_default()(params)) {
