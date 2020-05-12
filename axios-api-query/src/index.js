@@ -1,32 +1,26 @@
-import {
-  apiDefaultConfig,
-  axiosDefaultConfig
-} from './config/index.js'
+import { apiDefaultConfig, axiosDefaultConfig } from './config/index.js';
 
-import qs from 'querystring'
-import axios from './axios'
+import qs from 'querystring';
+import axios from './axios';
 
-import _assign from 'lodash/assign'
-import _pick from 'lodash/pick'
-import _isPlainObject from 'lodash/isPlainObject'
-import _isNil from 'lodash/isNil'
-import _has from 'lodash/has'
-import _replace from 'lodash/replace'
-import _isString from 'lodash/isString'
-import _get from 'lodash/get'
-import _eq from 'lodash/eq'
-import _set from 'lodash/set'
-import _keys from 'lodash/keys'
-import _isObject from 'lodash/isObject'
-import _cloneDeep from 'lodash/cloneDeep'
-import _includes from 'lodash/includes'
-import _concat from 'lodash/concat'
-import _isEmpty from 'lodash/isEmpty'
-import _now from 'lodash/now'
-import _isUndefined from 'lodash/isUndefined'
-import _isFunction from 'lodash/isFunction'
-import _toUpper from 'lodash/toUpper'
-import _isArray from 'lodash/isArray'
+import _assign from 'lodash/assign';
+import _pick from 'lodash/pick';
+// import _isPlainObject from 'lodash/isPlainObject'
+import _has from 'lodash/has';
+import _replace from 'lodash/replace';
+import _isString from 'lodash/isString';
+import _get from 'lodash/get';
+import _set from 'lodash/set';
+import _keys from 'lodash/keys';
+import _isObject from 'lodash/isObject';
+import _cloneDeep from 'lodash/cloneDeep';
+// import _includes from 'lodash/includes'
+import _concat from 'lodash/concat';
+import _isEmpty from 'lodash/isEmpty';
+import _now from 'lodash/now';
+import _isFunction from 'lodash/isFunction';
+// import _toUpper from 'lodash/toUpper'
+import _isArray from 'lodash/isArray';
 // window.Promise = Promise 如果是在 html 页面中直接测试（ie不支持Promise，Chrome则不用解释），请解释这句话
 /**
  * @class Loader
@@ -66,7 +60,11 @@ import _isArray from 'lodash/isArray'
  *
  */
 const Loader = class Api {
-  constructor (userApiConfigModuleList = {}, userApiConfig = {}, userAxiosConfig = {}) {
+  constructor (
+    userApiConfigModuleList = {},
+    userApiConfig = {},
+    userAxiosConfig = {}
+  ) {
     /**
      * @description
      * 如果你要在自己的业务中使用Loader构造器构造出的axios对象，可以通过实例属性api来获取，
@@ -79,11 +77,11 @@ const Loader = class Api {
      * 获取：Loader.api['goods/fruit/apple']().then((response)=>{}).catch((error)=>{})
      * 数据：{'goods/fruit/apple': [{'read': {name: 'read',desc: '获取apple列表'}}]}
      * */
-    this.api = {}
-    if (!_isPlainObject(userApiConfig) || !_isPlainObject(userAxiosConfig) || !_isPlainObject(userApiConfigModuleList)) {
+    this.api = {};
+    /* if (!_isPlainObject(userApiConfig) || !_isPlainObject(userAxiosConfig) || !_isPlainObject(userApiConfigModuleList)) {
       console.error('error：01')
       return
-    }
+    } */
     // 默认配置和传入的覆盖配置
     /**
      * @access private
@@ -91,15 +89,21 @@ const Loader = class Api {
      * @desc api接口模型配置参数
      *
      * */
-    this.apiParamsConfig = _pick(_assign(apiDefaultConfig, userApiConfig), _keys(apiDefaultConfig))
+    this.apiParamsConfig = _pick(
+      _assign(apiDefaultConfig, userApiConfig),
+      _keys(apiDefaultConfig)
+    );
     /**
      * @access private
      * @readonly
      * @desc axios实例配置模型
      *
      * */
-    this.axiosParamsConfig = _pick(_assign(axiosDefaultConfig, userAxiosConfig), _keys(axiosDefaultConfig))
-    this.deconstructApiConfigModule(userApiConfigModuleList)
+    this.axiosParamsConfig = _pick(
+      _assign(axiosDefaultConfig, userAxiosConfig),
+      _keys(axiosDefaultConfig)
+    );
+    this.deconstructApiConfigModule(userApiConfigModuleList);
   }
 
   /**
@@ -110,9 +114,10 @@ const Loader = class Api {
    * {'goods': [{'read': {}},{'get': {}}]}
    */
   deconstructApiConfigModule (userApiConfigModuleList) {
-    for (const [moduleFileHierarchyNameKey, moduleListValue] of Object.entries(userApiConfigModuleList)) {
-      for (const apiConfigValue of moduleListValue.values()) {
-        this.buildInstance(moduleFileHierarchyNameKey, apiConfigValue)
+    for (const moduleFileHierarchyNameKey in userApiConfigModuleList) {
+      const apiItem = userApiConfigModuleList[moduleFileHierarchyNameKey];
+      for (let i = 0; i < apiItem.length; i++) {
+        this.buildInstance(moduleFileHierarchyNameKey, apiItem[i]);
       }
     }
   }
@@ -143,76 +148,130 @@ const Loader = class Api {
    * namespace：'goods/fruit'
    * apiConfigModule: {name: 'read', desc: '', method:'GET', path: 'root/user/getUserInfo',mockPath: 'mock/root/user/getUserInfo',mock: false, cache: false, restful: {}, headers: {}, removeInvalidChar: true, params: {}, data: {},validator: {}, restfulValidator: {}, responseType: 'json', proxy: null}
    */
-  buildInstance (namespace = '', {
-    name,
-    method = 'GET',
-    desc = '',
-    baseURL,
-    path,
-    mockPath,
-    mock,
-    cache = false,
-    restful = {},
-    headers = {},
-    removeInvalidChar = true,
-    params = {},
-    data = {},
-    validator = {},
-    restfulValidator = {},
-    responseType,
-    proxy
-  }) {
-    // eslint-disable-next-line
-    if (_isNil(name) || (_isNil(path) && _isNil(mockPath))) {
-      console.error('error：02')
-      return
+  buildInstance (
+    namespace = '',
+    {
+      name,
+      method = 'GET',
+      desc = '',
+      baseURL,
+      path,
+      mockPath,
+      mock,
+      cache = false,
+      restful = {},
+      headers = {},
+      removeInvalidChar = true,
+      params = {},
+      data = {},
+      validator = {},
+      restfulValidator = {},
+      responseType,
+      proxy
     }
-    const apiName = `${namespace}${_get(this, 'apiParamsConfig.seq', '/')}${name}`
+  ) {
+    // eslint-disable-next-line
+    if (!name || (!path && !mockPath)) {
+      console.error('error：02');
+      return;
+    }
+    const apiName = `${namespace}${_get(
+      this,
+      'apiParamsConfig.seq',
+      '/'
+    )}${name}`;
     Object.defineProperty(this.api, apiName, {
-      value: (outParams = {
-        params: {},
-        data: {},
-        headers: {},
-        restful: {}
-      }, outOptions = {
-        request_error_callback: null,
-        transformResponse: null,
-        validator: null,
-        restfulValidator: null
-      }) => {
+      value: (
+        outParams = {
+          params: {},
+          data: {},
+          headers: {},
+          restful: {}
+        },
+        outOptions = {
+          request_error_callback: null,
+          transformResponse: null,
+          validator: null,
+          restfulValidator: null
+        }
+      ) => {
         // outParams -> {'restful': {}, 'headers': {}, 'params': {}, 'data': {}}
-        _set(headers, 'module-path', `${apiName}`)
-        _eq(_has(headers, 'Content-Type'), false) && _set(headers, 'Content-Type', _get(this, 'axiosParamsConfig.headers.Content-Type', 'application/json;charset=UTF-8'))
-        _has(outParams, 'headers.Content-Type') && _set(headers, 'Content-Type', _get(outParams, 'headers.Content-Type'))
-        let [url, pickParams, pickData, pickHeaders, pickOptions] = [path, {}, {}, {}, {}]
-        if ((_get(this, 'apiParamsConfig.mock') && _isNil(mock)) || mock) {
+        _set(headers, 'module-path', `${apiName}`);
+        !_has(headers, 'Content-Type') &&
+          _set(
+            headers,
+            'Content-Type',
+            _get(
+              this,
+              'axiosParamsConfig.headers.Content-Type',
+              'application/json;charset=UTF-8'
+            )
+          );
+        _has(outParams, 'headers.Content-Type') &&
+          _set(
+            headers,
+            'Content-Type',
+            _get(outParams, 'headers.Content-Type')
+          );
+        let [url, pickParams, pickData, pickHeaders, pickOptions] = [
+          path,
+          {},
+          {},
+          {},
+          {}
+        ];
+        if ((_get(this, 'apiParamsConfig.mock') && !mock) || mock) {
           // url = _isNil(mockPath) ? _get(this, 'apiParamsConfig.mockBasePath') : mockPath
-          url = _isNil(mockPath) ? '' : mockPath
-          baseURL = _get(this, 'apiParamsConfig.mockBasePath')
+          url = !mockPath ? '' : mockPath;
+          baseURL = _get(this, 'apiParamsConfig.mockBasePath');
         }
-        if (_eq(_isEmpty(_get(outParams, 'params', {})), false) || _eq(_isEmpty(params), false)) {
-          pickParams = _pick(_assign(params, _get(this, 'apiParamsConfig.gParams', {}), _get(outParams, 'params', {})), _concat(_keys(params), _keys(_get(this, 'apiParamsConfig.gParams', {}))))
+        if (!_isEmpty(_get(outParams, 'params', {})) || !_isEmpty(params)) {
+          pickParams = _pick(
+            _assign(
+              params,
+              _get(this, 'apiParamsConfig.gParams', {}),
+              _get(outParams, 'params', {})
+            ),
+            _concat(
+              _keys(params),
+              _keys(_get(this, 'apiParamsConfig.gParams', {}))
+            )
+          );
         }
-        if ((_eq(_get(this, 'apiParamsConfig.cache', false), false) && _eq(cache, false)) || _eq(cache, false)) {
-          _set(pickParams, '_', _now())
+        if ((!_get(this, 'apiParamsConfig.cache', false) && !cache) || !cache) {
+          _set(pickParams, '_', _now());
         }
-        if (_eq(_isEmpty(_get(outParams, 'data', {})), false) || _eq(_isEmpty(data), false)) {
-          pickData = Loader.transformStringPostData(Loader.removeInvalidChar(_pick(_assign(data, _get(outParams, 'data', {})), _keys(data)), removeInvalidChar), headers, method)
+        if (!_isEmpty(_get(outParams, 'data', {})) || !_isEmpty(data)) {
+          pickData = Loader.transformStringPostData(
+            Loader.removeInvalidChar(
+              _pick(_assign(data, _get(outParams, 'data', {})), _keys(data)),
+              removeInvalidChar
+            ),
+            headers,
+            method
+          );
         }
-        if (_eq(_isEmpty(_get(outParams, 'restful', {})), false) || _eq(_isEmpty(restful), false)) {
-          url = Loader.transformRestfulUrl(url, _pick(_assign(restful, _get(outParams, 'restful', {})), _keys(restful)))
+        if (!_isEmpty(_get(outParams, 'restful', {})) || !_isEmpty(restful)) {
+          url = Loader.transformRestfulUrl(
+            url,
+            _pick(
+              _assign(restful, _get(outParams, 'restful', {})),
+              _keys(restful)
+            )
+          );
         }
-        if (_eq(_isEmpty(_get(outParams, 'headers', {})), false) || _eq(_isEmpty(headers), false)) {
+        /* if (_eq(_isEmpty(_get(outParams, 'headers', {})), false) || _eq(_isEmpty(headers), false)) {
+          // headers 里的参数不进行特殊字符检查，防止比如 Content-Type 的这种原生参数设置被误检查出特殊字符
           pickHeaders = Loader.removeInvalidChar(_pick(_assign(headers, _get(outParams, 'headers', {})), _keys(headers)), removeInvalidChar)
-        }
-        if (_eq(_isEmpty(outOptions), false)) {
-          pickOptions = Loader.encapsulationOutOptions(outOptions)
+        } */
+        if (!_isEmpty(outOptions)) {
+          pickOptions = Loader.encapsulationOutOptions(outOptions);
         }
         if (_has(outOptions, 'validator')) {
-          _assign(validator, _get(outOptions, 'validator'))
+          _assign(validator, _get(outOptions, 'validator'));
         }
         if (_has(outOptions, 'restfulValidator')) {
-          _assign(restfulValidator, _get(outOptions, 'restfulValidator'))
+          _assign(restfulValidator, _get(outOptions, 'restfulValidator'));
         }
         const requestOptions = this.encapsulationRequestOptions({
           baseURL,
@@ -220,19 +279,18 @@ const Loader = class Api {
           responseType,
           validator,
           restfulValidator
-        })
-        return axios({
-          ...requestOptions,
-          ...pickOptions,
-          method: _toUpper(method),
+        });
+        const axiosParams = _assign({}, requestOptions, pickOptions, {
+          method: method.toUpperCase(),
           url,
           headers: pickHeaders,
           params: pickParams,
           data: pickData,
           restful
-        })
+        });
+        return axios(axiosParams);
       }
-    })
+    });
   }
 
   /**
@@ -243,11 +301,11 @@ const Loader = class Api {
    * @example
    * Loader.allApi[Loader.api['user/get'](), Loader.api['user/list']()]().then(()=>{}).catch(()=>{})
    */
-  allApi (apiArray = []) {
-    if (_eq(_isArray(apiArray), false)) {
-      apiArray = []
+  allApi (apiArray) {
+    if (!_isArray(apiArray)) {
+      apiArray = [];
     }
-    return Promise.all(apiArray)
+    return Promise.all(apiArray);
   }
 
   /**
@@ -262,13 +320,22 @@ const Loader = class Api {
    * restfulData：{'shop': 10,'id': 1}
    */
   static transformRestfulUrl (url, restfulData) {
-    let restfulUrl = url
-    for (const [key, value] of Object.entries(restfulData)) {
-      if (_includes(restfulUrl, `{${key}}`)) {
-        restfulUrl = _replace(restfulUrl, `{${key}}`, value)
+    let restfulUrl = url;
+    for (const key in restfulData) {
+      if (Loader.strHavestr(restfulUrl, `{${key}}`)) {
+        restfulUrl = _replace(restfulUrl, `{${key}}`, restfulData[key]);
       }
     }
-    return restfulUrl
+    return restfulUrl;
+  }
+
+  // 正则匹配 判断字符串中是否包含某个字符串 strHavestr('abc','bc')
+  static strHavestr (str, regStr) {
+    var reg = new RegExp('^.*' + regStr + '.*$');
+    if (str.match(reg)) {
+      return true;
+    }
+    return false;
   }
 
   /**
@@ -279,15 +346,15 @@ const Loader = class Api {
    * @param {boolean} removeInvalidChar=true - 是否需要过滤特殊字符
    */
   static removeInvalidChar (requestData = {}, removeInvalidChar = true) {
-    if (!removeInvalidChar) return requestData
+    if (!removeInvalidChar) return requestData;
     // 全局替换正则
-    const reg = new RegExp(_get(this, 'apiParamsConfig.invalidChar'), 'g')
-    for (const [key, value] of Object.entries(requestData)) {
-      if (_isString(value) && reg.test(value)) {
-        requestData[key] = _replace(value, reg, '')
+    const reg = new RegExp(_get(this, 'apiParamsConfig.invalidChar'), 'g');
+    for (const key in requestData) {
+      if (_isString(requestData[key]) && reg.test(requestData[key])) {
+        requestData[key] = _replace(requestData[key], reg, '');
       }
     }
-    return requestData
+    return requestData;
   }
 
   /**
@@ -301,10 +368,14 @@ const Loader = class Api {
    * @param {string} method=GET
    */
   static transformStringPostData (requestData, headersData, method = 'GET') {
-    if (_eq(_toUpper(method), 'POST') && _eq(_get(headersData, 'Content-Type'), 'application/x-www-form-urlencoded; charset=UTF-8')) {
-      requestData = qs.stringify(requestData)
+    if (
+      method.toUpperCase() === 'POST' &&
+      _get(headersData, 'Content-Type') ===
+        'application/x-www-form-urlencoded; charset=UTF-8'
+    ) {
+      requestData = qs.stringify(requestData);
     }
-    return requestData
+    return requestData;
   }
 
   /**
@@ -315,16 +386,26 @@ const Loader = class Api {
    * @returns {{}}
    */
   static encapsulationOutOptions (outOptions = {}) {
-    const options = {}
-    const requestErrorCallback = _get(outOptions, 'request_error_callback', null)
-    const transformResponse = _get(outOptions, 'transformResponse', null)
+    const options = {};
+    const requestErrorCallback = _get(
+      outOptions,
+      'request_error_callback',
+      null
+    );
+    const transformResponse = _get(outOptions, 'transformResponse', null);
     if (_isFunction(requestErrorCallback)) {
-      _set(options, 'request_error_callback', requestErrorCallback)
+      _set(options, 'request_error_callback', requestErrorCallback);
     }
     if (_isArray(transformResponse) || _isFunction(transformResponse)) {
-      _set(options, 'transformResponse', _isArray(transformResponse) ? transformResponse : [_isFunction(transformResponse)])
+      _set(
+        options,
+        'transformResponse',
+        _isArray(transformResponse)
+          ? transformResponse
+          : [_isFunction(transformResponse)]
+      );
     }
-    return options
+    return options;
   }
 
   /**
@@ -339,29 +420,50 @@ const Loader = class Api {
     validator,
     restfulValidator
   }) {
-    const options = _cloneDeep(_get(this, 'axiosParamsConfig'))
+    const options = _cloneDeep(_get(this, 'axiosParamsConfig'));
     if (_isObject(proxy)) {
-      _set(options, 'proxy', proxy)
+      _set(options, 'proxy', proxy);
     }
     if (_isString(responseType)) {
-      _set(options, 'responseType', responseType)
+      _set(options, 'responseType', responseType);
     }
-    if (!_isUndefined(baseURL)) {
-      _set(options, 'baseURL', baseURL)
+    if (!baseURL) {
+      _set(options, 'baseURL', baseURL);
     }
-    if (_isFunction(_get(this, 'apiParamsConfig.request_error_callback', null))) {
-      _set(options, 'request_error_callback', _get(this, 'apiParamsConfig.request_error_callback'))
+    if (
+      _isFunction(_get(this, 'apiParamsConfig.request_error_callback', null))
+    ) {
+      _set(
+        options,
+        'request_error_callback',
+        _get(this, 'apiParamsConfig.request_error_callback')
+      );
     }
-    _set(options, 'statusMessage', _get(this, 'apiParamsConfig.statusMessage', {}))
-    _set(options, 'console_response_enable', _get(this, 'apiParamsConfig.console_response_enable', false))
-    _set(options, 'console_request_enable', _get(this, 'apiParamsConfig.console_request_enable', false))
-    if (_eq(_isArray(_get(options, 'transformResponse', null)), false) && _isFunction(_get(options, 'transformResponse', null))) {
-      _set(options, 'transformResponse', [_get(options, 'transformResponse')])
+    _set(
+      options,
+      'statusMessage',
+      _get(this, 'apiParamsConfig.statusMessage', {})
+    );
+    _set(
+      options,
+      'console_response_enable',
+      _get(this, 'apiParamsConfig.console_response_enable', false)
+    );
+    _set(
+      options,
+      'console_request_enable',
+      _get(this, 'apiParamsConfig.console_request_enable', false)
+    );
+    if (
+      !_isArray(_get(options, 'transformResponse', null)) &&
+      _isFunction(_get(options, 'transformResponse', null))
+    ) {
+      _set(options, 'transformResponse', [_get(options, 'transformResponse')]);
     }
     return _assign(options, {
       validator,
       restfulValidator
-    })
+    });
   }
-}
-export default Loader
+};
+export default Loader;

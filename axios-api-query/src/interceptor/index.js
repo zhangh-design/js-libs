@@ -4,14 +4,11 @@ import qs from 'querystring'
 
 import _has from 'lodash/has'
 import _get from 'lodash/get'
-import _eq from 'lodash/eq'
 import _set from 'lodash/set'
 import _uniq from 'lodash/uniq'
 import _isEmpty from 'lodash/isEmpty'
-import _forEach from 'lodash/forEach'
 import _pick from 'lodash/pick'
 import _keys from 'lodash/keys'
-import _isNull from 'lodash/isNull'
 import _isFunction from 'lodash/isFunction'
 import _spread from 'lodash/spread'
 import _isPlainObject from 'lodash/isPlainObject'
@@ -27,7 +24,7 @@ export function requestSuccessFunc (requestConfig) {
     _spread(_get(window, 'apiRequestStartHandler'))()
   }
   let qsData = _get(requestConfig, 'data', {})
-  if (_eq(_get(requestConfig, 'headers.Content-Type', ''), 'application/x-www-form-urlencoded; charset=UTF-8')) {
+  if (_get(requestConfig, 'headers.Content-Type', '') === 'application/x-www-form-urlencoded; charset=UTF-8') {
     qsData = qs.parse(_get(requestConfig, 'data', null))
   }
   const validateResult = []
@@ -45,12 +42,12 @@ export function requestSuccessFunc (requestConfig) {
   }
   let status = false
   const validateFailMsg = []
-  _forEach(validateResult, (value) => {
-    if (_get(value, 'status')) {
+  for (var i = 0; i < validateResult.length; i++) {
+    if (_get(validateResult[i], 'status')) {
       status = true
-      validateFailMsg.push(_get(value, 'msg'))
+      validateFailMsg.push(_get(validateResult[i], 'msg'))
     }
-  })
+  }
   if (status) {
     return Promise.reject(new Error(_uniq(validateFailMsg[0]).join()))
   }
@@ -75,9 +72,9 @@ export function responseSuccessFunc (response) {
     callBack([_get(response, 'data.errmsg', '请求异常')])
     return Promise.reject(new Error(_get(response, 'data.errmsg', '请求异常')))
   }
-  if (_eq(_get(response, 'status', 200), _get(response, 'config.status', 200))) {
+  if (_get(response, 'status', 200) === _get(response, 'config.status', 200)) {
     const data = _get(response, 'data', null)
-    return _eq(data, null) ? {} : data
+    return !data ? {} : data
   } else {
     const callBack = _spread(_get(window, 'apiRequestInterceptErrorHandler', function () {}))
     callBack(['返回 response 的 status 值不是 200'])
@@ -96,7 +93,7 @@ export function responseErrorFunc (responseError) {
     _spread(_get(window, 'apiRequestEndHandler'))()
   }
   const response = _get(responseError, 'response', null)
-  if (_eq(_isNull(response), false) && _isFunction(_get(responseError, 'response.config.request_error_callback', null))) {
+  if (response && _isFunction(_get(responseError, 'response.config.request_error_callback', null))) {
     _get(responseError, 'response.config.console_response_enable', false) && (console.info('responseErrorFunc：', responseError))
     const callBack = _spread(_get(responseError, 'response.config.request_error_callback'))
     const status = _get(responseError, 'response.status', null)
@@ -105,7 +102,7 @@ export function responseErrorFunc (responseError) {
     }
     callBack([_pick(_get(responseError, 'response', null), ['status', 'statusText'])])
   }
-  if (_isNull(response)) {
+  if (!response) {
     const callBack = _spread(_get(window, 'apiRequestInterceptErrorHandler', function () {}))
     callBack([_get(responseError, 'message', '')])
   }
