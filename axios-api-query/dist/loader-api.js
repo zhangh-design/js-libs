@@ -6680,7 +6680,8 @@ var isPlainObject_default = /*#__PURE__*/__webpack_require__.n(isPlainObject);
  * @returns {{}} {}
  */
 
-function requestSuccessFunc(requestConfig) {
+function requestSuccessFunc() {
+  var requestConfig = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
   get_default()(requestConfig, 'console_request_enable', false) && console.info('requestInterceptorFunc', "url: ".concat(get_default()(requestConfig, 'url', '')), requestConfig);
 
   if (isFunction_default()(get_default()(window, 'apiRequestStartHandler', null))) {
@@ -6688,9 +6689,11 @@ function requestSuccessFunc(requestConfig) {
     spread_default()(get_default()(window, 'apiRequestStartHandler'))();
   }
 
+  var method = get_default()(requestConfig, 'method', 'GET');
+
   var qsData = get_default()(requestConfig, 'data', {});
 
-  if (get_default()(requestConfig, 'headers.Content-Type', '') === 'application/x-www-form-urlencoded; charset=UTF-8') {
+  if (get_default()(requestConfig, 'headers.' + method + '.Content-Type', '') === 'application/x-www-form-urlencoded') {
     qsData = external_querystring_default.a.parse(get_default()(requestConfig, 'data', null));
   }
 

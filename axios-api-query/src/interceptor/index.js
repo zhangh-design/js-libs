@@ -17,14 +17,15 @@ import _isPlainObject from 'lodash/isPlainObject'
  * @param {{}} requestConfig 请求配置参数
  * @returns {{}} {}
  */
-export function requestSuccessFunc (requestConfig) {
+export function requestSuccessFunc (requestConfig = {}) {
   _get(requestConfig, 'console_request_enable', false) && (console.info('requestInterceptorFunc', `url: ${_get(requestConfig, 'url', '')}`, requestConfig))
   if (_isFunction(_get(window, 'apiRequestStartHandler', null))) {
     // 通知函数定义处-请求开始发送
     _spread(_get(window, 'apiRequestStartHandler'))()
   }
+  const method = _get(requestConfig, 'method', 'GET')
   let qsData = _get(requestConfig, 'data', {})
-  if (_get(requestConfig, 'headers.Content-Type', '') === 'application/x-www-form-urlencoded; charset=UTF-8') {
+  if (_get(requestConfig, 'headers.' + method + '.Content-Type', '') === 'application/x-www-form-urlencoded') {
     qsData = qs.parse(_get(requestConfig, 'data', null))
   }
   const validateResult = []
