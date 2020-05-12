@@ -224,7 +224,6 @@ const Loader = class Api {
           // url = _isNil(mockPath) ? _get(this, 'apiParamsConfig.mockBasePath') : mockPath
           url = !mockPath ? '' : mockPath;
           baseURL = _get(this, 'apiParamsConfig.mockBasePath');
-          console.info('111111111111111111111111 ', baseURL);
         }
         if (!_isEmpty(_get(outParams, 'params', {})) || !_isEmpty(params)) {
           pickParams = _pick(
