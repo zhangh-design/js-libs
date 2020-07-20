@@ -6452,23 +6452,23 @@ module.exports = now;
 // ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
 
-// EXTERNAL MODULE: ./node_modules/_@babel_runtime-corejs3@7.9.6@@babel/runtime-corejs3/core-js-stable/promise.js
+// EXTERNAL MODULE: ./node_modules/_@babel_runtime-corejs3@7.10.5@@babel/runtime-corejs3/core-js-stable/promise.js
 var promise = __webpack_require__(0);
 var promise_default = /*#__PURE__*/__webpack_require__.n(promise);
 
-// EXTERNAL MODULE: ./node_modules/_@babel_runtime-corejs3@7.9.6@@babel/runtime-corejs3/core-js-stable/object/define-property.js
+// EXTERNAL MODULE: ./node_modules/_@babel_runtime-corejs3@7.10.5@@babel/runtime-corejs3/core-js-stable/object/define-property.js
 var define_property = __webpack_require__(94);
 var define_property_default = /*#__PURE__*/__webpack_require__.n(define_property);
 
-// EXTERNAL MODULE: ./node_modules/_@babel_runtime-corejs3@7.9.6@@babel/runtime-corejs3/core-js-stable/instance/concat.js
+// EXTERNAL MODULE: ./node_modules/_@babel_runtime-corejs3@7.10.5@@babel/runtime-corejs3/core-js-stable/instance/concat.js
 var concat = __webpack_require__(98);
 var concat_default = /*#__PURE__*/__webpack_require__.n(concat);
 
-// EXTERNAL MODULE: ./node_modules/_@babel_runtime-corejs3@7.9.6@@babel/runtime-corejs3/helpers/classCallCheck.js
+// EXTERNAL MODULE: ./node_modules/_@babel_runtime-corejs3@7.10.5@@babel/runtime-corejs3/helpers/classCallCheck.js
 var classCallCheck = __webpack_require__(108);
 var classCallCheck_default = /*#__PURE__*/__webpack_require__.n(classCallCheck);
 
-// EXTERNAL MODULE: ./node_modules/_@babel_runtime-corejs3@7.9.6@@babel/runtime-corejs3/helpers/createClass.js
+// EXTERNAL MODULE: ./node_modules/_@babel_runtime-corejs3@7.10.5@@babel/runtime-corejs3/helpers/createClass.js
 var createClass = __webpack_require__(109);
 var createClass_default = /*#__PURE__*/__webpack_require__.n(createClass);
 
@@ -6619,43 +6619,43 @@ external_vdjs_default.a.pushRule('sqlXss', function () {
 
   return true;
 });
-// EXTERNAL MODULE: ./node_modules/_lodash@4.17.15@lodash/has.js
+// EXTERNAL MODULE: ./node_modules/_lodash@4.17.19@lodash/has.js
 var has = __webpack_require__(114);
 var has_default = /*#__PURE__*/__webpack_require__.n(has);
 
-// EXTERNAL MODULE: ./node_modules/_lodash@4.17.15@lodash/get.js
+// EXTERNAL MODULE: ./node_modules/_lodash@4.17.19@lodash/get.js
 var get = __webpack_require__(128);
 var get_default = /*#__PURE__*/__webpack_require__.n(get);
 
-// EXTERNAL MODULE: ./node_modules/_lodash@4.17.15@lodash/set.js
+// EXTERNAL MODULE: ./node_modules/_lodash@4.17.19@lodash/set.js
 var set = __webpack_require__(130);
 var set_default = /*#__PURE__*/__webpack_require__.n(set);
 
-// EXTERNAL MODULE: ./node_modules/_lodash@4.17.15@lodash/uniq.js
+// EXTERNAL MODULE: ./node_modules/_lodash@4.17.19@lodash/uniq.js
 var uniq = __webpack_require__(138);
 var uniq_default = /*#__PURE__*/__webpack_require__.n(uniq);
 
-// EXTERNAL MODULE: ./node_modules/_lodash@4.17.15@lodash/isEmpty.js
+// EXTERNAL MODULE: ./node_modules/_lodash@4.17.19@lodash/isEmpty.js
 var isEmpty = __webpack_require__(147);
 var isEmpty_default = /*#__PURE__*/__webpack_require__.n(isEmpty);
 
-// EXTERNAL MODULE: ./node_modules/_lodash@4.17.15@lodash/pick.js
+// EXTERNAL MODULE: ./node_modules/_lodash@4.17.19@lodash/pick.js
 var pick = __webpack_require__(157);
 var pick_default = /*#__PURE__*/__webpack_require__.n(pick);
 
-// EXTERNAL MODULE: ./node_modules/_lodash@4.17.15@lodash/keys.js
+// EXTERNAL MODULE: ./node_modules/_lodash@4.17.19@lodash/keys.js
 var keys = __webpack_require__(173);
 var keys_default = /*#__PURE__*/__webpack_require__.n(keys);
 
-// EXTERNAL MODULE: ./node_modules/_lodash@4.17.15@lodash/isFunction.js
+// EXTERNAL MODULE: ./node_modules/_lodash@4.17.19@lodash/isFunction.js
 var isFunction = __webpack_require__(152);
 var isFunction_default = /*#__PURE__*/__webpack_require__.n(isFunction);
 
-// EXTERNAL MODULE: ./node_modules/_lodash@4.17.15@lodash/spread.js
+// EXTERNAL MODULE: ./node_modules/_lodash@4.17.19@lodash/spread.js
 var spread = __webpack_require__(174);
 var spread_default = /*#__PURE__*/__webpack_require__.n(spread);
 
-// EXTERNAL MODULE: ./node_modules/_lodash@4.17.15@lodash/isPlainObject.js
+// EXTERNAL MODULE: ./node_modules/_lodash@4.17.19@lodash/isPlainObject.js
 var isPlainObject = __webpack_require__(180);
 var isPlainObject_default = /*#__PURE__*/__webpack_require__.n(isPlainObject);
 
@@ -6828,35 +6828,35 @@ instance.interceptors.request.use(requestSuccessFunc); // 添加响应拦截器
 
 instance.interceptors.response.use(responseSuccessFunc, responseErrorFunc);
 /* harmony default export */ var axios = (instance);
-// EXTERNAL MODULE: ./node_modules/_lodash@4.17.15@lodash/assign.js
-var _lodash_4_17_15_lodash_assign = __webpack_require__(184);
-var assign_default = /*#__PURE__*/__webpack_require__.n(_lodash_4_17_15_lodash_assign);
+// EXTERNAL MODULE: ./node_modules/_lodash@4.17.19@lodash/assign.js
+var _lodash_4_17_19_lodash_assign = __webpack_require__(184);
+var assign_default = /*#__PURE__*/__webpack_require__.n(_lodash_4_17_19_lodash_assign);
 
-// EXTERNAL MODULE: ./node_modules/_lodash@4.17.15@lodash/replace.js
+// EXTERNAL MODULE: ./node_modules/_lodash@4.17.19@lodash/replace.js
 var replace = __webpack_require__(188);
 var replace_default = /*#__PURE__*/__webpack_require__.n(replace);
 
-// EXTERNAL MODULE: ./node_modules/_lodash@4.17.15@lodash/isString.js
+// EXTERNAL MODULE: ./node_modules/_lodash@4.17.19@lodash/isString.js
 var isString = __webpack_require__(189);
 var isString_default = /*#__PURE__*/__webpack_require__.n(isString);
 
-// EXTERNAL MODULE: ./node_modules/_lodash@4.17.15@lodash/isObject.js
+// EXTERNAL MODULE: ./node_modules/_lodash@4.17.19@lodash/isObject.js
 var isObject = __webpack_require__(137);
 var isObject_default = /*#__PURE__*/__webpack_require__.n(isObject);
 
-// EXTERNAL MODULE: ./node_modules/_lodash@4.17.15@lodash/cloneDeep.js
+// EXTERNAL MODULE: ./node_modules/_lodash@4.17.19@lodash/cloneDeep.js
 var cloneDeep = __webpack_require__(190);
 var cloneDeep_default = /*#__PURE__*/__webpack_require__.n(cloneDeep);
 
-// EXTERNAL MODULE: ./node_modules/_lodash@4.17.15@lodash/concat.js
-var _lodash_4_17_15_lodash_concat = __webpack_require__(218);
-var _lodash_4_17_15_lodash_concat_default = /*#__PURE__*/__webpack_require__.n(_lodash_4_17_15_lodash_concat);
+// EXTERNAL MODULE: ./node_modules/_lodash@4.17.19@lodash/concat.js
+var _lodash_4_17_19_lodash_concat = __webpack_require__(218);
+var _lodash_4_17_19_lodash_concat_default = /*#__PURE__*/__webpack_require__.n(_lodash_4_17_19_lodash_concat);
 
-// EXTERNAL MODULE: ./node_modules/_lodash@4.17.15@lodash/now.js
+// EXTERNAL MODULE: ./node_modules/_lodash@4.17.19@lodash/now.js
 var now = __webpack_require__(219);
 var now_default = /*#__PURE__*/__webpack_require__.n(now);
 
-// EXTERNAL MODULE: ./node_modules/_lodash@4.17.15@lodash/isArray.js
+// EXTERNAL MODULE: ./node_modules/_lodash@4.17.19@lodash/isArray.js
 var isArray = __webpack_require__(118);
 var isArray_default = /*#__PURE__*/__webpack_require__.n(isArray);
 
@@ -7080,7 +7080,7 @@ var Loader = /*#__PURE__*/function () {
           };
 
           // outParams -> {'restful': {}, 'headers': {}, 'params': {}, 'data': {}}
-          set_default()(headers, 'module-path', "".concat(apiName));
+          set_default()(headers, 'api-module-path', "".concat(apiName));
 
           !has_default()(headers, 'Content-Type') && set_default()(headers, 'Content-Type', get_default()(_this, 'axiosParamsConfig.headers.Content-Type', 'application/json;charset=UTF-8'));
           has_default()(outParams, 'headers.Content-Type') && set_default()(headers, 'Content-Type', get_default()(outParams, 'headers.Content-Type'));
@@ -7097,7 +7097,7 @@ var Loader = /*#__PURE__*/function () {
           }
 
           if (!isEmpty_default()(get_default()(outParams, 'params', {})) || !isEmpty_default()(params)) {
-            pickParams = pick_default()(assign_default()(params, get_default()(_this, 'apiParamsConfig.gParams', {}), get_default()(outParams, 'params', {})), _lodash_4_17_15_lodash_concat_default()(keys_default()(params), keys_default()(get_default()(_this, 'apiParamsConfig.gParams', {}))));
+            pickParams = pick_default()(assign_default()(params, get_default()(_this, 'apiParamsConfig.gParams', {}), get_default()(outParams, 'params', {})), _lodash_4_17_19_lodash_concat_default()(keys_default()(params), keys_default()(get_default()(_this, 'apiParamsConfig.gParams', {}))));
           }
 
           if (!get_default()(_this, 'apiParamsConfig.cache', false) && !cache || !cache) {
@@ -7111,11 +7111,12 @@ var Loader = /*#__PURE__*/function () {
           if (!isEmpty_default()(get_default()(outParams, 'restful', {})) || !isEmpty_default()(restful)) {
             url = Loader.transformRestfulUrl(url, pick_default()(assign_default()(restful, get_default()(outParams, 'restful', {})), keys_default()(restful)));
           }
-          /* if (_eq(_isEmpty(_get(outParams, 'headers', {})), false) || _eq(_isEmpty(headers), false)) {
-            // headers 里的参数不进行特殊字符检查，防止比如 Content-Type 的这种原生参数设置被误检查出特殊字符
-            pickHeaders = Loader.removeInvalidChar(_pick(_assign(headers, _get(outParams, 'headers', {})), _keys(headers)), removeInvalidChar)
-          } */
 
+          if (!isEmpty_default()(get_default()(outParams, 'headers', {})) || !isEmpty_default()(headers)) {
+            // headers 里的参数不进行特殊字符检查，防止比如 Content-Type 的这种原生参数设置被误检查出特殊字符
+            // pickHeaders = Loader.removeInvalidChar(_pick(_assign(headers, _get(outParams, 'headers', {})), _keys(headers)), removeInvalidChar)
+            pickHeaders = pick_default()(assign_default()(headers, get_default()(outParams, 'headers', {})), keys_default()(headers));
+          }
 
           if (!isEmpty_default()(outOptions)) {
             pickOptions = Loader.encapsulationOutOptions(outOptions);

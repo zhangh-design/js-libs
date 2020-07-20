@@ -196,7 +196,7 @@ const Loader = class Api {
         }
       ) => {
         // outParams -> {'restful': {}, 'headers': {}, 'params': {}, 'data': {}}
-        _set(headers, 'module-path', `${apiName}`);
+        _set(headers, 'api-module-path', `${apiName}`);
         !_has(headers, 'Content-Type') &&
           _set(
             headers,
@@ -260,10 +260,11 @@ const Loader = class Api {
             )
           );
         }
-        /* if (_eq(_isEmpty(_get(outParams, 'headers', {})), false) || _eq(_isEmpty(headers), false)) {
+        if (!_isEmpty(_get(outParams, 'headers', {})) || !_isEmpty(headers)) {
           // headers 里的参数不进行特殊字符检查，防止比如 Content-Type 的这种原生参数设置被误检查出特殊字符
-          pickHeaders = Loader.removeInvalidChar(_pick(_assign(headers, _get(outParams, 'headers', {})), _keys(headers)), removeInvalidChar)
-        } */
+          // pickHeaders = Loader.removeInvalidChar(_pick(_assign(headers, _get(outParams, 'headers', {})), _keys(headers)), removeInvalidChar)
+          pickHeaders = _pick(_assign(headers, _get(outParams, 'headers', {})), _keys(headers))
+        }
         if (!_isEmpty(outOptions)) {
           pickOptions = Loader.encapsulationOutOptions(outOptions);
         }
