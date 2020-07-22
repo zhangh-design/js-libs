@@ -171,6 +171,19 @@ let user = [
       }, // restful参数验证对象，这里也省略了业务代码中繁琐的验证操作
       responseType: 'json',
       proxy: null // 如果接口需要代理可以在这里设置
+    },
+    // 文件下载
+    {
+      name: 'userDown',
+      method: 'GET',
+      desc: '导出-下载文件',
+      path: 'report/insAccountReport',
+      responseType: 'blob', // 文件流需要是 blob 类型
+      baseURL: '/api1/api',
+      params: { type: 2, userName: '', status: '' },
+      headers: {
+        token: 'test_123'
+      }
     }
   ]
 // 初始化
@@ -221,6 +234,30 @@ Loader.api['user/getUserInfo']({params: {token: 'test_1', id: 1001}, restful: {i
 }).catch((error)=>{
     // 请求失败
 })
+
+// 文件下载
+const fileName = '机构账号导出3.xlsx'
+Loader.api['user/userDown']().then(response=>{
+  if (response.data instanceof Blob) {
+    const blob = response.data;
+    const aEle = document.createElement('a');
+    aEle.href = window.URL.createObjectURL(blob);
+    if (!fileName) {
+      // 没传文件名，就用后台的filename， 后台也没有传就。。。。
+      const resHeader = response.headers['content-disposition'];
+      if (resHeader.indexOf('filename=') !== -1) {
+        fileName = resHeader.split('filename=')[1];
+      } else {
+        fileName = resHeader.split('fileName=')[1];
+      }
+      fileName = decodeURIComponent(fileName || '');
+    }
+    aEle.download = fileName;
+    aEle.click();
+    window.URL.revokeObjectURL(aEle.href);
+  }
+})
+
 
 ```
 执行多个并发请求

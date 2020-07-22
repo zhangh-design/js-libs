@@ -6747,19 +6747,27 @@ function responseSuccessFunc(response) {
     spread_default()(get_default()(window, 'apiRequestEndHandler'))();
   }
 
-  if (has_default()(response, 'data.errcode')) {
+  if (has_default()(response, 'data.errCode')) {
     // 虽然请求的 status 是 200，但是返回 response 不符合要求
-    // 比如：{"errcode":404,"errmsg":"不存在的api, 当前请求path为 /login， 请求方法为 GET ，请确认是否定义此请求。","data":null}
+    // 比如：{"errCode":404,"errMsg":"不存在的api, 当前请求path为 /login， 请求方法为 GET ，请确认是否定义此请求。","data":null}
     var callBack = spread_default()(get_default()(window, 'apiRequestInterceptErrorHandler', function () {}));
 
-    callBack([get_default()(response, 'data.errmsg', '请求异常')]);
-    return promise_default.a.reject(new Error(get_default()(response, 'data.errmsg', '请求异常')));
+    callBack([get_default()(response, 'data.errMsg', '请求异常')]);
+    return promise_default.a.reject(new Error(get_default()(response, 'data.errMsg', '请求异常')));
   }
 
   if (get_default()(response, 'status', 200) === get_default()(response, 'config.status', 200)) {
-    var data = get_default()(response, 'data', null);
+    var data = get_default()(response, 'data', {});
 
-    return !data ? {} : data;
+    if (get_default()(response, 'config.responseType', '') === 'blob') {
+      // 文件下载返回
+      return {
+        data: data,
+        headers: get_default()(response, 'headers', {})
+      };
+    }
+
+    return data;
   } else {
     var _callBack = spread_default()(get_default()(window, 'apiRequestInterceptErrorHandler', function () {}));
 

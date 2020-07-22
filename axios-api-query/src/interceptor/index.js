@@ -66,16 +66,20 @@ export function responseSuccessFunc (response) {
     // 通知函数定义处-请求结束
     _spread(_get(window, 'apiRequestEndHandler'))()
   }
-  if (_has(response, 'data.errcode')) {
+  if (_has(response, 'data.errCode')) {
     // 虽然请求的 status 是 200，但是返回 response 不符合要求
-    // 比如：{"errcode":404,"errmsg":"不存在的api, 当前请求path为 /login， 请求方法为 GET ，请确认是否定义此请求。","data":null}
+    // 比如：{"errCode":404,"errMsg":"不存在的api, 当前请求path为 /login， 请求方法为 GET ，请确认是否定义此请求。","data":null}
     const callBack = _spread(_get(window, 'apiRequestInterceptErrorHandler', function () {}))
-    callBack([_get(response, 'data.errmsg', '请求异常')])
-    return Promise.reject(new Error(_get(response, 'data.errmsg', '请求异常')))
+    callBack([_get(response, 'data.errMsg', '请求异常')])
+    return Promise.reject(new Error(_get(response, 'data.errMsg', '请求异常')))
   }
   if (_get(response, 'status', 200) === _get(response, 'config.status', 200)) {
-    const data = _get(response, 'data', null)
-    return !data ? {} : data
+    const data = _get(response, 'data', {})
+    if (_get(response, 'config.responseType', '') === 'blob') {
+      // 文件下载返回
+      return { data, headers: _get(response, 'headers', {}) }
+    }
+    return data
   } else {
     const callBack = _spread(_get(window, 'apiRequestInterceptErrorHandler', function () {}))
     callBack(['返回 response 的 status 值不是 200'])
